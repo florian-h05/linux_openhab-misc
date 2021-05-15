@@ -298,6 +298,7 @@ fileName=
 
     html_restore() {
         restore_folder "/var/www" "html"
+        sudo chmod -R 777 /var/www/html/pv
     }
 
     sbfspot_restore() {
