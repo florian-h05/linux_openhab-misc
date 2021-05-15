@@ -309,20 +309,16 @@ fileName=
 
     sbfspot_install() {
         echo "Installing SBFspot from source ..."
-        sudo apt update
-        sudo apt install bluetooth libbluetooth-dev
-        sudo apt-get install -y libboost-date-time-dev libboost-system-dev libboost-filesystem-dev libboost-regex-dev
-        sudo apt-get install -y sqlite3 libsqlite3-dev
-        cd ~ || exit
-        mkdir smadata
-        mkdir SBFspot
-        sudo mkdir /var/log/sbfspot.3
-        sudo chown -R "$USER":"$USER" /var/log/sbfspot.3
-        sbfspot_version=3.7.0
-        wget –c https://github.com/SBFspot/SBFspot/archive/V"$sbfspot_version".tar.gz
-        tar -xvf V"$sbfspot_version".tar.gz -C SBFspot --strip-components 1
-        sudo make install_sqlite
-        echo "SBFspot installed."
+        echo "You do not need to set anything as you restore your old config."
+        echo "Ready to continue (y/n)?"
+        read -r choice
+        case "$choice" in 
+            y|Y ) echo "yes"
+                curl -s https://raw.githubusercontent.com/sbfspot/sbfspot-config/master/sbfspot-config | sudo bash
+                echo "SBFspot installed.";;
+            n|N ) echo "no";;
+            * ) echo "invalid";;
+        esac
     }
 
     nginx_restore() {
