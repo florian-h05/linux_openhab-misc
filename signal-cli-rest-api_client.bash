@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Script: signal-cli-rest-api_client.sh
 # Purpose: Send a message over Signal Secure Messenger
 # How it works: this script communicates with the signal-cli-rest-api in a Docker container
@@ -27,7 +27,7 @@ no_contact_name() {
 }
 
 check_for_contact() {
-	if [ -v numbers[$contact] ]
+	if [ -v 'numbers[$contact]' ]
 	then
 		echo "Contact found."
 	else
@@ -40,7 +40,7 @@ send_message() {
 	curl 'http://'$host'/v1/send' \
 		-X POST \
 		-H 'Content-Type: application/json' \
-		-d '{"message": "'"$message"'", "number": "'$ownNumber'", "recipients": ["'${numbers[$contact]}'"]}'
+		-d '{"message": "'"$message"'", "number": "'$ownNumber'", "recipients": ["'"${numbers[$contact]}"'"]}'
 }
 
 list_identities() {
@@ -62,7 +62,7 @@ if [ -z "$1" ];
 then
 	command_not_found
 
-elif [ $1 = "send" ]
+elif [ "$1" = "send" ]
 then
 	if [ -z "$2" ]
 	then
@@ -80,11 +80,11 @@ then
 		fi
 	fi
 
-elif [ $1 = "list_identities" ]
+elif [ "$1" = "list_identities" ]
 	then
 		list_identities
 	
-elif [ $1 = "trust_identity" ]
+elif [ "$1" = "trust_identity" ]
 	then
 		if [ -z "$2" ]
 		then
