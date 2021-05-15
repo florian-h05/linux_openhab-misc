@@ -28,11 +28,11 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup environment
         run: sudo -E bash -c set
-      - name: "ShellCheck *.bash"
+      - name: "ShellCheck backup_restore.bash"
         run: |
-           echo "ShellCheck *.bash"
-           if shellcheck -x -s bash *.bash; then echo "OK"; else echo "FAILED"; exit 1; fi
-      - name: "ShellCheck *.sh"
-        run: |
-           echo "ShellCheck *.sh"
-           if shellcheck -x -s bash *.sh; then echo "OK"; else echo "FAILED"; exit 1; fi
+           echo "ShellCheck backup_restore.bash"
+           if shellcheck -x -s bash backup_restore.bash; then echo "OK"; else echo "FAILED"; exit 1; fi
+      #- name: "ShellCheck *.sh"
+      #  run: |
+      #     echo "ShellCheck *.sh"
+      #     if shellcheck -x -s bash *.sh; then echo "OK"; else echo "FAILED"; exit 1; fi
