@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script: signal-cli-rest-api_client.sh
+# Script: signal-cli-rest-api_client.bash
 # Purpose: Send a message over Signal Secure Messenger
 # How it works: this script communicates with the signal-cli-rest-api in a Docker container
 #	for the docker container see: https://github.com/bbernhard/signal-cli-rest-api
