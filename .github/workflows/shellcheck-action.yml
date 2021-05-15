@@ -14,25 +14,15 @@ on:
       - 'backup_restore.bash'
       - '.github/workflows/shellcheck-action.yml
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    name: ShellCheck
+    runs-on: ubuntu-20.04
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup environment
-        run: sudo -E bash -c set
-      - name: "ShellCheck backup_restore.bash"
-        run: |
-           echo "ShellCheck backup_restore.bash"
-           if shellcheck -x -s bash backup_restore.bash; then echo "OK"; else echo "FAILED"; exit 1; fi
-      #- name: "ShellCheck *.sh"
-      #  run: |
-      #     echo "ShellCheck *.sh"
-      #     if shellcheck -x -s bash *.sh; then echo "OK"; else echo "FAILED"; exit 1; fi
+    - uses: actions/checkout@master
+    - name: Run ShellCheck
+      uses: ludeeus/action-shellcheck@master
+      with:
+        ignore: signal-cli-rest-api_client.sh
+      env:
+        SHELLCHECK_OPTS: -e SC1017
