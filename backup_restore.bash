@@ -13,13 +13,14 @@
     # - /etc/ssh
     # - /etc/postfix
     # - /etc/samba/smb.conf
+		# - /etc/fail2ban
     # - /etc/fstab
     # - /usr/lib/tmpfiles.d/var.conf
     # - crontab
     # - small files:
     #       - /etc/profile
     #       - /opt/sshlogin.sh
-    #       - /opt/signal-cli-rest-api_client.sh
+    #       - /opt/signal-cli-rest-api_client.bash
     # - /etc/telegraf
     # - user home
 #
@@ -251,6 +252,10 @@ fileName=
         backup_folder "/etc" "samba"
     }
 
+    fail2ban_backup() {
+        backup_folder "/etc" "fail2ban"
+    }
+
 
     fstab_backup() {
         backup_file "/etc" "fstab"
@@ -272,7 +277,7 @@ fileName=
         # /etc/profile  /opt/sshlogin.sh /opt/signal-cli-rest-api_client.sh
         backup_file "/etc" "profile"
         backup_file "/opt" "sshlogin.sh"
-        backup_file "/opt" "signal-cli-rest-api_client.sh"
+        backup_file "/opt" "signal-cli-rest-api_client.bash"
     }
 
 
@@ -381,6 +386,18 @@ fileName=
         sudo systemctl reload smbd
     }
 
+    fail2ban_restore() {
+        if ! command -v fail2ban-client; then
+            echo "No fail2ban installation found on your system!"
+            if sudo apt install fail2ban; then echo "fail2ban installed."; else echo "${red}ERROR:${reset} installing fail2ban"; fi
+        else
+            sudo systemctl stop fail2ban
+        fi
+        restore_folder "/etc" "fail2ban"
+        sudo systemctl enable fail2ban
+        sudo systemctl start fail2ban
+    }
+
     fstab_restore() {
         echo "${red}INFO:${reset} Please restore /etc/fstab manually!"
         echo "Automatic restore could damage your filesystem!"
@@ -398,7 +415,7 @@ fileName=
     smallFiles_restore() {
         restore_file "/etc" "profile"
         restore_file "/opt" "sshlogin.sh"
-        restore_file "/opt" "signal-cli-rest-api_client.sh"
+        restore_file "/opt" "signal-cli-rest-api_client.bash"
     }
 
     telegraf_restore() {
@@ -452,6 +469,7 @@ restore_all() {
     sshd_restore
     fstab_restore
     samba_restore
+    fail2ban_restore
     tmpfilesdVar_restore
     crontab_restore
     smallFiles_restore
@@ -475,6 +493,7 @@ backup_all() {
     sshd_backup
     postfix_backup
     samba_backup
+    fail2ban_backup
     fstab_backup
     tmpfilesdVar_backup
     crontab_backup
@@ -514,6 +533,7 @@ help_single() {
         sshd_backup
         postfix_backup
         samba_backup
+        fail2ban_backup
         fstab_backup
         tmpfilesdVar_backup
         crontab_backup
@@ -534,6 +554,7 @@ help_single() {
         sshd_restore
         fstab_restore
         samba_restore
+        fail2ban_restore
         tmpfilesdVar_restore
         crontab_restore
         smallFiles_restore
