@@ -4,14 +4,10 @@
 
 # entry in /etc/profile needed: /opt/sshlogin.sh | mailx -s "SSH login on server <servename>" <email-adress>
 
-if ! command -v nslookup; then
-    sudo apt install dnsutils
-fi
+if ! command -v nslookup; then; sudo apt install dnsutils; fi >/dev/null 2>&1
 
-if ! command -v finger; then
-    sudo apt install finger
-fi
- 
+if ! command -v finger; then sudo apt install finger; fi >/dev/null 2>&1
+
 # get IP and hostname of user who logged in
 ip=$(echo "$SSH_CONNECTION" | cut -d " " -f 1) 
 name=$(nslookup "$ip" | grep "name =" | cut -d " " -f 3)
