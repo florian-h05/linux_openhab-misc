@@ -276,7 +276,7 @@ fileName=
         # for backing up:
         # /etc/profile  /opt/sshlogin.sh /opt/signal-cli-rest-api_client.sh
         backup_file "/etc" "profile"
-        backup_file "/opt" "sshlogin.sh"
+        backup_file "/opt" "sshlogin.bash"
         backup_file "/opt" "signal-cli-rest-api_client.bash"
     }
 
@@ -414,8 +414,10 @@ fileName=
 
     smallFiles_restore() {
         restore_file "/etc" "profile"
-        restore_file "/opt" "sshlogin.sh"
+        restore_file "/opt" "sshlogin.bash"
+	sudo chmod 770 /opt/sshlogin.bash
         restore_file "/opt" "signal-cli-rest-api_client.bash"
+	sudo chmod 770 /opt/signal-cli-res-api_client.bash
     }
 
     telegraf_restore() {
@@ -454,6 +456,8 @@ fileName=
 
     userhome_restore() {
         restore_folder "/home" "openhabian"
+	sudo chown -R openhabian:openhabian /home/openhabian
+	sudo chmod -R 600 /home/openhabian
     }
 
 restore_all() {
