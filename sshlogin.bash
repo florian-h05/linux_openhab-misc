@@ -12,14 +12,14 @@ if ! command -v finger; then
     sudo apt install finger
 fi
  
-# Hole IP und hostname des Users
+# get IP and hostname of user who logged in
 ip=$(echo "$SSH_CONNECTION" | cut -d " " -f 1) 
 name=$(nslookup "$ip" | grep "name =" | cut -d " " -f 3)
  
-# Schreibe in syslog
+# write to syslog
 logger -t ssh-login "$USER" login from "$ip" - "$name"
  
-# Ausgabe für eMail
+# output for e-mail
 echo "SSH login on Server <servername> at $(date +%Y-%m-%d) at $(date +%H:%M)" 
 echo 
 echo "user: >$USER< logged in from IP: >$ip< Hostname: >$name< over SSH" 
