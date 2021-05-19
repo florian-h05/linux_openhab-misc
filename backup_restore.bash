@@ -4,25 +4,25 @@
 # How it works: it copies the given files and folders to a temporary folder, then it is compressed to the backup target
 # Author: Florian Hotze
 
-### What it backs up:
-    # - data in /var/www/html
-    # - sbfspot configuration
-    # - /etc/nginx
-    # - /etc/ufw
-    # - /etc/cron-apt
-    # - /etc/ssh
-    # - /etc/postfix
-    # - /etc/samba/smb.conf
-		# - /etc/fail2ban
-    # - /etc/fstab
-    # - /usr/lib/tmpfiles.d/var.conf
-    # - crontab
-    # - small files:
-    #       - /etc/profile
-    #       - /opt/sshlogin.sh
+### What it backs up:			automatic restore:
+    # - data in /var/www/html		not working
+    # - sbfspot configuration		issues with installation
+    # - /etc/nginx			working
+    # - /etc/ufw			working
+    # - /etc/cron-apt			working
+    # - /etc/ssh			working
+    # - /etc/postfix			working
+    # - /etc/samba/smb.conf		working
+    # - /etc/fail2ban			working, but maybe systemctl restart fail2ban needed
+    # - /etc/fstab			no automatic restore --> risk of file-system damage
+    # - /usr/lib/tmpfiles.d/var.conf	no automatic restore --> risk of file-system damage
+    # - crontab				not working
+    # - small files:			
+    #       - /etc/profile		working
+    #       - /opt/sshlogin.bash
     #       - /opt/signal-cli-rest-api_client.bash
-    # - /etc/telegraf
-    # - user home
+    # - /etc/telegraf			working
+    # - user home			working
 #
 
 # backupPath is set via command-line args
@@ -396,6 +396,7 @@ fileName=
         restore_folder "/etc" "fail2ban"
         sudo systemctl enable fail2ban
         sudo systemctl start fail2ban
+	sudo systemctl restart fail2ban
     }
 
     fstab_restore() {
