@@ -1,0 +1,71 @@
+### fail2ban custom systemd file ###
+##
+## How to edit this file? sudo systemctl edit --full fail2ban
+## Location: /etc/systemd/system/fail2ban.service
+## "systemd-analyze security fail2ban": Overall exposure level: 5.2 MEDIUM
+
+
+[Unit]
+Description=Fail2Ban Service
+Documentation=man:fail2ban(1)
+After=network.target iptables.service firewalld.service ip6tables.service ipset.service
+PartOf=firewalld.service
+
+[Service]
+Type=simple
+ExecStartPre=/bin/mkdir -p /var/run/fail2ban
+ExecStart=/usr/bin/fail2ban-server -xf start
+# if should be logged in systemd journal, use following line or set logtarget to sysout in fail2ban.local
+# ExecStart=/usr/bin/fail2ban-server -xf --logtarget=sysout start
+ExecStop=/usr/bin/fail2ban-client stop
+ExecReload=/usr/bin/fail2ban-client reload
+PIDFile=/var/run/fail2ban/fail2ban.pid
+Restart=on-failure
+RestartPreventExitStatus=0 255
+
+# Networking #
+# PrivateNetwork= service needs access to system network
+IPAccounting=yes
+IPAddressDeny=any
+IPAddressAllow=localhost
+
+# File system #
+#  Note that the effect of these settings may be undone by privileged processes. In order to
+#  set up an effective sandboxed environment for a unit it is thus recommended to combine
+#  these settings with either CapabilityBoundingSet=~CAP_SYS_ADMIN or
+#  SystemCallFilter=~@mount.
+ProtectHome=yes
+ProtectSystem=true
+ReadWritePaths=-/etc/ufw/user.rules
+PrivateTmp=yes
+
+# User separation #
+# PrivateUsers= service runs as root
+# DynamicUser= service runs as root
+
+# Devices #
+PrivateDevices=yes
+# DeviceAllow= service has PrivateDevices=yes
+
+# Kernel #
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+
+# Misc #
+CapabilityBoundingSet=~CAP_SYS_ADMIN CAP_SYSLOG CAP_SYS_CHROOT CAP_SYS_PACCT CAP_SYS_BOOT CAP_SETUID CAP_SETGID CAP_PCAP CAP_SYS_PTRACE CAP_CHOWN CAP_FSETID CAP_SETFCAP CAP_KILL CAP_MKNOD CAP_SYS_CHROOT
+# AmbientCapabilities= service runs as root
+NoNewPrivileges=yes
+ProtectHostname=yes
+ProtectClock=yes
+ProtectControlGroups=yes
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+# RemoveIPC= service runs as root
+
+
+[Install]
+WantedBy=multi-user.target
