@@ -1,0 +1,15 @@
+name: Spellcheck Action
+on: 
+  push:
+    paths:
+      - 'README.md'
+      - 'docs/*.md'
+
+jobs:
+  build:
+    name: Spellcheck
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@master
+    - uses: rojopolis/spellcheck-github-actions@0.5.0
+      name: Spellcheck
