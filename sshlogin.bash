@@ -4,7 +4,7 @@
 
 # entry in /etc/profile needed: /opt/sshlogin.sh | mailx -s "SSH login on server <servename>" <email-adress>
 
-if ! command -v nslookup; then; sudo apt install dnsutils; fi >/dev/null 2>&1
+if ! command -v nslookup; then sudo apt install dnsutils; fi >/dev/null 2>&1
 
 if ! command -v finger; then sudo apt install finger; fi >/dev/null 2>&1
 
