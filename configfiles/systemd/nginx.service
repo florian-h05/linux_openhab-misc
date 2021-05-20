@@ -1,0 +1,82 @@
+### NGINX custom systemd file ###
+##
+## NGINX runs as non-root user and with Sandboxing
+## Prerequisites in /etc/nginx/nginx.conf:
+##   #user www-data;
+##   pid /run/nginx.pid;
+##   daemon off;
+##
+## You need to add to "sudo crontab -e": @reboot sudo touch /run/nginx.pid && sudo chown www-data:www-data /run/nginx.pid
+##                                       @reboot sudo systemctl start nginx
+##
+## How to edit this file? sudo systemctl edit --full nginx
+## Location: /etc/systemd/system/nginx.service
+## "systemd-analyze security nginx": Overall exposure level: 1.4 OK
+
+
+[Unit]
+Description=nginx
+After=network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=exec
+# check for user www-data in "less /etc/passwd"
+User=www-data
+# check for group of www-data: "groups www-data"
+Group=www-data
+# check for acme with command "groups"
+#SupplementaryGroups=acme
+#RuntimeDirectory=nginx
+# important: chown www-data:www-data /run/nginx.pid
+ReadWritePaths=/run/nginx.pid
+ConfigurationDirectory=nginx
+LogsDirectory=nginx
+CacheDirectory=nginx
+
+ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
+ExecReload=/bin/kill -HUP $MAINPID
+
+Restart=on-failure
+RestartSec=10s
+
+# filesystem access
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectControlGroups=true
+
+# kernel
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectKernelLogs=true
+
+# network
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+
+# misc
+RestrictNamespaces=true
+SystemCallArchitectures=native
+NoNewPrivileges=true
+RestrictRealtime=true
+MemoryDenyWriteExecute=true
+LockPersonality=true
+ProtectHostname=true
+RemoveIPC=true
+RestrictSUIDSGID=true
+ProtectClock=true
+
+# capabilities
+AmbientCapabilities=
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+
+# system calls
+SystemCallFilter=@system-service
+SystemCallFilter=~@resources @privileged
+
+[Install]
+WantedBy=multi-user.target
