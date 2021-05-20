@@ -24,10 +24,10 @@ Ideas, issues and pull requests are welcome!
 #### [Signal](https://signal.org/) is a secure and trusted [open-source](https://github.com/signalapp) messenger.
 
 Currently it supports:
-* sending messags to one recipient
+* sending messages to one recipient
 * listing identities
 * trusting identities
-* integrated addressbook
+* integrated address book
 
 ### How to setup:
 Please have a look at [this guide](/doc/SIGNAL-CLIENT.md).
@@ -37,7 +37,7 @@ Please have a look at [this guide](/doc/SIGNAL-CLIENT.md).
 ***
 ### A backup and restore utility
 
-This scipt is collecting folders and files defined in the [script itself](backup_restore.bash). These folders and files are copied to a temporary folder and this folder is compressed as ```.tar.gz``` on your backup destination
+This script is collecting folders and files defined in the [script itself](backup_restore.bash). These folders and files are copied to a temporary folder and this folder is compressed as ```.tar.gz``` on your backup destination
 
 Information about what is backed up can be found in the [script itself](backup_restore.bash).
 ### How to setup:
