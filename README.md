@@ -7,9 +7,9 @@
 ***
 ## Table of Contents
 1. [General Info](#general-info)
-2. [signal-cli-rest-api client](#signal-cli-rest-api_client.bash)
-3. [Backup and restore script](#backup-restore.bash)
-4. [openHAB specific](#openHAB)
+2. [signal-cli-rest-api client](#signal-client)
+3. [Backup and restore script](#backup-restore-bash-script)
+4. [openHAB](#openhab)
 5. [custom configuration](#custom-configuration)
 
 ## General Info
@@ -18,7 +18,7 @@ This repository is a collection of scripts and configuration files I use on my p
 ### Contributing
 Ideas, issues and pull requests are welcome!
 
-## signal-cli-rest-api_client.bash
+## signal client
 ***
 #### A small bash client for the [signal-cli REST API](https://github.com/bbernhard/signal-cli-rest-api) from [@bbernhard](https://github.com/bbernhard).
 #### [Signal](https://signal.org/) is a secure and trusted [open-source](https://github.com/signalapp) messenger.
@@ -33,7 +33,7 @@ Currently it supports:
 Please have a look at [this guide](/doc/SIGNAL-CLIENT.md).
 
 
-## backup-restore.bash
+## backup-restore bash script
 ***
 ### A backup and restore utility
 
@@ -41,9 +41,9 @@ This script is collecting folders and files defined in the [script itself](backu
 
 Information about what is backed up can be found in the [script itself](backup_restore.bash).
 ### How to setup:
-Please have a look at [this guide](/doc/SIGNAL-CLIENT.md).
+Please have a look at [this guide](/doc/BACKUP_RESTORE.md).
 
-## openHAB
+## openhab
 ***
 The [openhab folder](openhab) contains ```scripts``` and openHAB specific files.
 More information can be found in [this guide](/doc/OPENHAB.md).
