@@ -1,5 +1,7 @@
 # How to setup __[shaddow.py](shaddow.py)__:
 
+<img align="right" width="50%" src="./shaddow-py_explanation.jpg" />
+
 * install the python depedencies:
   * ``sudo -H python3 -m pip install influxdb_client``
   * ``sudo -h python3 -m pip install python-openhab``
