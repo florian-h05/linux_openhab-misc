@@ -1,51 +1,32 @@
 ### NGINX custom systemd file ###
 ##
-## NGINX runs as non-root user and with Sandboxing
-## Prerequisites in /etc/nginx/nginx.conf:
-##   #user www-data;
-##   pid /run/nginx.pid;
-##   daemon off;
-##
-## You need to add to "sudo crontab -e": @reboot sudo touch /run/nginx.pid && sudo chown www-data:www-data /run/nginx.pid
-##                                       @reboot sudo systemctl start nginx
-##
 ## How to edit this file? sudo systemctl edit --full nginx
 ## Location: /etc/systemd/system/nginx.service
-## "systemd-analyze security nginx": Overall exposure level: 1.4 OK
+## "systemd-analyze security nginx": Overall exposure level: 2.2 OK
 
 
 [Unit]
-Description=nginx
-After=network-online.target remote-fs.target nss-lookup.target
-Wants=network-online.target
+Description=A high performance web server and a reverse proxy server
+Documentation=man:nginx(8)
+After=network.target nss-lookup.target
 
 [Service]
-Type=exec
-# check for user www-data in "less /etc/passwd"
-User=www-data
-# check for group of www-data: "groups www-data"
-Group=www-data
-# check for acme with command "groups"
-#SupplementaryGroups=acme
-#RuntimeDirectory=nginx
-# important: chown www-data:www-data /run/nginx.pid
-ReadWritePaths=/run/nginx.pid
-ConfigurationDirectory=nginx
-LogsDirectory=nginx
-CacheDirectory=nginx
-
-ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
-ExecReload=/bin/kill -HUP $MAINPID
-
-Restart=on-failure
-RestartSec=10s
+Type=forking
+PIDFile=/run/nginx.pid
+ExecStartPre=/usr/sbin/nginx -t -q -g 'daemon on; master_process on;'
+ExecStart=/usr/sbin/nginx -g 'daemon on; master_process on;'
+ExecReload=/usr/sbin/nginx -g 'daemon on; master_process on;' -s reload
+ExecStop=-/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile /run/nginx.pid
+TimeoutStopSec=5
+KillMode=mixed
 
 # filesystem access
-ProtectSystem=strict
+ProtectSystem=full
 ProtectHome=true
 PrivateTmp=true
 PrivateDevices=true
 ProtectControlGroups=true
+ReadOnlyDirectories=/var/www/html
 
 # kernel
 ProtectKernelModules=true
@@ -54,7 +35,6 @@ ProtectKernelLogs=true
 
 # network
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
-
 
 # misc
 RestrictNamespaces=true
@@ -69,14 +49,13 @@ RestrictSUIDSGID=true
 ProtectClock=true
 
 # capabilities
-AmbientCapabilities=
-AmbientCapabilities=CAP_NET_BIND_SERVICE
-CapabilityBoundingSet=
-CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+# CAP_SETUID CAP_SETGID are needed for openHAB proxy working on mobile devices
+CapabilityBoundingSet=CAP_SETUID CAP_SETGID CAP_NET_BIND_SERVICE
 
 # system calls
-SystemCallFilter=@system-service
-SystemCallFilter=~@resources @privileged
+SystemCallFilter=
+SystemCallFilter=@system-service @privileged
+SystemCallFilter=~@clock @module @mount @raw-io @reboot @swap @resources
 
 [Install]
 WantedBy=multi-user.target
