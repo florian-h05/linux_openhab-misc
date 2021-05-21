@@ -1,0 +1,74 @@
+# openHAB: scripts, tips & tricks
+
+## Table of Contents
+1. [General Info](#general-info)
+2. [NGINX reverse proxy](#nginx-reverse-proxy)
+3. [ufw firewall](#ufw-firewall)
+4. [shaddow.py script](#shaddow-script-python)
+
+## General Info
+***
+Documentation for openHAB specific configuration files, like NGINX reverse proxy configuration, openHAB rules & scripts and openHAB guides.
+
+## NGINX reverse proxy
+***
+NGINX website configuration for openHAB authorization & access control.
+For additional information please have a look at the [official documentation](https://www.openhab.org/docs/installation/security.html#running-openhab-behind-a-reverse-proxy). This file also includes securing the frontail log viewer.
+
+Frontail is reachable under [https://openhabianpi/frontail](https://openhabianpi/frontail).
+
+NGINX [configuration file](../openhab/openhab) for openHAB.
+When using this file, you __must change__:
+* line 14: ``<servername>`` to your servername
+* line 51: ``<ip>`` to the ip which should access the log viewer
+
+First, run ``sudo apt install apache2-utils``.
+
+Then, adding and removing users:
+* create the authentication file: ``sudo htpasswd -c /etc/nginx/.htpasswd-openhab username``
+* add new users: ``sudo htpasswd /etc/nginx/.htpasswd-openhab username``
+* remove users: ``sudo htpasswd -D /etc/nginx/.htpasswd-openhab username``
+
+Next, please setup the ufw firewall, otherwise your access control has no sense.
+
+## ufw firewall
+***
+### __Important information:__ A firewall is only a part of securing your server!
+
+The following commands help you to setup your ufw firewall:
+* install ufw: ``sudo apt install ufw``
+* __important:__ allow ufw, otherwise you lock yourself out: ``sudo ufw allow ssh``
+* _(set up the default policies: ``sudo ufw default deny INCOMING`` and ``sudo ufw default allow OUTGOING``)_
+* block access to native openHAB ports: ``sudo ufw deny 8080/tcp comment openHAB-native`` and ``sudo ufw deny 8443/tcp comment openHAB-native``
+* allow access to your reverse proxy: ``sudo ufw allow https comment openHAB-nginx``
+* allow IGMP protocol:
+  * ``sudo ufw allow in proto udp to 224.0.0.0/4``
+  * add to ``/etc/ufw/before.rules``: 
+   
+    ```
+    # allow IGMP
+    -A ufw-before-input -p igmp -d 224.0.0.0/4 -j ACCEPT
+    -A ufw-before-output -p igmp -d 224.0.0.0/4 -j ACCEPT
+    ```
+* start ufw: ```sudo ufw enable```
+***
+### IMPORTANT: ufw can break you openHAB KNX
+
+When using the ``openHAB KNX binding``, you have to allow the traffic from your _IP Gateway_ to your _openHAB_:
+* replace ``<KNXgateway-ip`` with your Gateway`s ip: ``sudo ufw allow proto udp from <KNXgateway-ip> to any port 3671 comment openHAB-KNX_Router``
+* replace ``<openHAB-ip`` with your openHAB server`s ip: ``sudo ufw allow proto udp from <openHAB-ip> to any port 3671 comment openHAB-KNX``
+ 
+***
+__Information:__ you should look at ``/var/log/ufw.log`` for failed requests and check for IPs of your _openHAB_ devices.
+For example I checked the logs and found out, that my _Yamaha MusicCast_ devices were trying to connect to ``51200/udp``, so I added a rule for them in ufw.
+
+## shaddow script python
+***
+### This script was originally written by [@pmpkk](https://github.com/pmpkk) at [openhab-habpanel-theme-matrix](https://github.com/pmpkk/openhab-habpanel-theme-matrix).
+I only modified it to work with _Python 3_ and the new _InfluxDB 2.x_. 
+
+[shaddow.py](../openhab/shaddow.py) generates a _.svg_ image to illustrate where the sun is currently positioned, which site of the house is facing the sun and where the shaddow of your house is.
+I added the position of the moon to the image. 
+***
+### How to setup:
+Please look at [this guide](../openhab/SHADDOW.md).
