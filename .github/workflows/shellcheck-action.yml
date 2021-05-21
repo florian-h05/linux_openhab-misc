@@ -7,11 +7,11 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     paths:
-      - 'backup_restore.bash'
+      - '*.bash'
       - '.github/workflows/shellcheck-action.yml'
   pull_request:
     paths:
-      - 'backup_restore.bash'
+      - '*.bash'
       - '.github/workflows/shellcheck-action.yml'
 
 jobs:
