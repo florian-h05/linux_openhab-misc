@@ -55,7 +55,10 @@ send_Notification() {
     fi
 }
 
-if ! curl -X GET "https://${basicAuth_username}:${basicAuth_password}@${hostname}/rest/" -H "accept: application/json" -H "X-OPENHAB-TOKEN: ${openhab_token}" --cacert "${path}"CA_Hotze.crt >/dev/null 2>&1
+## when using self-signed certs, you have two options:
+#     - use "--cacert" and store your caert in pem format in path
+#     - use "--insecure" to ignore self-signed certs 
+if ! curl -X GET "https://${basicAuth_username}:${basicAuth_password}@${hostname}/rest/" -H "accept: application/json" -H "X-OPENHAB-TOKEN: ${openhab_token}" --cacert "${path}"yourCA.crt >/dev/null 2>&1
 then
     containerStart=$(check_container)
     echo "ERROR: openhab not reachable!"
