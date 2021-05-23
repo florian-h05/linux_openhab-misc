@@ -454,6 +454,11 @@ fileName=
         sudo apt update
         sudo apt install speedtest
     }
+    
+    moshTmux_install() {
+    	sudo apt install mosh
+	sudo apt install tmux
+    }
 
     userhome_restore() {
         restore_folder "/home" "openhabian"
@@ -481,6 +486,7 @@ restore_all() {
     telegraf_restore
     userhome_restore
     speedtest_install
+    moshTmux_install
     echo "Done with restore."
     echo "Please restore openHAB manually."
     echo "Please setup system with openhabian-config."
