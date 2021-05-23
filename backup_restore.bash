@@ -417,7 +417,7 @@ fileName=
         restore_file "/etc" "profile"
         restore_file "/opt" "sshlogin.bash"
 	sudo chmod 770 /opt/sshlogin.bash
-        restore_file "/opt" "signal-cli-rest-api_client.bash"
+      	restore_file "/opt" "signal-cli-rest-api_client.bash"
 	sudo chmod 770 /opt/signal-cli-res-api_client.bash
     }
 
