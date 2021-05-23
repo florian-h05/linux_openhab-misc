@@ -2,7 +2,7 @@
 
 <img align="right" width="50%" src="./shaddow-py_explanation.jpg" />
 
-* install the python depedencies:
+* install the python dependencies:
   * ``sudo -H python3 -m pip install influxdb_client``
   * ``sudo -h python3 -m pip install python-openhab``
 * The script needs _InfluxDB_ as persistence layer.
@@ -18,7 +18,7 @@
     token = 'influxdb-token'
     org = 'influxdb-bucket'
     ```
-* You also need the _Astro_ binding with folowing items:
+* You also need the _Astro_ binding with following items:
     ```
     Number Sun_Azimuth   "Sun Azimuth"   {channel="astro:sun:local:position#azimuth" }
     Number Sun_Elevation "Sun Elevation" { channel="astro:sun:local:position#elevation" }
