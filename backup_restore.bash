@@ -456,17 +456,17 @@ fileName=
     }
     
     moshTmux_install() {
-    	sudo apt install mosh
-	sudo apt install tmux
+        sudo apt install mosh
+        sudo apt install tmux
     }
     
     scripts_download() {
     	sudo apt install git
-	git clone https://github.com/florian-h05/linux_openhab-misc.git
-	cp linux_openhab-misc/pi-temp.bash /opt/pi-temp.bash
-	cp linux_openhab-misc/sshlogin.bash /opt/sshlogin.bash
-	cp linux_openhab-misc/sshlogin_GER.bash /opt/sshlogin_GER.bash
-	cp linux_openhab-misc/signal-cli-rest-api_client.bash /opt/signal-cli-rest-api_client.bash
+        git clone https://github.com/florian-h05/linux_openhab-misc.git
+        cp linux_openhab-misc/pi-temp.bash /opt/pi-temp.bash
+        cp linux_openhab-misc/sshlogin.bash /opt/sshlogin.bash
+        cp linux_openhab-misc/sshlogin_GER.bash /opt/sshlogin_GER.bash
+        cp linux_openhab-misc/signal-cli-rest-api_client.bash /opt/signal-cli-rest-api_client.bash
     }
 
     userhome_restore() {
@@ -584,11 +584,11 @@ help_single() {
     "
     echo "Commands for *_install are:"
     echo "
-    	sbfspot_install
-    	telegraf_install
-	speedtest_install
-	moshTmux_install
-	scripts_download
+        sbfspot_install
+        telegraf_install
+        speedtest_install
+        moshTmux_install
+        scripts_download
     "
 }
 
