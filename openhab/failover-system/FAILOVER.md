@@ -24,6 +24,7 @@
 * run the container the first time: ``sudo docker-compose up -d``
 * configure your log-in in the browser at [http://ip-of-your-failover-host:15000](http://ip-of-your-failover-host:15000)
 * stop the container: ``sudo docker stop openhab_openhab_1``
+* protect your openHAB with a firewall: block ``15000:15001/tcp``
 
 ## Run the script on the main host:
 * ``cd /opt``
