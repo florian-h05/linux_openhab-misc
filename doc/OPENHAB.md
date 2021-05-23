@@ -5,6 +5,7 @@
 2. [NGINX reverse proxy](#nginx-reverse-proxy)
 3. [ufw firewall](#ufw-firewall)
 4. [shaddow.py script](#shaddow-script-python)
+5. [failover](#failover)
 
 ## General Info
 ***
@@ -59,7 +60,7 @@ When using the ``openHAB KNX binding``, you have to allow the traffic from your 
 * replace ``<openHAB-ip`` with your openHAB server`s ip: ``sudo ufw allow proto udp from <openHAB-ip> to any port 3671 comment openHAB-KNX``
  
 ***
-__Information:__ you should look at ``/var/log/ufw.log`` for failed requests and check for IPs of your _openHAB_ devices.
+__Information:__ you should look at ``/var/log/ufw.log`` for failed requests and check for ip addresses of your _openHAB_ devices.
 For example I checked the logs and found out, that my _Yamaha MusicCast_ devices were trying to connect to ``51200/udp``, so I added a rule for them in ufw.
 
 ## shaddow script python
@@ -72,3 +73,13 @@ I added the position of the moon to the image.
 ***
 ### How to setup:
 Please look at [this guide](../openhab/SHADDOW.md).
+
+## failover
+***
+### Protect your smart home from an openHAB crash.
+
+Although openHAB and Debian are running extremely stable, you never can be prepared well enough for crash. So you could need a failover, that keeps your smart home running when your main openHAB crash or is not reachable. 
+
+For easy backup and restore I regularly create images of my openHAB system with _Acronis True Image_ and during this time my openHAB is of course not reachable. 
+
+Therefore, you find a failover for openHAB in [this folder](../openhab/failover-system). For further configuration, please have a look at [this guide](../openhab/failover-system/FAILOVER.md).

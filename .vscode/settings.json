@@ -1,5 +1,6 @@
 {
     "shellcheck.exclude": [
         "1017"
-    ]
+    ],
+    "workbench.colorTheme": "GitHub Dark Default"
 }
