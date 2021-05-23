@@ -5,6 +5,7 @@
 2. [NGINX reverse proxy](#nginx-reverse-proxy)
 3. [ufw firewall](#ufw-firewall)
 4. [shaddow.py script](#shaddow-script-python)
+5. [failover](#failover)
 
 ## General Info
 ***
@@ -72,3 +73,13 @@ I added the position of the moon to the image.
 ***
 ### How to setup:
 Please look at [this guide](../openhab/SHADDOW.md).
+
+## failover
+***
+### Protect your smart home from an openHAB crash.
+
+Although openHAB and Debian are running extremely stable, you never can be prepared well enough for crashs. So you could need a failover, that keeps your smart home running when your main openHAB crashs or is not reachable. 
+
+For easy backub and restore I regularly create images of my openHAB system with _Acronis True Image_ and during this time my openHAB is of course not reachable. 
+
+Therefore, you find a failover for openHAB in [this folder](../openhab/failover-system). FOr further configuration, please have a look at [this guide](../openhab/failover-system/FAILOVER.md).
