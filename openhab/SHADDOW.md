@@ -13,7 +13,7 @@
     openhab = OpenHAB(base_url)
     items = openhab.fetch_all_items()
     
-    ## intialize InfluxDB client
+    ## initialize InfluxDB client
     url = 'http://localhost:8086'
     token = 'influxdb-token'
     org = 'influxdb-bucket'
