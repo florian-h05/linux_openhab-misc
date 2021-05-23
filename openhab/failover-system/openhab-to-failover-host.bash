@@ -61,6 +61,6 @@ fi
 
 # copy userdata
 ## openhabcloud and uuid only for the first time!
-#copy_file "/var/lib/openhab" "openhabcloud"
+#copy_folder "/var/lib/openhab" "openhabcloud"
 #copy_file "/var/lib/openhab" "uuid"
 copy_folder "/var/lib/openhab" "persistence"
