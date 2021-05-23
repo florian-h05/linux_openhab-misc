@@ -589,6 +589,7 @@ help_single() {
 	speedtest_install
 	moshTmux_install
 	scripts_download
+    "
 }
 
 check_backupPath() {
