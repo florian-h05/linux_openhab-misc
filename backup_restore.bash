@@ -461,7 +461,7 @@ fileName=
     }
     
     scripts_download() {
-    	sudo apt install git
+        sudo apt install git
         git clone https://github.com/florian-h05/linux_openhab-misc.git
         cp linux_openhab-misc/pi-temp.bash /opt/pi-temp.bash
         cp linux_openhab-misc/sshlogin.bash /opt/sshlogin.bash
