@@ -491,6 +491,7 @@ restore_all() {
     fail2ban_restore
     tmpfilesdVar_restore
     crontab_restore
+    scripts_download
     smallFiles_restore
     telegraf_restore
     userhome_restore
