@@ -4,25 +4,25 @@
 # How it works: it copies the given files and folders to a temporary folder, then it is compressed to the backup target
 # Author: Florian Hotze
 
-### What it backs up:			automatic restore:
-    # - data in /var/www/html		not working
-    # - sbfspot configuration		issues with installation
-    # - /etc/nginx			working
-    # - /etc/ufw			working
-    # - /etc/cron-apt			working
-    # - /etc/ssh			working
-    # - /etc/postfix			working
-    # - /etc/samba/smb.conf		working
-    # - /etc/fail2ban			working, but maybe systemctl restart fail2ban needed
-    # - /etc/fstab			no automatic restore --> risk of file-system damage
-    # - /usr/lib/tmpfiles.d/var.conf	no automatic restore --> risk of file-system damage
-    # - crontab				not working
-    # - small files:			
-    #       - /etc/profile		working
+### What it backs up:             automatic restore:
+    # - data in /var/www/html     not working
+    # - sbfspot configuration     issues with installation
+    # - /etc/nginx                working
+    # - /etc/ufw                  working
+    # - /etc/cron-apt             working
+    # - /etc/ssh                  working
+    # - /etc/postfix              working
+    # - /etc/samba/smb.conf       working
+    # - /etc/fail2ban             working, but maybe systemctl restart fail2ban needed
+    # - /etc/fstab                no automatic restore --> risk of file-system damage
+    # - /usr/lib/tmpfiles.d/var.conf  no automatic restore --> risk of file-system damage
+    # - crontab                   not automatic restore --> not possible
+    # - small files:              working
+    #       - /etc/profile
     #       - /opt/sshlogin.bash
     #       - /opt/signal-cli-rest-api_client.bash
-    # - /etc/telegraf			working
-    # - user home			working
+    # - /etc/telegraf             working
+    # - user home                 working
 #
 
 # backupPath is set via command-line args
@@ -269,6 +269,7 @@ fileName=
 
     crontab_backup() {
         backup_folder "/var/spool/cron" "crontabs"
+        sudo chmod -R 777 "$cachePath""${folder}"
     }
 
 
@@ -410,7 +411,8 @@ fileName=
     }
 
     crontab_restore() {
-        backup_folder "/var/spool/cron" "crontabs"
+        echo "${red}INFO:${reset} Please restore /var/spool/cron/crontabs/* manually!"
+        echo "Automatic restore is not possible!"
     }
 
     smallFiles_restore() {
