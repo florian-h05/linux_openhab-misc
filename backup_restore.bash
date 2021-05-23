@@ -417,7 +417,7 @@ fileName=
         restore_file "/etc" "profile"
         restore_file "/opt" "sshlogin.bash"
         sudo chmod 770 /opt/sshlogin.bash
-      	restore_file "/opt" "signal-cli-rest-api_client.bash"
+        restore_file "/opt" "signal-cli-rest-api_client.bash"
         sudo chmod 770 /opt/signal-cli-res-api_client.bash
     }
 
@@ -471,8 +471,8 @@ fileName=
 
     userhome_restore() {
         restore_folder "/home" "openhabian"
-	sudo chown -R openhabian:openhabian /home/openhabian
-	sudo chmod -R 600 /home/openhabian
+        sudo chown -R openhabian:openhabian /home/openhabian
+        sudo chmod -R 600 /home/openhabian
     }
 
 restore_all() {
@@ -594,7 +594,7 @@ help_single() {
 
 check_backupPath() {
     if [ -d "${backupPath}" ]; then
-    	echo "${green}SUCCESS:${reset} ${backupPath} found"
+        echo "${green}SUCCESS:${reset} ${backupPath} found"
     else
         echo "${red}ERROR:${reset} ${backupPath} not found"
         echo "Please provide -d=* or --directory=*"
