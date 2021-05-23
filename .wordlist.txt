@@ -55,7 +55,7 @@ frontail
 Frontail
 https
 openhabianpi
-servename
+servername
 apache
 utils
 htpasswd
