@@ -4,6 +4,9 @@ on:
     paths:
       - 'README.md'
       - 'docs/*.md'
+  pull_request:
+    paths:
+      - '**.md'  
 
 jobs:
   build:
