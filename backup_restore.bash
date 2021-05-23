@@ -351,7 +351,7 @@ fileName=
             if sudo apt install ufw; then echo "ufw installed."; else echo "${red}ERROR:${reset} installing ufw"; fi
         fi
         restore_folder "/etc" "ufw"
-	sudo ufw allow ssh
+        sudo ufw allow ssh
         sudo ufw enable
         sudo ufw reload
     }
