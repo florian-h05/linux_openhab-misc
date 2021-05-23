@@ -459,6 +459,15 @@ fileName=
     	sudo apt install mosh
 	sudo apt install tmux
     }
+    
+    scripts_download() {
+    	sudo apt install git
+	git clone https://github.com/florian-h05/linux_openhab-misc.git
+	cp linux_openhab-misc/pi-temp.bash /opt/pi-temp.bash
+	cp linux_openhab-misc/sshlogin.bash /opt/sshlogin.bash
+	cp linux_openhab-misc/sshlogin_GER.bash /opt/sshlogin_GER.bash
+	cp linux_openhab-misc/signal-cli-rest-api_client.bash /opt/signal-cli-rest-api_client.bash
+    }
 
     userhome_restore() {
         restore_folder "/home" "openhabian"
@@ -528,7 +537,7 @@ help() {
     echo "  -d=* --directory=*          directory for the backup archive"
     echo "  -s=* --single-command=*     command for *_single modes, please use --help-single"
     echo "  -f=* --file-name=*          name of the backup archive"
-    echo "  -i=* --install=*            install additional software, e.g. telegraf_install, speedtest_install, sbfspot_install"
+    echo "  -i=* --install=*            install additional software, please use --help-single"
 }
 
 help_single() {
@@ -572,11 +581,18 @@ help_single() {
         telegraf_restore
         userhome_restore
     "
+    echo "Commands for *_install are:"
+    echo "
+    	sbfspot_install
+    	telegraf_install
+	speedtest_install
+	moshTmux_install
+	scripts_download
 }
 
 check_backupPath() {
     if [ -d "${backupPath}" ]; then
-        echo "${green}SUCCESS:${reset} ${backupPath} found"
+    	echo "${green}SUCCESS:${reset} ${backupPath} found"
     else
         echo "${red}ERROR:${reset} ${backupPath} not found"
         echo "Please provide -d=* or --directory=*"
@@ -711,5 +727,5 @@ elif [ "$mode" = "restore_single" ]; then
 elif [ "$install" != "" ]; then
     "$install"
 else
-    echo "Please provide command line args. Help -h or --help"
+    echo "Please provide command line args. Help -h or --help."
 fi
