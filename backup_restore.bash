@@ -396,7 +396,7 @@ fileName=
         restore_folder "/etc" "fail2ban"
         sudo systemctl enable fail2ban
         sudo systemctl start fail2ban
-	sudo systemctl restart fail2ban
+        sudo systemctl restart fail2ban
     }
 
     fstab_restore() {
@@ -416,9 +416,9 @@ fileName=
     smallFiles_restore() {
         restore_file "/etc" "profile"
         restore_file "/opt" "sshlogin.bash"
-	sudo chmod 770 /opt/sshlogin.bash
+        sudo chmod 770 /opt/sshlogin.bash
       	restore_file "/opt" "signal-cli-rest-api_client.bash"
-	sudo chmod 770 /opt/signal-cli-res-api_client.bash
+        sudo chmod 770 /opt/signal-cli-res-api_client.bash
     }
 
     telegraf_restore() {
