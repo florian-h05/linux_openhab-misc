@@ -539,7 +539,7 @@ help() {
     echo "  -m=* --mode=*               program mode, available: backup_all, backup_single, restore_all, restore_single"
     echo "  -d=* --directory=*          directory for the backup archive"
     echo "  -s=* --single-command=*     command for *_single modes, please use --help-single"
-    echo "  -f=* --file-name=*          name of the backup archive"
+    echo "  -f=* --file-name=*          name of the backup archive (only for restore, with .tar.gz)"
     echo "  -i=* --install=*            install additional software, please use --help-single"
 }
 
