@@ -4,25 +4,25 @@
 # How it works: it copies the given files and folders to a temporary folder, then it is compressed to the backup target
 # Author: Florian Hotze
 
-### What it backs up:			automatic restore:
-    # - data in /var/www/html		not working
-    # - sbfspot configuration		issues with installation
-    # - /etc/nginx			working
-    # - /etc/ufw			working
-    # - /etc/cron-apt			working
-    # - /etc/ssh			working
-    # - /etc/postfix			working
-    # - /etc/samba/smb.conf		working
-    # - /etc/fail2ban			working, but maybe systemctl restart fail2ban needed
-    # - /etc/fstab			no automatic restore --> risk of file-system damage
-    # - /usr/lib/tmpfiles.d/var.conf	no automatic restore --> risk of file-system damage
-    # - crontab				not working
-    # - small files:			
-    #       - /etc/profile		working
+### What it backs up:             automatic restore:
+    # - data in /var/www/html     not working
+    # - sbfspot configuration     issues with installation
+    # - /etc/nginx                working
+    # - /etc/ufw                  working
+    # - /etc/cron-apt             working
+    # - /etc/ssh                  working
+    # - /etc/postfix              working
+    # - /etc/samba/smb.conf       working
+    # - /etc/fail2ban             working, but maybe systemctl restart fail2ban needed
+    # - /etc/fstab                no automatic restore --> risk of file-system damage
+    # - /usr/lib/tmpfiles.d/var.conf  no automatic restore --> risk of file-system damage
+    # - crontab                   not automatic restore --> not possible
+    # - small files:              working
+    #       - /etc/profile
     #       - /opt/sshlogin.bash
     #       - /opt/signal-cli-rest-api_client.bash
-    # - /etc/telegraf			working
-    # - user home			working
+    # - /etc/telegraf             working
+    # - user home                 working
 #
 
 # backupPath is set via command-line args
@@ -269,6 +269,7 @@ fileName=
 
     crontab_backup() {
         backup_folder "/var/spool/cron" "crontabs"
+        sudo chmod -R 777 "$cachePath""${folder}"
     }
 
 
@@ -351,7 +352,7 @@ fileName=
             if sudo apt install ufw; then echo "ufw installed."; else echo "${red}ERROR:${reset} installing ufw"; fi
         fi
         restore_folder "/etc" "ufw"
-	sudo ufw allow ssh
+        sudo ufw allow ssh
         sudo ufw enable
         sudo ufw reload
     }
@@ -396,7 +397,7 @@ fileName=
         restore_folder "/etc" "fail2ban"
         sudo systemctl enable fail2ban
         sudo systemctl start fail2ban
-	sudo systemctl restart fail2ban
+        sudo systemctl restart fail2ban
     }
 
     fstab_restore() {
@@ -410,15 +411,16 @@ fileName=
     }
 
     crontab_restore() {
-        backup_folder "/var/spool/cron" "crontabs"
+        echo "${red}INFO:${reset} Please restore /var/spool/cron/crontabs/* manually!"
+        echo "Automatic restore is not possible!"
     }
 
     smallFiles_restore() {
         restore_file "/etc" "profile"
         restore_file "/opt" "sshlogin.bash"
-	sudo chmod 770 /opt/sshlogin.bash
+        sudo chmod 770 /opt/sshlogin.bash
         restore_file "/opt" "signal-cli-rest-api_client.bash"
-	sudo chmod 770 /opt/signal-cli-res-api_client.bash
+        sudo chmod 770 /opt/signal-cli-res-api_client.bash
     }
 
     telegraf_restore() {
@@ -454,11 +456,25 @@ fileName=
         sudo apt update
         sudo apt install speedtest
     }
+    
+    moshTmux_install() {
+        sudo apt install mosh
+        sudo apt install tmux
+    }
+    
+    scripts_download() {
+        sudo apt install git
+        git clone https://github.com/florian-h05/linux_openhab-misc.git
+        cp linux_openhab-misc/pi-temp.bash /opt/pi-temp.bash
+        cp linux_openhab-misc/sshlogin.bash /opt/sshlogin.bash
+        cp linux_openhab-misc/sshlogin_GER.bash /opt/sshlogin_GER.bash
+        cp linux_openhab-misc/signal-cli-rest-api_client.bash /opt/signal-cli-rest-api_client.bash
+    }
 
     userhome_restore() {
         restore_folder "/home" "openhabian"
-	sudo chown -R openhabian:openhabian /home/openhabian
-	sudo chmod -R 600 /home/openhabian
+        sudo chown -R openhabian:openhabian /home/openhabian
+        sudo chmod -R 600 /home/openhabian
     }
 
 restore_all() {
@@ -477,10 +493,12 @@ restore_all() {
     fail2ban_restore
     tmpfilesdVar_restore
     crontab_restore
+    scripts_download
     smallFiles_restore
     telegraf_restore
     userhome_restore
     speedtest_install
+    moshTmux_install
     echo "Done with restore."
     echo "Please restore openHAB manually."
     echo "Please setup system with openhabian-config."
@@ -521,8 +539,8 @@ help() {
     echo "  -m=* --mode=*               program mode, available: backup_all, backup_single, restore_all, restore_single"
     echo "  -d=* --directory=*          directory for the backup archive"
     echo "  -s=* --single-command=*     command for *_single modes, please use --help-single"
-    echo "  -f=* --file-name=*          name of the backup archive"
-    echo "  -i=* --install=*            install additional software, e.g. telegraf_install, speedtest_install, sbfspot_install"
+    echo "  -f=* --file-name=*          name of the backup archive (only for restore, with .tar.gz)"
+    echo "  -i=* --install=*            install additional software, please use --help-single"
 }
 
 help_single() {
@@ -565,6 +583,14 @@ help_single() {
         smallFiles_restore
         telegraf_restore
         userhome_restore
+    "
+    echo "Commands for *_install are:"
+    echo "
+        sbfspot_install
+        telegraf_install
+        speedtest_install
+        moshTmux_install
+        scripts_download
     "
 }
 
@@ -705,5 +731,5 @@ elif [ "$mode" = "restore_single" ]; then
 elif [ "$install" != "" ]; then
     "$install"
 else
-    echo "Please provide command line args. Help -h or --help"
+    echo "Please provide command line args. Help -h or --help."
 fi
