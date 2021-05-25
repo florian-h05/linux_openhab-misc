@@ -28,7 +28,7 @@ Next, please setup the ufw firewall, otherwise your access control has no sense.
 NGINX [configuration file](/openhab/reverse-proxy/openhab-clientcert) for openHAB. When using this file, you __must change__:
 * line 14: ``<servername>`` to your servername
 * line 24: ``<ca>`` to the name or path of the certificate of your CA for client certificate authentication
-* line 25: ``crl`` to the name ot path of the certificate revocation list of your CA for client certificate authentication
+* line 25: ``<crl>`` to the name ot path of the certificate revocation list of your CA for client certificate authentication
 
 ### Further setup:
 * Work in a directory you created for the next steps.
