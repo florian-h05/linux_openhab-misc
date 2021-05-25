@@ -1,4 +1,4 @@
-### NGINX reverse proxy configuration for openHAB and Frontail ###
+### NGINX reverse proxy configuration for openHAB and Frontail with client certificate auth ###
 #
 #
 # You should look at the following URL's in order to grasp a solid understanding of Nginx configuration files in order to fully unleash the power 
@@ -16,8 +16,14 @@
 server {
     listen                                    443 ssl;
     server_name                               <servername>;
+    proxy_ssl_server_name                     on;
     ssl_certificate                           /etc/nginx/openhab.crt;
     ssl_certificate_key                       /etc/nginx/openhab.pem;
+
+    # client certificate authentication
+    ssl_client_certificate                    /etc/nginx/<ca>;
+    ssl_crl                                   /etc/nginx/<crl>;
+    ssl_verify_client                         on;
 
     add_header Strict-Transport-Security "max-age=31536000; includeSubdomains; preload";
 
@@ -45,9 +51,6 @@ server {
         proxy_set_header Connection           "Upgrade";
         proxy_set_header Authorization        "";
         proxy_read_timeout                    3600;
-        auth_basic                            "Username and Password Required";
-        auth_basic_user_file                  /etc/nginx/.htpasswd-openhab;
-        satisfy any;
     }
 
     location /frontail {
@@ -61,9 +64,6 @@ server {
         proxy_set_header Connection             "upgrade";
         proxy_set_header Upgrade                $http_upgrade;
         proxy_pass                              http://localhost:9001/frontail;
-        auth_basic                              "Username and Password Required";
-        auth_basic_user_file                    /etc/nginx/.htpasswd-openhab;
-        satisfy any;
     }
 
     access_log /var/log/nginx/openhab-access.log combined;
