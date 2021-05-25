@@ -46,9 +46,10 @@
   * lines 9 to 12:
     * set ``basicAuth_*`` to username and password for NGINX basic auth, you should create a new user
     * set ``hostname`` to the ip-address/hostname of your main openHAB host
-    * set `openhab_token`` to an access token for the REST API, you have to create it in the _openHAB Web UI_ as administrator
   * line 16: set ``container`` only when you have changed the [docker-compose.yml](docker-compose.yml), else the default is good
-  * line 17: set ``notify`` to ``"true"`` or ``"false"`` to turn on/off notifications via Signal
+  * line 17: set ``notify`` to ``"true"`` or ``"false"`` to turn on/off notifications via Signal, when turned on, set ``recipient``
   * line 18: set ``path`` to the absolute path of your script, e.g. ``volume1/home/<username>``, only needed when ``notify="true"`` or you use ``--cacert``
-  * line 61: set ``--cacert`` or ``-insecure`` for curl when using self-signed certs, more information in the script itself
+  * line 19: set ``client_cert`` to ``"true"`` or ``"false"`` to turn on/off client certificate authentication
+  * line 19 + 20: set ``client_certName`` and ``CA_cert``
+  * line 64 and 67: set ``--cacert`` or ``-insecure`` for curl when using self-signed certs, more information in the script itself
 * run this script regularly, e.g. with _root's crontab_ or with _Task Scheduler_ on your Synology NAS

@@ -18,19 +18,8 @@ For additional information please have a look at the [official documentation](ht
 
 Frontail is reachable under [https://openhabianpi/frontail](https://openhabianpi/frontail).
 
-NGINX [configuration file](../openhab/openhab) for openHAB.
-When using this file, you __must change__:
-* line 14: ``<servername>`` to your servername
-* line 51: ``<ip>`` to the ip which should access the log viewer
-
-First, run ``sudo apt install apache2-utils``.
-
-Then, adding and removing users:
-* create the authentication file: ``sudo htpasswd -c /etc/nginx/.htpasswd-openhab username``
-* add new users: ``sudo htpasswd /etc/nginx/.htpasswd-openhab username``
-* remove users: ``sudo htpasswd -D /etc/nginx/.htpasswd-openhab username``
-
-Next, please setup the ufw firewall, otherwise your access control has no sense.
+### How to setup:
+Please look at [this guide](../openhab/reverse-proxy/REVERSE-PROXY.md).
 
 ## ufw firewall
 ***
