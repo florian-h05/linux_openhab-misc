@@ -21,9 +21,9 @@ start_docker() {
     if sudo docker start ${container} >/dev/null 2>&1
     then
         CHECK=$(check_container)
-        if [ "${CHECK}" == "RUNNING" ]; then echo "SUCCESS: started openhab container."; else echo "FAILED: starting openhab container!"; fi
+        if [ "${CHECK}" == "RUNNING" ]; then echo "SUCCESS: started openhab container."; else echo "FAILED: starting openhab container!" >&2; fi
     else
-        echo "FAILED: starting openhab container!"
+        echo "FAILED: starting openhab container!" >&2
     fi
 }
 
@@ -31,9 +31,9 @@ stop_docker() {
     if sudo docker stop ${container} >/dev/null 2>&1
     then
         CHECK=$(check_container)
-        if [ "${CHECK}" == "NOT RUNNING" ]; then echo "SUCCESS: stopped openhab container."; else echo "FAILED: stopping openhab container!"; fi
+        if [ "${CHECK}" == "NOT RUNNING" ]; then echo "SUCCESS: stopped openhab container."; else echo "FAILED: stopping openhab container!" >&2; fi
     else 
-        echo "FAILED: stopping openhab container!"
+        echo "FAILED: stopping openhab container!" >&2
     fi
 }
 
@@ -51,7 +51,7 @@ send_Notification() {
     if [ "${containerStart}" != "${CHECK}" ] && [ "${notify}" == "true" ]
     then
 # specify the recipient of the message
-        if bash "${path}"signal-cli-rest-api_client.bash send <recipient> "openHAB failover container\n\nThe container's state is: ${CHECK}.${TEXT}" >/dev/null 2>&1; then echo "SUCCESS: sent notifification."; else "ERROR: sending notifiation failed!"; fi
+        if bash "${path}"signal-cli-rest-api_client.bash send <recipient> "openHAB failover container\n\nThe container's state is: ${CHECK}.${TEXT}" >/dev/null 2>&1; then echo "SUCCESS: sent notifification."; else "ERROR: sending notifiation failed!" >&2; fi
     fi
 }
 
@@ -61,9 +61,10 @@ send_Notification() {
 if ! curl -X GET "https://${basicAuth_username}:${basicAuth_password}@${hostname}/rest/" -H "accept: application/json" -H "X-OPENHAB-TOKEN: ${openhab_token}" --cacert "${path}"yourCA.crt >/dev/null 2>&1
 then
     containerStart=$(check_container)
-    echo "ERROR: openhab not reachable!"
+    echo "ERROR: openhab not reachable!" >&2
     start_docker
     send_Notification
+    exit 1
 else
     containerStart=$(check_container)
     echo "SUCCESS: openhab installation is reachable."

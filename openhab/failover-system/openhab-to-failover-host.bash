@@ -18,7 +18,7 @@ copy_file() {
         sudo rm "${mountPath}"/"${path[${1}]}"/"${2}"
     fi
     sudo mkdir -p "${mountPath}"/"${path[${1}]}"
-    if sudo cp -R "${1}"/"${2}" "${mountPath}"/"${path[${1}]}"; then echo "SUCCESS: copied ${1}/${2}"; else echo "ERROR: failed to copy ${1}/${2}"; fi
+    if sudo cp -R "${1}"/"${2}" "${mountPath}"/"${path[${1}]}"; then echo "SUCCESS: copied ${1}/${2}"; else echo "ERROR: failed to copy ${1}/${2}" >&2; fi
 }
 
 ## copy_file "path-of-folder" "foldername"
@@ -27,7 +27,7 @@ copy_folder() {
         sudo rm -R "${mountPath}"/"${path[${1}]}"/"${2}"
     fi
     sudo mkdir -p "${mountPath}"/"${path[${1}]}"
-    if sudo cp -R "${1}"/"${2}" "${mountPath}"/"${path[${1}]}"; then echo "SUCCESS: copied ${1}/${2}"; else echo "ERROR: failed to copy ${1}/${2}"; fi
+    if sudo cp -R "${1}"/"${2}" "${mountPath}"/"${path[${1}]}"; then echo "SUCCESS: copied ${1}/${2}"; else echo "ERROR: failed to copy ${1}/${2}" >&2; fi
 }
 
 ## copy_file "directory" "*"
@@ -36,7 +36,7 @@ copy_directoryContent() {
         sudo rm -R "${mountPath}"/"${path[${1}]}"
     fi
     sudo mkdir -p "${mountPath}"/"${path[${1}]}"
-    if sudo cp -R "${1}"/* "${mountPath}"/"${path[${1}]}"; then echo "SUCCESS: copied ${1}/${2}"; else echo "ERROR: failed to copy ${1}/${2}"; fi
+    if sudo cp -R "${1}"/* "${mountPath}"/"${path[${1}]}"; then echo "SUCCESS: copied ${1}/${2}"; else echo "ERROR: failed to copy ${1}/${2}" >&2; fi
 }
 
 knx_replace() {
@@ -56,7 +56,7 @@ knx_replace() {
 copy_directoryContent "/etc/openhab" "*"
 if [ -f "${mountPath}"/conf/things/knx.things ]
 then
-    if knx_replace; then echo "SUCCESS: configured knx.things for Docker."; else echo "ERROR: configuring knx.things for Docker failed!"; fi
+    if knx_replace; then echo "SUCCESS: configured knx.things for Docker."; else echo "ERROR: configuring knx.things for Docker failed!" >&2; fi
 fi
 
 # copy userdata
