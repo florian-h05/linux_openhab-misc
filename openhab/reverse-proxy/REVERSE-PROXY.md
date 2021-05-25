@@ -28,7 +28,7 @@ Next, please setup the ufw firewall, otherwise your access control has no sense.
 NGINX [configuration file](/openhab/reverse-proxy/openhab-clientcert) for openHAB. When using this file, you __must change__:
 * line 14: ``<servername>`` to your servername
 * line 24: ``<ca>`` to the name or path of the certificate of your CA for client certificate authentication
-* line 25: ``<crl>`` to the name ot path of the certificate revocation list of your CA for client certificate authentication
+* line 25: ``<crl>`` to the name of path of the certificate revocation list of your CA for client certificate authentication
 
 ### Further setup:
 * Work in a directory you created for the next steps.
@@ -41,7 +41,7 @@ NGINX [configuration file](/openhab/reverse-proxy/openhab-clientcert) for openHA
   * Create a key: ``openssl genrsa -des3 -out user.key 4096``
   * Create a _Certificate Signing Request (CSR)_: ``openssl req -new -key user.key -out user.csr``
     * You will be asked a few questions: answer _common name (CN)_ and the email.
-  * Sign the CSR: ``openssl x509 -req -days 365 -in user.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out user.crt``
+  * Sign the CSR: ``openssl x509 -req -days 365 -in user.csr -CA ca.crt -CA.key ca.key -set_serial 01 -out user.crt``
 
 * ### Create a _PKCS #12 (PFX)_ bundle for your client:
   * ``openssl pkcs12 -export -out user.pfx -inkey user.key -in user.crt -certfile ca.crt``, supply the export password.
