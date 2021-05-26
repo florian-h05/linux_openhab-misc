@@ -57,6 +57,13 @@ send_Notification() {
     fi
 }
 
+exit_code() {
+    if [ "${containerStart}" != "${CHECK}" ]
+    then
+        exit 1
+    fi
+}
+
 main() {
     if ! ${1} >/dev/null 2>&1
     then
@@ -64,7 +71,7 @@ main() {
         echo "ERROR: openhab not reachable!" >&2
         start_docker
         send_Notification
-        exit 1
+        exit_code
     else
         containerStart=$(check_container)
         echo "SUCCESS: openhab installation is reachable."
