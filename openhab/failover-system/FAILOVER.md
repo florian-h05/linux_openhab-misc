@@ -53,7 +53,7 @@
         * line 19: set ``path`` to the absolute path of your script, e.g. ``volume1/home/<username>``, only needed when ``notify="true"`` or you use ``--cacert``
         * line 19: set ``CA_cert``
         * line 70: set ``--cacert`` or ``-insecure`` for curl when using self-signed certs, more information in the script itself
-* for use with client certificate authentification:
+* for use with client certificate authentication:
     * Copy the [openhab-failover_clientCert.bash](openhab-failover_clientCert.bash) script to your failover host, e.g. to ``/volume1/homes/<username>``
     * Configure [openhab-failover_clientCert.bash](openhab-failover_clientCert.bash):
         * line 10: set ``openhab_token`` to a valid API token for openHAB
