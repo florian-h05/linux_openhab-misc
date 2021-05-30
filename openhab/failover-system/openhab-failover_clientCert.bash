@@ -75,7 +75,7 @@ then
 else
     containerStart=$(check_container)
     echo "ERROR: openhab not reachable!" >&2
-    echo 'HTTP status code: "${HTTP_CODE}"'
+    echo "HTTP status code: """${HTTP_CODE}"""
     start_docker
     send_Notification
     exit_code
