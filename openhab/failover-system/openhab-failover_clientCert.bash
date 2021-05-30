@@ -65,16 +65,19 @@ exit_code() {
 ## when using self-signed certs, you have two options:
 #     - use "--cacert" and store your caert in pem format in path
 #     - use "--insecure" to ignore self-signed certs
-if ! curl -X GET --cert-type P12 --cert "${path}""${client_certName}" https://"${hostname}"/rest/ -H "accept: application/json" -H "X-OPENHAB-TOKEN: ${openhab_token}" --cacert "${path}""${CA_cert}" >/dev/null 2>&1
+HTTP_CODE=$(curl -o /dev/null -s -w "%{http_code}\n" -X GET --cert-type P12 --cert "${path}""${client_certName}" https://"${hostname}"/rest/ -H "accept: application/json" -H "X-OPENHAB-TOKEN: ${openhab_token}" --cacert "${path}""${CA_cert}")
+if [ "${HTTP_CODE}" == "200" ]
 then
-    containerStart=$(check_container)
-    echo "ERROR: openhab not reachable!" >&2
-    start_docker
-    send_Notification
-    exit_code
-else
     containerStart=$(check_container)
     echo "SUCCESS: openhab installation is reachable."
     stop_docker
     send_Notification
+else
+    containerStart=$(check_container)
+    echo "ERROR: openhab not reachable!" >&2
+    echo "HTTP status code: "${HTTP_CODE}""
+    start_docker
+    send_Notification
+    exit_code
+    
 fi
