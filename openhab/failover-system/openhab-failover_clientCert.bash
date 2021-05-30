@@ -48,7 +48,7 @@ check_container() {
 }
 
 send_Notification() {
-    TEXT="\nPlease check your openHAB installation.\n\nA RUNNING container means that your normal openHAB is not reachable!!\nA NOT RUNNING container menas that your normal openHAB is reachable."
+    TEXT="\nPlease check your openHAB installation.\n\nA RUNNING container means that your normal openHAB is not reachable!!\nA NOT RUNNING container means that your normal openHAB is reachable."
     if [ "${containerStart}" != "${CHECK}" ] && [ "${notify}" == "true" ]
     then
         if bash "${path}"signal-cli-rest-api_client.bash send "${recipient}" "openHAB failover container\n\nThe container's state is: ${CHECK}.${TEXT}" >/dev/null 2>&1; then echo "SUCCESS: sent notifification."; else "ERROR: sending notifiation failed!" >&2; fi
@@ -75,7 +75,7 @@ then
 else
     containerStart=$(check_container)
     echo "ERROR: openhab not reachable!" >&2
-    echo "HTTP status code: """${HTTP_CODE}"""
+    echo "HTTP status code: ""${HTTP_CODE}"""
     start_docker
     send_Notification
     exit_code
