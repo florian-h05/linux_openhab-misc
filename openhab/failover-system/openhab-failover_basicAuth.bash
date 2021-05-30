@@ -1,6 +1,6 @@
 #!/bin/bash
-# Script: openhab-failover.bash
-# This is the script on the failover host. You must run it regularly, e.g. with crontab or Task Scheduler on Synology NAS.
+# Script: openhab-failover_basicAuth.bash
+# This is the script on the failover host for use with basicAuth. You must run it regularly, e.g. with crontab or Task Scheduler on Synology NAS.
 # Purpose: If openhab not running on main openHAB host, then start Docker container on the failover host.
 # How it works: Curl request to openhab, if it fails then start Docker container.
 # Author: Florian Hotze
