@@ -16,8 +16,6 @@ container="openhab_openhab_1"
 notify="false"
 recipient="" # for notify
 path=""
-client_cert="true" # when using client cert auth, then set to "true", when not using client cert auth, then set to "false"
-client_certName="user.p12"
 CA_cert="yourca.crt"
 
 start_docker() {
@@ -64,30 +62,19 @@ exit_code() {
     fi
 }
 
-main() {
-    if ! ${1} >/dev/null 2>&1
-    then
-        containerStart=$(check_container)
-        echo "ERROR: openhab not reachable!" >&2
-        start_docker
-        send_Notification
-        exit_code
-    else
-        containerStart=$(check_container)
-        echo "SUCCESS: openhab installation is reachable."
-        stop_docker
-        send_Notification
-    fi
-}
-
-
 ## when using self-signed certs, you have two options:
 #     - use "--cacert" and store your caert in pem format in path
 #     - use "--insecure" to ignore self-signed certs
-if [ "${client_cert}" == "true" ]
+if ! curl -X GET https://${basicAuth_username}:${basicAuth_password}@${hostname}/rest/ --cacert ${path}${CA_cert} >/dev/null 2>&1
 then
-    main "curl -X GET --cert-type P12 --cert ${path}${client_certName} https://${hostname}/rest/ --cacert ${path}${CA_cert}"
-elif [ "${client_cert}" == "false" ]
-then
-    main "curl -X GET https://${basicAuth_username}:${basicAuth_password}@${hostname}/rest/ --cacert ${path}${CA_cert}"
+    containerStart=$(check_container)
+    echo "ERROR: openhab not reachable!" >&2
+    start_docker
+    send_Notification
+    exit_code
+else
+    containerStart=$(check_container)
+    echo "SUCCESS: openhab installation is reachable."
+    stop_docker
+    send_Notification
 fi
