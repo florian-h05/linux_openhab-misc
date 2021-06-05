@@ -21,6 +21,7 @@ parser = argparse.ArgumentParser()
 # Adding optional argument
 parser.add_argument("-t", "--Type", help = "Set type of log, e.g. knx or openhab")
 parser.add_argument("-l", "--Log", help = "Log message, e.g. 'test log'")
+parser.add_argument("-d", "--Device", help = "Device of the log, e.g. 'system-wide' or 'Florian_Rolladen'")
 # Read arguments from command line
 args = parser.parse_args()
 
@@ -45,6 +46,7 @@ args = parser.parse_args()
 
 type = args.Type
 log = args.Log
+device = args.Device
 
 # Data to append to the log
 temp = float(items.get('Aussentemperatur').state)
@@ -62,5 +64,5 @@ client = influxdb_client.InfluxDBClient(
 
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
-p = influxdb_client.Point(loggername).tag("type", type).field("log", log).field("temperature", temp).field("windspeed", wind).field("brightness", brightness).field("rain", rain).field("elevation", elevation).field("azimuth", azimuth)
+p = influxdb_client.Point(loggername).tag("type", type).tag("device", device).field("log", log).field("device", device).field("temperature", temp).field("windspeed", wind).field("brightness", brightness).field("rain", rain).field("elevation", elevation).field("azimuth", azimuth)
 write_api.write(bucket=bucket, org=org, record=p)
