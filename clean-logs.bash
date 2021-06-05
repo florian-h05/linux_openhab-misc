@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script: clean-logs.bash
-# Purpose: Delete rotated, .gz and .tz logs from /var/log
+# Purpose: Delete rotated and .gz logs from /var/log
 # Use: Clean the logs on tmpfs to avoid /var/log as tmpfs filling your RAM.
 # Author: Florian Hotze
 
