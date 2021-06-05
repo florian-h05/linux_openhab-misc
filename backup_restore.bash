@@ -469,6 +469,7 @@ fileName=
         cp linux_openhab-misc/sshlogin.bash /opt/sshlogin.bash
         cp linux_openhab-misc/sshlogin_GER.bash /opt/sshlogin_GER.bash
         cp linux_openhab-misc/signal-cli-rest-api_client.bash /opt/signal-cli-rest-api_client.bash
+        cp linux_openhab-misc/clean-logs.bash /opt/clean-logs.bash
     }
 
     userhome_restore() {
@@ -480,6 +481,7 @@ fileName=
 restore_all() {
     echo "Starting restore ...."
     #openhab_restore
+    scripts_download
     html_restore
     sbfspot_restore
     ssl_restore
@@ -493,7 +495,6 @@ restore_all() {
     fail2ban_restore
     tmpfilesdVar_restore
     crontab_restore
-    scripts_download
     smallFiles_restore
     telegraf_restore
     userhome_restore
