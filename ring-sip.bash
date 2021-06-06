@@ -1,3 +1,4 @@
+#!/bin/bash
 # Script: ring-sip.bash
 # Purpose: Ring a telephone by using sipcmd VoIP/SIP.
 # sipcmd: https://github.com/tmakkonen/sipcmd
