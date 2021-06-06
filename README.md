@@ -47,7 +47,7 @@ Please have a look at [this guide](/doc/BACKUP_RESTORE.md).
 ***
 The [openhab folder](openhab) contains ```scripts``` and openHAB specific files.
 More information can be found in [this guide](/doc/OPENHAB.md).
-#### My __personal highlight__ is [shaddow.py](openhab/shaddow.py), which was originally written by [@pmpkk](https://github.com/pmpkk) and published [here](https://github.com/pmpkk/openhab-habpanel-theme-matrix). My fork of his script is supported by ```Python 3``` and it is using the all-new ```Flux query-language``` of ```InfluxDB 2.x```. It creates a realtime image of your house's outline with the location of sun, moon and your house's shaddow.
+#### My __personal highlight__ is [shaddow.py](openhab/shaddow/shaddow.py), which was originally written by [@pmpkk](https://github.com/pmpkk) and published [here](https://github.com/pmpkk/openhab-habpanel-theme-matrix). My fork of his script is supported by ```Python 3``` and it is using the all-new ```Flux query-language``` of ```InfluxDB 2.x```. It creates a realtime image of your house's outline with the location of sun, moon and your house's shaddow.
 
 ## custom configuration
 ***
