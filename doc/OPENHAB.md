@@ -67,11 +67,11 @@ For example I checked the logs and found out, that my _Yamaha MusicCast_ devices
 ### This script was originally written by [@pmpkk](https://github.com/pmpkk) at [openhab-habpanel-theme-matrix](https://github.com/pmpkk/openhab-habpanel-theme-matrix).
 I only modified it to work with _Python 3_ and the new _InfluxDB 2.x_. 
 
-[shaddow.py](../openhab/shaddow.py) generates a _.svg_ image to illustrate where the sun is currently positioned, which site of the house is facing the sun and where the shaddow of your house is.
+[shaddow.py](../openhab/shaddow/shaddow.py) generates a _.svg_ image to illustrate where the sun is currently positioned, which site of the house is facing the sun and where the shaddow of your house is.
 I added the position of the moon to the image. 
 ***
 ### How to setup:
-Please look at [this guide](../openhab/SHADDOW.md).
+Please look at [this guide](../openhab/shaddow/SHADDOW.md).
 
 ## failover
 ***
