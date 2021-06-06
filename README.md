@@ -18,7 +18,7 @@ This repository is a collection of scripts and configuration files I use on my p
 ### Contributing
 Ideas, issues and pull requests are welcome!
 
-## signal client
+## Signal client
 ***
 #### A small bash client for the [signal-cli REST API](https://github.com/bbernhard/signal-cli-rest-api) from [@bbernhard](https://github.com/bbernhard).
 #### [Signal](https://signal.org/) is a secure and trusted [open-source](https://github.com/signalapp) messenger.
