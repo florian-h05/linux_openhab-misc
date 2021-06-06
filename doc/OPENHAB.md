@@ -2,15 +2,24 @@
 
 ## Table of Contents
 1. [General Info](#general-info)
-2. [NGINX reverse proxy](#nginx-reverse-proxy)
-3. [ufw firewall](#ufw-firewall)
-4. [shaddow.py script](#shaddow-script-python)
-5. [failover](#failover)
-6. [openhab-log-influxdb.py](#influxdb-log-python)
+2. [openhab-backup.bash](#openhab-backup)
+3. [NGINX reverse proxy](#nginx-reverse-proxy)
+4. [ufw firewall](#ufw-firewall)
+5. [shaddow.py script](#shaddow-script-python)
+6. [failover](#failover)
+7. [openhab-log-influxdb.py](#influxdb-log-python)
 
 ## General Info
 ***
 Documentation for openHAB specific configuration files, like NGINX reverse proxy configuration, openHAB rules & scripts and openHAB guides.
+
+## openHAB backup
+***
+Backup _openHAB_ with the backup tool of ``openhab-cli`` to a path and use backup rotation.
+Run [openhab-backup.bash](../openhab/openhab-backup.bash) every week by _crontab_ and delete the backup from five weeks ago.
+
+### How to setup:
+* line 8: set ``path`` to the backup path
 
 ## NGINX reverse proxy
 ***
