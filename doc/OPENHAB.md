@@ -2,14 +2,24 @@
 
 ## Table of Contents
 1. [General Info](#general-info)
-2. [NGINX reverse proxy](#nginx-reverse-proxy)
-3. [ufw firewall](#ufw-firewall)
-4. [shaddow.py script](#shaddow-script-python)
-5. [failover](#failover)
+2. [openhab-backup.bash](#openhab-backup)
+3. [NGINX reverse proxy](#nginx-reverse-proxy)
+4. [ufw firewall](#ufw-firewall)
+5. [shaddow.py script](#shaddow-script-python)
+6. [failover](#failover)
+7. [openhab-log-influxdb.py](#influxdb-log-python)
 
 ## General Info
 ***
 Documentation for openHAB specific configuration files, like NGINX reverse proxy configuration, openHAB rules & scripts and openHAB guides.
+
+## openHAB backup
+***
+Backup _openHAB_ with the backup tool of ``openhab-cli`` to a path and use backup rotation.
+Run [openhab-backup.bash](../openhab/openhab-backup.bash) every week by _crontab_ and delete the backup from five weeks ago.
+
+### How to setup:
+* line 8: set ``path`` to the backup path
 
 ## NGINX reverse proxy
 ***
@@ -57,11 +67,11 @@ For example I checked the logs and found out, that my _Yamaha MusicCast_ devices
 ### This script was originally written by [@pmpkk](https://github.com/pmpkk) at [openhab-habpanel-theme-matrix](https://github.com/pmpkk/openhab-habpanel-theme-matrix).
 I only modified it to work with _Python 3_ and the new _InfluxDB 2.x_. 
 
-[shaddow.py](../openhab/shaddow.py) generates a _.svg_ image to illustrate where the sun is currently positioned, which site of the house is facing the sun and where the shaddow of your house is.
+[shaddow.py](../openhab/shaddow/shaddow.py) generates a _.svg_ image to illustrate where the sun is currently positioned, which site of the house is facing the sun and where the shaddow of your house is.
 I added the position of the moon to the image. 
 ***
 ### How to setup:
-Please look at [this guide](../openhab/SHADDOW.md).
+Please look at [this guide](../openhab/shaddow/SHADDOW.md).
 
 ## failover
 ***
@@ -72,3 +82,22 @@ Although openHAB and Debian are running extremely stable, you never can be prepa
 For easy backup and restore I regularly create images of my openHAB system with _Acronis True Image_ and during this time my openHAB is of course not reachable. 
 
 Therefore, you find a failover for openHAB in [this folder](../openhab/failover-system). For further configuration, please have a look at [this guide](../openhab/failover-system/FAILOVER.md).
+
+## influxdb log python
+***
+### A log for your smart home with [openhab-log-influxdb.py](../openhab/openhab-log-influxdb.py).
+
+Create a log of your smart home in InfluxDB with the following data:
+* log message
+* device
+* temperature
+* windspeed
+* brightness
+* rain
+* elevation
+* azimuth
+
+### How to setup:
+* line 30: set ``base_url`` to _openHAB_ hostname/address and append ``/rest``
+* lines 34 to 39: setup _InfluxDB_
+* lines 52 to 57: set your _openHAB_ items in ``items.get('<itemname>').state``

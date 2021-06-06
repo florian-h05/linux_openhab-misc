@@ -90,3 +90,5 @@ XCA
 ohp
 certName
 clientCert
+windspeed
+itemname
