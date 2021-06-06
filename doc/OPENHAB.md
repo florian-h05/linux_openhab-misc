@@ -6,6 +6,7 @@
 3. [ufw firewall](#ufw-firewall)
 4. [shaddow.py script](#shaddow-script-python)
 5. [failover](#failover)
+6. [openhab-log-influxdb.py](#influxdb-log-python)
 
 ## General Info
 ***
@@ -72,3 +73,22 @@ Although openHAB and Debian are running extremely stable, you never can be prepa
 For easy backup and restore I regularly create images of my openHAB system with _Acronis True Image_ and during this time my openHAB is of course not reachable. 
 
 Therefore, you find a failover for openHAB in [this folder](../openhab/failover-system). For further configuration, please have a look at [this guide](../openhab/failover-system/FAILOVER.md).
+
+## influxdb log python
+***
+### A log for your smart home with [openhab-log-influxdb.py](../openhab/openhab-log-influxdb.py).
+
+Create a log of your smart home in InfluxDB with the following data:
+* log message
+* device
+* temperature
+* windspeed
+* brightness
+* rain
+* elevation
+* azimuth
+
+### How to setup:
+* line 30: set ``base_url`` to _openHAB_ hostname/address and append ``/rest``
+* lines 34 to 39: setup _InfluxDB_
+* lines 52 to 57: set your _openHAB_ items in ``items.get('<itemname>').state``
