@@ -4,12 +4,14 @@
 ## for how to use see: https://community.openhab.org/t/show-current-sun-position-and-shadow-of-house-generate-svg/34764
 ## original script: Copyright (c) 2017 pmpkk under MIT Licence
 ##
-## this fork is python3 compatible
-## this fork is using InfluxDB v2's FLUX language instead of the InfluxQL by influxdb_client Python Library
-## this fork is using OpenHAB Python Library
+## changes:
+##    - Python 3 compatible
+##    - using InfluxDB v2's FLUX language instead of the InfluxQL by influxdb_client Python Library
+##    - using OpenHAB Python Library
+##    - added current position of moon
 ##
-## install depedencies with:
-##  - "sudo -H python3 -m pip install influxdb_client"
+## install dependencies with:
+##  - "sudo -H python3 -m pip install influxdb-client"
 ##  - "sudo -h python3 -m pip install python-openhab"
 
 import math
