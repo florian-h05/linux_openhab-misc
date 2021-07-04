@@ -52,7 +52,7 @@
         logInfo("Shaddow","Setting Sunrise Azimuth.")
     end
     ```
-* Now, you need to specify the shape of your house in 100 x 100 unit square in [shaddow.py](../openhab/shaddow.py):
+* Now, you need to specify the shape of your house in 100 x 100 unit square in [shaddow.py](./shaddow.py):
    
    in lines 43 to 57:
     ```
