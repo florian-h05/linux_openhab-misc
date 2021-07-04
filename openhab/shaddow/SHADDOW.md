@@ -3,7 +3,7 @@
 <img align="right" width="50%" src="./shaddow-py_explanation.jpg" />
 
 * install the python dependencies:
-  * ``sudo -H python3 -m pip install influxdb_client``
+  * ``sudo -H python3 -m pip install influxdb-client``
   * ``sudo -h python3 -m pip install python-openhab``
 * The script needs _InfluxDB_ as persistence layer.
 * Insert your _InfluxDB_ and _openHAB_ details in lines 23 to 31:
