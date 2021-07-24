@@ -2,7 +2,7 @@
 # Script: backup_restore.bash
 # Purpose: Backup all given configuration and user data
 # How it works: it copies the given files and folders to a temporary folder, then it is compressed to the backup target
-# Author: Florian Hotze
+# Author: Copyright (C) 2021 Florian Hotze under GNU General Public License v3.0
 
 ### What it backs up:             automatic restore:
     # - data in /var/www/html     not working
@@ -15,8 +15,9 @@
     # - /etc/samba/smb.conf       working
     # - /etc/fail2ban             working, but maybe systemctl restart fail2ban needed
     # - /etc/fstab                no automatic restore --> risk of file-system damage
+    # - /etc/nut                  working
     # - /usr/lib/tmpfiles.d/var.conf  no automatic restore --> risk of file-system damage
-    # - crontab                   not automatic restore --> not possible
+    # - crontab                   no automatic restore --> not possible
     # - small files:              working
     #       - /etc/profile
     #       - /opt/sshlogin.bash
@@ -217,9 +218,7 @@ fileName=
 
 
     nginx_backup() {
-        sudo systemctl stop nginx
         backup_folder "/etc" "nginx"
-        sudo systemctl start nginx
         ssl_backup
     }
 
@@ -261,6 +260,9 @@ fileName=
         backup_file "/etc" "fstab"
     }
 
+    nut_backup() {
+        backup_folder "/etc" "nut"
+    }
 
     tmpfilesdVar_backup() {
         backup_file "/usr/lib/tmpfiles.d" "var.conf"
@@ -405,6 +407,19 @@ fileName=
         echo "Automatic restore could damage your filesystem!"
     }
 
+    nut_restore() {
+        if ! command -v upsmon; then
+            echo "No nut installation found on your system!"
+            if sudo apt-get install nut; then echo "nut installed."; else echo "${red}ERROR:${reset} installing nut"; fi
+        else
+            sudo systemctl stop nut-client
+        fi
+        restore_foler "/etc" "nut"
+        sudo systemctl enable nut-client
+        sudo systemctl start nut-client
+        sudo systemctl restart nut-client
+    }
+
     tmpfilesdVar_restore() {
         echo "${red}INFO:${reset} Please restore /usr/lib/tmpfiles.d/var.conf manually!"
         echo "Automatic restore could damage your applications' logs!"
@@ -450,18 +465,32 @@ fileName=
     }
 
     speedtest_install() {
-        sudo apt install apt-transport-https gnupg1 dirmngr
-        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
-        echo "deb https://ookla.bintray.com/debian generic main" | sudo tee  /etc/apt/sources.list.d/speedtest.list
-        sudo apt update
-        sudo apt install speedtest
+        arch=$(sudo uname -m)
+        echo "Architecture is: ${arch}"
+        if [ "${arch}" = "armv7l" ]
+        then
+           echo "Installing speedtest for armv7l ..."
+           mkdir ookla-speedtest
+           # shellcheck disable=SC2164
+           cd ookla-speedtest
+           if wget 'https://install.speedtest.net/app/cli/ookla-speedtest-1.0.0-armhf-linux.tgz' -q; then echo "${green}SUCCESS:${reset} downloaded speedtest."; else echo "${red}ERROR:${reset} download of speedtest failed."; fi
+           tar xvf ookla-speedtest-1.0.0-armhf-linux.tgz 1>/dev/null
+           sudo cp speedtest /usr/bin
+           # shellcheck disable=SC2103
+           cd ..
+           sudo rm -r ookla-speedtest
+        else
+           curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
+           sudo apt-get install speedtest
+        fi
+        if command -v speedtest -h 1>/dev/null; then echo "${green}SUCCESS:${reset} installed speedtest."; else echo "${red}ERROR:${reset} installing speedtest!"; fi
     }
-    
+
     moshTmux_install() {
         sudo apt install mosh
         sudo apt install tmux
     }
-    
+
     scripts_download() {
         sudo apt install git
         git clone https://github.com/florian-h05/linux_openhab-misc.git
@@ -481,7 +510,6 @@ fileName=
 restore_all() {
     echo "Starting restore ...."
     #openhab_restore
-    scripts_download
     html_restore
     sbfspot_restore
     ssl_restore
@@ -493,16 +521,18 @@ restore_all() {
     fstab_restore
     samba_restore
     fail2ban_restore
+    nut_restore
     tmpfilesdVar_restore
     crontab_restore
+    scripts_download
     smallFiles_restore
     telegraf_restore
     userhome_restore
     speedtest_install
     moshTmux_install
-    echo "Done with restore."
-    echo "Please restore openHAB manually."
-    echo "Please setup system with openhabian-config."
+    echo "${green}Done with restore."
+    echo "${red}Please restore openHAB manually."
+    echo "${red}Please setup system with openhabian-config."
 }
 
 backup_all() {
@@ -519,13 +549,14 @@ backup_all() {
     samba_backup
     fail2ban_backup
     fstab_backup
+    nut_backup
     tmpfilesdVar_backup
     crontab_backup
     smallFiles_backup
     telegraf_backup
     userhome_backup
-    echo "Done with backup."  | tee -a "$cachePath"/log.txt
-    echo "Please backup openHAB manually."  | tee -a "$cachePath"/log.txt
+    echo "${green}Done with backup."  | tee -a "$cachePath"/log.txt
+    echo "${red}Please backup openHAB manually."  | tee -a "$cachePath"/log.txt
 }
 
 ## what is build:
@@ -540,7 +571,7 @@ help() {
     echo "  -m=* --mode=*               program mode, available: backup_all, backup_single, restore_all, restore_single"
     echo "  -d=* --directory=*          directory for the backup archive"
     echo "  -s=* --single-command=*     command for *_single modes, please use --help-single"
-    echo "  -f=* --file-name=*          name of the backup archive (only for restore, with .tar.gz)"
+    echo "  -f=* --file-name=*          name of the backup archive"
     echo "  -i=* --install=*            install additional software, please use --help-single"
 }
 
@@ -559,6 +590,7 @@ help_single() {
         samba_backup
         fail2ban_backup
         fstab_backup
+        nut_backup
         tmpfilesdVar_backup
         crontab_backup
         smallFiles_backup
@@ -577,6 +609,7 @@ help_single() {
         cronapt_restore
         sshd_restore
         fstab_restore
+        nut_restore
         samba_restore
         fail2ban_restore
         tmpfilesdVar_restore
