@@ -8,21 +8,22 @@
 5. [shaddow.py script](#shaddow-script-python)
 6. [failover](#failover)
 7. [openhab-log-influxdb.py](#influxdb-log-python)
+8. [InfluxDB & Grafana](#influxdb-grafana)
 
-## General Info
 ***
+## General Info
 Documentation for openHAB specific configuration files, like NGINX reverse proxy configuration, openHAB rules & scripts and openHAB guides.
 
-## openHAB backup
 ***
+## openHAB backup
 Backup _openHAB_ with the backup tool of ``openhab-cli`` to a path and use backup rotation.
 Run [openhab-backup.bash](../openhab/openhab-backup.bash) every week by _crontab_ and delete the backup from five weeks ago.
 
 ### How to setup:
 * line 8: set ``path`` to the backup path
 
-## NGINX reverse proxy
 ***
+## NGINX reverse proxy
 NGINX website configuration for openHAB authorization & access control.
 For additional information please have a look at the [official documentation](https://www.openhab.org/docs/installation/security.html#running-openhab-behind-a-reverse-proxy). This file also includes securing the frontail log viewer.
 
@@ -31,8 +32,8 @@ Frontail is reachable under [https://openhabianpi/frontail](https://openhabianpi
 ### How to setup:
 Please look at [this guide](../openhab/reverse-proxy/REVERSE-PROXY.md).
 
-## ufw firewall
 ***
+## ufw firewall
 ### __Important information:__ A firewall is only a part of securing your server!
 
 The following commands help you to setup your ufw firewall:
@@ -71,8 +72,8 @@ When using the ``openHAB HomeKit Integration``, you have to allow access to the 
 __Information:__ you should look at ``/var/log/ufw.log`` for failed requests and check for ip addresses of your _openHAB_ devices.
 For example I checked the logs and found out, that my _Yamaha MusicCast_ devices were trying to connect to ``51200/udp``, so I added a rule for them in ufw.
 
-## shaddow script python
 ***
+## shaddow script python
 ### This script was originally written by [@pmpkk](https://github.com/pmpkk) at [openhab-habpanel-theme-matrix](https://github.com/pmpkk/openhab-habpanel-theme-matrix).
 I only modified it to work with _Python 3_ and the new _InfluxDB 2.x_. 
 
@@ -81,20 +82,20 @@ I added the position of the moon to the image.
 
 ***
 ### How to setup:
-Please look at [this guide](../openhab/shaddow/SHADDOW.md).
+Please look at [this guide](../openhab/shaddow/README.md).
 
-## failover
 ***
+## failover
 ### Protect your smart home from an openHAB crash.
 
 Although openHAB and Debian are running extremely stable, you never can be prepared well enough for crash. So you could need a failover, that keeps your smart home running when your main openHAB crash or is not reachable. 
 
 For easy backup and restore I regularly create images of my openHAB system with _Acronis True Image_ and during this time my openHAB is of course not reachable. 
 
-Therefore, you find a failover for openHAB in [this folder](../openhab/failover-system). For further configuration, please have a look at [this guide](../openhab/failover-system/FAILOVER.md).
+Therefore, you find a failover for openHAB in [this folder](../openhab/failover-system). For further configuration, please have a look at [this guide](../openhab/failover-system/README.md).
 
-## influxdb log python
 ***
+## influxdb log python
 ### A log for your smart home with [openhab-log-influxdb.py](../openhab/openhab-log-influxdb.py).
 
 Create a log of your smart home in InfluxDB with the following data:
@@ -111,3 +112,10 @@ Create a log of your smart home in InfluxDB with the following data:
 * line 30: set ``base_url`` to _openHAB_ hostname/address and append ``/rest``
 * lines 34 to 39: setup _InfluxDB_
 * lines 52 to 57: set your _openHAB_ items in ``items.get('<itemname>').state``
+
+***
+## InfluxDB Grafana
+### Monitor your items and visualize their history.
+
+InfluxDB allows you to persist and query states and Grafana visualizes them for you.
+You can find a my setup [here](../openhab/influxdb-grafana).
