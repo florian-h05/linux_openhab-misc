@@ -51,8 +51,7 @@ More information can be found in [this guide](/doc/OPENHAB.md).
 
 ## custom configuration
 ***
-* ```systemd``` configuration with decreased exposure levels
-* [fail2ban](https://github.com/fail2ban/fail2ban) configuration files
+Configuration files are located at [configfiles](/configfiles). Further information can be found there.
 
 ### How to setup:
 A setup guide is provided inside most configuration files.

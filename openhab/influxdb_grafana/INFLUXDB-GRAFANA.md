@@ -5,8 +5,8 @@
 ## Table of Contents
 1. [Requirements](#requirements)
 2. [file tree](#file-tree)
-3. InfluxDB
-4. Grafana
+3. [InfluxDB](#influxdb)
+4. [Grafana](#grafana)
 
 ***
 ## Requirements:
@@ -81,5 +81,5 @@ You can access Grafana on ```http://influxdb-host:3001```.
 
 Add an InfluxDB data source with the following settings:
 * _URL_: ```https://influxdb:8086``` -- this uses the internal Docker network
-* _Auth_: _Skip TlS Verify_ on
+* _Auth_: _Skip TLS Verify_ on
 * Setup _the InfluxDB Details_
