@@ -118,4 +118,4 @@ Create a log of your smart home in InfluxDB with the following data:
 ### Monitor your items and visualize their history.
 
 InfluxDB allows you to persist and query states and Grafana visualizes them for you.
-You can find a my setup [here](../openhab/influxdb-grafana).
+You can find a my setup [here](../openhab/influxdb_grafana).
