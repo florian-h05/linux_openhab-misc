@@ -26,14 +26,14 @@
 * Adjust permissions:
   ```shell
   sudo chown -R root:nut /etc/nut/*
-	sudo chmod -R 640 /etc/nut/*
+  sudo chmod -R 640 /etc/nut/*
   sudo chmod 750 -R /etc/nut/upssched-cmd
   ```
 * Create _upssched_ folder for _PIPEFN_ and _LOCKFN_ from _upssched_:
   ```shell
   sudo mkdir /etc/nut/upssched
-	sudo chown -R root:nut /etc/nut/upssched
-	sudo chmod 770 -R /etc/nut/upssched
+  sudo chown -R root:nut /etc/nut/upssched
+  sudo chmod 770 -R /etc/nut/upssched
   ```
 * Make sure, that systemd-service _nut-server_ is always running:
   ```shell
