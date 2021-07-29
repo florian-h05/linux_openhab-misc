@@ -51,13 +51,22 @@ The following commands help you to setup your ufw firewall:
     -A ufw-before-output -p igmp -d 224.0.0.0/4 -j ACCEPT
     ```
 * start ufw: ```sudo ufw enable```
+
 ***
 ### IMPORTANT: ufw can break you openHAB KNX
 
 When using the ``openHAB KNX binding``, you have to allow the traffic from your _IP Gateway_ to your _openHAB_:
-* replace ``<KNXgateway-ip`` with your Gateway`s ip: ``sudo ufw allow proto udp from <KNXgateway-ip> to any port 3671 comment openHAB-KNX_Router``
-* replace ``<openHAB-ip`` with your openHAB server`s ip: ``sudo ufw allow proto udp from <openHAB-ip> to any port 3671 comment openHAB-KNX``
- 
+* get your interface name by executing ``ifconfig``, default is ``eth0``
+* ``sudo ufw allow in on <interface-name> from <KNXgateway-ip> to any port 3671 proto udp comment openHAB-KNX_Gatway``
+* ``sudo ufw allow in on <interface-name> from <openHAB-ip> to any port 3671 proto udp comment openHAB-KNX``
+
+***
+### IMPORTANT: ufw can block your openHAB HomeKit
+
+When using the ``openHAB HomeKit Integration``, you have to allow access to the HomeKit ports:
+* get your interface name by executing ``ifconfig``, default is ``eth0``
+* ``sudo ufw allow in on <interface-name> from any to any port 9124 proto udp comment openHAB_HomeKit``
+
 ***
 __Information:__ you should look at ``/var/log/ufw.log`` for failed requests and check for ip addresses of your _openHAB_ devices.
 For example I checked the logs and found out, that my _Yamaha MusicCast_ devices were trying to connect to ``51200/udp``, so I added a rule for them in ufw.
@@ -69,6 +78,7 @@ I only modified it to work with _Python 3_ and the new _InfluxDB 2.x_.
 
 [shaddow.py](../openhab/shaddow/shaddow.py) generates a _.svg_ image to illustrate where the sun is currently positioned, which site of the house is facing the sun and where the shaddow of your house is.
 I added the position of the moon to the image. 
+
 ***
 ### How to setup:
 Please look at [this guide](../openhab/shaddow/SHADDOW.md).
