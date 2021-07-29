@@ -1,0 +1,29 @@
+# Run InfluxDB, Grafana and Telegraf in Docker
+# Running InfluxDB 2.x
+version: "3.3"
+services:
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    hostname: influxdb
+    volumes:
+      - ./influxdb/data:/var/lib/influxdb2:rw
+      - ./influxdb/etc:/etc/influxdb2
+    ports:
+      - 8086:8086
+    #environment:
+    #  - INFLUXD_TLS_CERT=/etc/influxdb2/ssl/influxdb.crt
+    #  - INFLUXD_TLS_KEY=/etc/influxdb2/ssl/influxdb.pem
+    restart: unless-stopped
+# Running Grafana (https://grafana.com)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    hostname: grafana
+    volumes: 
+      - ./grafana/data:/var/lib/grafana:rw
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini:ro
+    user: "1026" # run "id -u" to get your user id on the Docker host
+    ports:
+      - 3001:3000
+    restart: unless-stopped
