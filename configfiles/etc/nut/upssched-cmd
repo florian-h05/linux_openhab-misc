@@ -1,0 +1,29 @@
+#!/bin/sh
+#echo "upsshed-cmd has been called" | mailx -s "USV Heizraum debug" <email>
+ case $1 in
+       onbatt)
+          logger -t upssched-cmd "The UPS has been on battery for a while."
+          echo "The UPS has been on battery for a while." | mailx -s "USV Heizraum" <email>
+          ;;
+       earlyshutdown)
+          logger -t upssched-cmd "UPS on battery too long, forced shutdown"
+          echo "UPS on battery too long, forced shutdown" | mailx -s "USV Heizraum" <email>
+          /usr/sbin/upsmon -c fsd
+          ;;
+       shutdowncritical)
+          logger -t upssched-cmd "UPS on battery critical, forced shutdown"
+          echo "UPS on battery ciritcial, forced shutdown" | mailx -s "USV Heizraum" <email>
+          /usr/sbin/upsmon -c fsd
+          ;;
+       upsgone)
+          logger -t upssched-cmd "The UPS has been gone for a while."
+          echo "The UPS has been gone for a while." | mailx -s "USV Heizraum" <email>
+          ;;
+       upsok)
+          logger -t upssched-cmd "The UPS communication is ok."
+          echo "The UPS communication is ok." | mailx -s "USV Heizraum" <email>
+          ;;
+       *)
+          logger -t upssched-cmd "Unrecognized command: $1"
+          ;;
+ esac
