@@ -35,6 +35,12 @@
   sudo chown -R root:nut /etc/nut/upssched
   sudo chmod 770 -R /etc/nut/upssched
   ```
+* Enable all services for autostart:
+  ```shell
+  sudo systemctl enable nut-server
+  sudo systemctl enable nut-client
+  sudo systemctl enable nut-monitor
+  ```
 * Make sure, that systemd-service _nut-server_ is always running:
   ```shell
   sudo crontab -e
