@@ -17,7 +17,7 @@ Documentation for openHAB specific configuration files, like NGINX reverse proxy
 ***
 ## openHAB backup
 Backup _openHAB_ with the backup tool of ``openhab-cli`` to a path and use backup rotation.
-Run [openhab-backup.bash](../openhab/openhab-backup.bash) every week by _crontab_ and delete the backup from five weeks ago.
+Run [openhab-backup.bash](../openhab/openhab-backup.bash) every week by _crontab_ and it deletes the backup from five weeks ago.
 
 ### How to setup:
 * line 8: set ``path`` to the backup path
@@ -27,10 +27,10 @@ Run [openhab-backup.bash](../openhab/openhab-backup.bash) every week by _crontab
 NGINX website configuration for openHAB authorization & access control.
 For additional information please have a look at the [official documentation](https://www.openhab.org/docs/installation/security.html#running-openhab-behind-a-reverse-proxy). This file also includes securing the frontail log viewer.
 
-Frontail is reachable under [https://openhabianpi/frontail](https://openhabianpi/frontail).
+Frontail is reachable under [https://openhab/frontail](https://openhabianpi/frontail).
 
 ### How to setup:
-Please look at [this guide](../openhab/reverse-proxy/REVERSE-PROXY.md).
+Please look at [this guide](../openhab/reverse-proxy/README.md).
 
 ***
 ## ufw firewall
