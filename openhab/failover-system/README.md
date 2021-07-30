@@ -12,7 +12,7 @@
   * line 7: set ``mountPath`` to your path, e.g. ``/path/to/docker-container``
   * line 8: set ``knx`` to ``"true"`` or ``"false"``
     * if `knx="true"`` in lines 9 + 10:
-       ```
+       ```shell
        knxIP='"<ip-of-your-knx-gateway>"'
        failoverHost='"<ip-of-your-failover-host"
        ```
@@ -29,13 +29,13 @@
 ## Run the script on the main host:
 * ``cd /opt``
 * uncomment lines 64 + 65:
-  ```
+  ```shell
   copy_folder "/var/lib/openhab" "openhabcloud"
   copy_file "/var/lib/openhab "uuid"
   ```
 * run: ``sudo bash openhab-to-failover-host.bash``
 * comment lines 65 + 65 out:
-  ```
+  ```shell
   #copy_folder "/var/lib/openhab" "openhabcloud"
   #copy_file "/var/lib/openhab "uuid"
   ```

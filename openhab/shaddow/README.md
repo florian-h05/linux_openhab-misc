@@ -3,11 +3,13 @@
 <img align="right" width="50%" src="./shaddow-py_explanation.jpg" />
 
 * install the python dependencies:
-  * ``sudo -H python3 -m pip install influxdb-client``
-  * ``sudo -h python3 -m pip install python-openhab``
+    ```shell
+    sudo -H python3 -m pip install influxdb-client
+    sudo -h python3 -m pip install python-openhab
+    ```
 * The script needs _InfluxDB_ as persistence layer.
 * Insert your _InfluxDB_ and _openHAB_ details in lines 23 to 31:
-    ```
+    ```python
     ## initialize openHAB client
     base_url="http://localhost:8080/rest"
     openhab = OpenHAB(base_url)
@@ -55,7 +57,7 @@
 * Now, you need to specify the shape of your house in 100 x 100 unit square in [shaddow.py](./shaddow.py):
    
    in lines 43 to 57:
-    ```
+    ```python
     # Shape of the house in a 100 by 100 units square
     SHAPE = [{'x': 25.44, 'y': 06.40}, \
         {'x': 72.83, 'y': 11.68}, \
