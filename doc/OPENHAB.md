@@ -58,15 +58,22 @@ The following commands help you to setup your ufw firewall:
 
 When using the ``openHAB KNX binding``, you have to allow the traffic from your _IP Gateway_ to your _openHAB_:
 * get your interface name by executing ``ifconfig``, default is ``eth0``
-* ``sudo ufw allow in on <interface-name> from <KNXgateway-ip> to any port 3671 proto udp comment openHAB-KNX_Gatway``
-* ``sudo ufw allow in on <interface-name> from <openHAB-ip> to any port 3671 proto udp comment openHAB-KNX``
+* then execute:
+  ```shell
+  sudo ufw allow in on <interface-name> from <KNXgateway-ip> to any port 3671 proto udp comment openHAB-KNX_Gatway``
+  sudo ufw allow in on <interface-name> from <openHAB-ip> to any port 3671 proto udp comment openHAB-KNX
+  ```
 
 ***
 ### IMPORTANT: ufw can block your openHAB HomeKit
 
 When using the ``openHAB HomeKit Integration``, you have to allow access to the HomeKit ports:
 * get your interface name by executing ``ifconfig``, default is ``eth0``
-* ``sudo ufw allow in on <interface-name> from any to any port 9124 proto udp comment openHAB_HomeKit``
+* then execute:
+  ```shell
+  sudo ufw allow in on <interface-name> from any to any port 9124 proto udp comment openHAB_HomeKit
+  sudo ufw allow in on <interface-name> from any to any port 9124 proto tcp comment openHAB_HomeKit
+  ```
 
 ***
 __Information:__ you should look at ``/var/log/ufw.log`` for failed requests and check for ip addresses of your _openHAB_ devices.
