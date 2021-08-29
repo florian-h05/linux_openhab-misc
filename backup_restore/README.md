@@ -21,7 +21,7 @@
 ### Examples:
 ```shell
 sudo bash backup_restore.bash -m=backup_all -d=/home
-sudo bash backup_restore.bash -m=restore_all -d=/home -f=backup_all_2021-05-24_17-48-12.tar.gz``
-sudo bash backup_restore.bash -m=backup_single -s=nginx_backup -d=/home``
+sudo bash backup_restore.bash -m=restore_all -d=/home -f=backup_all_2021-05-24_17-48-12.tar.gz
+sudo bash backup_restore.bash -m=backup_single -s=nginx_backup -d=/home
 sudo bash backup_restore.bash -m=restore_single -s=nginx_restore -d=/home -f=backup_all_2021-05-24_17-48-12.tar.gz
 ```

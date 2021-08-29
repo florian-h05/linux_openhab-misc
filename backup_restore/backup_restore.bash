@@ -170,7 +170,7 @@ fileName=
     pack() {
         # declare filename
         file="${backupPath}/${fileName}"
-        echo "Packing as .tar.gz archive ...." | tee -a "$cachePath"/log.txt
+        echo "${reset}Packing as .tar.gz archive ...." | tee -a "$cachePath"/log.txt
         # check for archive with same-name and delete it
         if test -f "${file}"; then
             sudo rm -r "${file}"
