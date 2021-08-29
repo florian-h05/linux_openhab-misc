@@ -1,7 +1,7 @@
 # Backup and restore script
 
 ## How to setup:
-* download [backup_restore.bash](../backup_restore.bash)
+* download [backup_restore.bash](backup_restore.bash)
 * eventually, mount a network share on your system as backup target
 
 ## How to use:
@@ -16,7 +16,7 @@
   ```
 
 ## How to setup _backup_all_ and _restore_all:
-* comment or uncomment single commands to enable or disable in __lines 480-528__ of [backup_restore.bash](../backup_restore.bash)
+* comment or uncomment single commands to enable or disable in __lines 480-528__ of [backup_restore.bash](backup_restore.bash)
 
 ### Examples:
 ```shell
