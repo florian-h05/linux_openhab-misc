@@ -92,3 +92,8 @@ certName
 clientCert
 windspeed
 itemname
+tmpfs
+fstab
+systemd
+varlog
+/var/log

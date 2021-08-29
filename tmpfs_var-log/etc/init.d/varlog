@@ -1,0 +1,61 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          varlog
+# Required-Start:    $local_fs
+# Required-Stop:     $local_fs
+# X-Start-Before:    $syslog
+# X-Stop-After:      $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/stop tmpfs logfile saving
+### END INIT INFO
+#
+# varlog        This init.d script is used to start tmpfs logfile saving and restore.
+# source: https://forum-raspberrypi.de/forum/thread/4046-var-log-in-eine-art-ramdisk-auslagern-weitere-optimierungen-bezgl-logs/?postID=31444#post31444
+
+
+varlogSave=/var/save.log/
+
+
+[ ! -d $varlogSave ] && mkdir -p $varlogSave
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+
+function _save() {
+    if [ -x "$(which rsync)" ]; then
+        rsync -a --delete /var/log/ ${varlogSave}
+    else
+        cp -Rpu /var/log/* $varlogSave
+    fi
+    sync
+}
+
+
+case $1 in
+    start)
+        echo "*** Starting tmpfs file restore: varlog."
+        # shellcheck disable=SC2143
+        if [ -z "$(grep /var/log /proc/mounts)" ]; then
+            echo "*** mounting /var/log"
+            _save
+            # shellcheck disable=SC1083
+            varlogsize=$(grep /var/log /etc/fstab|awk {'print $4'}|cut -d"=" -f2)
+            [ -z "$varlogsize" ] && varlogsize="70M"
+            mount -t tmpfs tmpfs /var/log -o defaults,size=$varlogsize
+            chmod 775 /var/log
+        fi
+        cp -Rpu ${varlogSave}* /var/log/
+    ;;
+    stop)
+        echo "*** Stopping tmpfs file saving: varlog."
+        _save
+        umount -f /var/log/
+    ;;
+    *)
+        echo "Usage: $0 {start|stop}"
+        exit 1
+    ;;
+esac
+
+
+exit 0
