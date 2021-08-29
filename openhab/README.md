@@ -17,7 +17,7 @@ Documentation for openHAB specific configuration files, like NGINX reverse proxy
 ***
 ## openHAB backup
 Backup _openHAB_ with the backup tool of ``openhab-cli`` to a path and use backup rotation.
-Run [openhab-backup.bash](../openhab/openhab-backup.bash) every week by _crontab_ and it deletes the backup from five weeks ago.
+Run [openhab-backup.bash](openhab-backup.bash) every week by _crontab_ and it deletes the backup from five weeks ago.
 
 ### How to setup:
 * line 8: set ``path`` to the backup path
@@ -30,7 +30,7 @@ For additional information please have a look at the [official documentation](ht
 Frontail is reachable under [https://openhab/frontail](https://openhabianpi/frontail).
 
 ### How to setup:
-Please look at [this guide](../openhab/reverse-proxy/README.md).
+Please look at [this guide](reverse-proxy/README.md).
 
 ***
 ## ufw firewall
@@ -71,8 +71,7 @@ When using the ``openHAB HomeKit Integration``, you have to allow access to the 
 * get your interface name by executing ``ifconfig``, default is ``eth0``
 * then execute:
   ```shell
-  sudo ufw allow in on <interface-name> from any to any port 9124 proto udp comment openHAB_HomeKit
-  sudo ufw allow in on <interface-name> from any to any port 9124 proto tcp comment openHAB_HomeKit
+  sudo ufw allow in on <interface-name> from any to any port 9123 proto tcp comment openHAB_HomeKit
   ```
 
 ***
@@ -84,12 +83,12 @@ For example I checked the logs and found out, that my _Yamaha MusicCast_ devices
 ### This script was originally written by [@pmpkk](https://github.com/pmpkk) at [openhab-habpanel-theme-matrix](https://github.com/pmpkk/openhab-habpanel-theme-matrix).
 I only modified it to work with _Python 3_ and the new _InfluxDB 2.x_. 
 
-[shaddow.py](../openhab/shaddow/shaddow.py) generates a _.svg_ image to illustrate where the sun is currently positioned, which site of the house is facing the sun and where the shaddow of your house is.
+[shaddow.py](shaddow/shaddow.py) generates a _.svg_ image to illustrate where the sun is currently positioned, which site of the house is facing the sun and where the shaddow of your house is.
 I added the position of the moon to the image. 
 
 ***
 ### How to setup:
-Please look at [this guide](../openhab/shaddow/README.md).
+Please look at [this guide](shaddow/README.md).
 
 ***
 ## failover
@@ -99,7 +98,7 @@ Although openHAB and Debian are running extremely stable, you never can be prepa
 
 For easy backup and restore I regularly create images of my openHAB system with _Acronis True Image_ and during this time my openHAB is of course not reachable. 
 
-Therefore, you find a failover for openHAB in [this folder](../openhab/failover-system). For further configuration, please have a look at [this guide](../openhab/failover-system/README.md).
+Therefore, you find a failover for openHAB in [this folder](failover-system). For further configuration, please have a look at [this guide](failover-system/README.md).
 
 ***
 ## influxdb log python
@@ -125,4 +124,4 @@ Create a log of your smart home in InfluxDB with the following data:
 ### Monitor your items and visualize their history.
 
 InfluxDB allows you to persist and query states and Grafana visualizes them for you.
-You can find a my setup [here](../openhab/influxdb_grafana).
+You can find a my setup [here](influxdb_grafana/README.md).
