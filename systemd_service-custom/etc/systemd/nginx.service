@@ -1,33 +1,47 @@
-### NGINX custom systemd file ###
+### NGINX systemd configuration ###
+##
+## Running NGINX without root (much more secure)
 ##
 ## How to edit this file? sudo systemctl edit --full nginx
 ## Location: /etc/systemd/system/nginx.service
-## "systemd-analyze security nginx": Overall exposure level: 2.2 OK
-
-
+## from: https://github.com/stephan13360/systemd-services/blob/a53b2996e30bd90a46980f65b7ef00bb64efe4f5/nginx/nginx.service
+#
 [Unit]
-Description=A high performance web server and a reverse proxy server
-Documentation=man:nginx(8)
-After=network.target nss-lookup.target
+Description=nginx - high performance web server
+Documentation=man:nginx(8) or http://nginx.org/en/docs/
+After=network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
 
 [Service]
-Type=forking
-PIDFile=/run/nginx.pid
-ExecStartPre=/usr/sbin/nginx -t -q -g 'daemon on; master_process on;'
-ExecStart=/usr/sbin/nginx -g 'daemon on; master_process on;'
-ExecReload=/usr/sbin/nginx -g 'daemon on; master_process on;' -s reload
-ExecStop=-/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile /run/nginx.pid
-TimeoutStopSec=5
-KillMode=mixed
+Type=exec
+User=nginx
+Group=nginx
+SupplementaryGroups=acme
+RuntimeDirectory=nginx
+LogsDirectory=nginx
+CacheDirectory=nginx
+ConfigurationDirectory=nginx
+
+ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
+ExecReload=/bin/kill -HUP $MAINPID
+
+Restart=on-failure
+RestartSec=10s
 
 # filesystem access
-ProtectSystem=full
+#TemporaryFileSystem=/:ro
+BindReadOnlyPaths=/lib/ /usr/lib/ /etc/ld.so.cache /etc/ld.so.conf /etc/ld.so.conf.d/ /etc/bindresvport.blacklist /usr/share/zoneinfo/ /usr/share/locale/ /etc/localtime /usr/share/common-licenses/ /etc/ssl/certs/
+BindReadOnlyPaths=/dev/log /run/systemd/journal/socket /run/systemd/journal/stdout /run/systemd/notify
+BindReadOnlyPaths=/usr/sbin/nginx /bin/kill
+BindReadOnlyPaths=/run/ /var/www/html/ 
+
+# will overwrite TemporaryFileSystem=/:ro
+ProtectSystem=strict
+# not needed with TemporaryFileSystem=/:ro
 ProtectHome=true
 PrivateTmp=true
 PrivateDevices=true
 ProtectControlGroups=true
-ReadOnlyDirectories=/var/www/html
-
 # kernel
 ProtectKernelModules=true
 ProtectKernelTunables=true
@@ -37,7 +51,6 @@ ProtectKernelLogs=true
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 
 # misc
-RestrictNamespaces=true
 SystemCallArchitectures=native
 NoNewPrivileges=true
 RestrictRealtime=true
@@ -49,13 +62,8 @@ RestrictSUIDSGID=true
 ProtectClock=true
 
 # capabilities
-# CAP_SETUID CAP_SETGID are needed for openHAB proxy working on mobile devices
-CapabilityBoundingSet=CAP_SETUID CAP_SETGID CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
 
-# system calls
-SystemCallFilter=
-SystemCallFilter=@system-service @privileged
-SystemCallFilter=~@clock @module @mount @raw-io @reboot @swap @resources
 
 [Install]
 WantedBy=multi-user.target
