@@ -53,6 +53,7 @@ The following commands help you to setup your ufw firewall:
 * Allow access to your reverse proxy: ``sudo ufw allow https comment openHAB-nginx``
 * Allow IGMP protocol:
   * ``sudo ufw allow in proto udp to 224.0.0.0/4``
+  * ``sudo ufw allow in proto udp from 224.0.0.0/4``
   * add to ``/etc/ufw/before.rules``: 
    
     ```
