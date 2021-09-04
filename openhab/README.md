@@ -75,7 +75,7 @@ When using the ``openHAB KNX binding``, you have to allow the traffic from your 
 
 ### IMPORTANT: ufw can block your openHAB HomeKit
 
-When using the ``openHAB HomeKit Integration``, you have to allow access to the HomeKit ports:
+When using the [``openHAB HomeKit Integration``](https://www.openhab.org/addons/integrations/homekit/#homekit-add-on), you have to allow access to the HomeKit ports:
 * Get your interface name by executing ``ifconfig``, default is ``eth0``
 * Then execute:
   ```shell
@@ -91,6 +91,12 @@ When using the ``openHAB HomeKit Integration``, you have to allow access to the 
 __Information:__ you should look at ``/var/log/ufw.log`` for failed requests and check for ip addresses of your _openHAB_ devices.
 For example I checked the logs and found out, that my _Yamaha MusicCast_ devices were trying to connect to ``51200/udp``, so I added a rule for them in ufw.
 
+### IMPORTANT: ufw can block the event broadcast from DoorBird Doorbells
+
+When using the [``openHAB DoorBird Binding``](https://www.openhab.org/addons/bindings/doorbird/#doorbird-binding), you have to allow the broadcast traffic for event monitoring:
+* ```shell
+  sudo ufw allow from <ip-of-your-doorbird> to any port 6524 proto udp comment DoorBird_EventMonitoring
+  ```
 
 ## 4. shaddow script Python
 ***
