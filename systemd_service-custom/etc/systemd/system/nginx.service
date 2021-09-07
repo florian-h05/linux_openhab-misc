@@ -34,6 +34,7 @@ BindReadOnlyPaths=/lib/ /usr/lib/ /etc/ld.so.cache /etc/ld.so.conf /etc/ld.so.co
 BindReadOnlyPaths=/dev/log /run/systemd/journal/socket /run/systemd/journal/stdout /run/systemd/notify
 BindReadOnlyPaths=/usr/sbin/nginx /bin/kill
 BindReadOnlyPaths=/run/ /var/www/html/ 
+BindPaths=/var/lib/nginx/
 
 # will overwrite TemporaryFileSystem=/:ro
 ProtectSystem=strict
