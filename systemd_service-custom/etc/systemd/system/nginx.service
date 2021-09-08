@@ -37,7 +37,8 @@ RestartSec=10s
 BindReadOnlyPaths=/lib/ /usr/lib/ /etc/ld.so.cache /etc/ld.so.conf /etc/ld.so.conf.d/ /etc/bindresvport.blacklist /usr/share/zoneinfo/ /usr/share/locale/ /etc/localtime /usr/share/common-licenses/ /etc/ssl/certs/
 BindReadOnlyPaths=/dev/log /run/systemd/journal/socket /run/systemd/journal/stdout /run/systemd/notify
 BindReadOnlyPaths=/usr/sbin/nginx /bin/kill
-BindReadOnlyPaths=/run/ /var/www/html/ 
+BindReadOnlyPaths=/run/ /var/www/html/
+ReadWritePaths=/var/lib/nginx
 
 # will overwrite TemporaryFileSystem=/:ro
 ProtectSystem=strict
