@@ -31,6 +31,7 @@ Setup steps:
 * Create group _acme_: ```sudo groupadd acme```
 * Add _nginx_ to _acme_: ```sudo usermod -a -G acme nginx```
 * Change owner of TLS certificate private keys: ```sudo chown nginx:acme <key-file>```
+* Change permissions for TLS certificate private keys: ```sudo chmod 640 <key-file>```
 * Change owner of __/var/lib/nginx__: ```sudo chown -R nginx:nginx /var/lib/nginx```
 * Change permission for __/var/lib/nginx__: ```sudo chmod -R 770 /var/lib/nginx```
 * Adjust the _nginx_ configuration __/etc/nginx/nginx.conf__:
