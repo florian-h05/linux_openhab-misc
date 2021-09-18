@@ -8,7 +8,7 @@ Client certificate auth is more secure than BasicAuth, but it is more work to co
 ***
 ## BasicAuth
 
-NGINX [configuration file](/openhab/reverse-proxy/openhab-basicauth) for openHAB.
+NGINX [configuration file](openhab-basicauth) for openHAB.
 When using this file, you __must change__:
 * line 14: ``<servername>`` to your servername
 * line 51: ``<ip>`` to the ip which should access the log viewer
@@ -30,7 +30,7 @@ Next, please setup the ufw firewall, otherwise your access control has no sense 
 ***
 ## client certificate
 
-NGINX [configuration file](/openhab/reverse-proxy/openhab-clientcert) for openHAB. When using this file, you __must change__:
+NGINX [configuration file](openhab-clientcert) for openHAB. When using this file, you __must change__:
 * line 14: ``<servername>`` to your servername
 * line 24: ``<ca>`` to the name or path of the certificate of your CA for client certificate authentication
 * line 25: ``<crl>`` to the name of path of the certificate revocation list of your CA for client certificate authentication
@@ -62,7 +62,7 @@ NGINX [configuration file](/openhab/reverse-proxy/openhab-clientcert) for openHA
 
 * Renewing a certificate: Just run the command you used to generate it. If you need to see what you entered in the old certificate, you can run: ``openssl -x509 -in ca.crt -noout -text``
 
-* You can also use software like [XCA](https://hohnstaedt.de/xca/) for certificate management. 
+* You can also use a Windows software like [XCA](https://hohnstaedt.de/xca/) for certificate management. 
 
 ### Install the client certificates on your clients:
 * Copy the _PKCS #12 (PFX)_ bundles to your clients.
