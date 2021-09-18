@@ -1,0 +1,7 @@
+/var/log/openhab/*.log {
+        su openhab openhab
+        daily
+        missingok
+        rotate 4
+        copytruncate
+}
