@@ -39,7 +39,7 @@ For additional information please have a look at the [official documentation](ht
 
 Frontail is reachable under [https://openhab/frontail](https://openhabianpi/frontail).
 
-Please look at [this guide](reverse-proxy/README.md).
+Please look at [this guide](etc/nginx/sites-enabled/README.md).
 
 
 ## 4. ufw firewall
@@ -151,3 +151,5 @@ You can find a my setup [here](influxdb_grafana/README.md).
 ## 8. logrotate
 ***
 Configuration drop-in for openHAB logs.
+
+Please look at [this guide](etc/logrotate.d/README.md).
