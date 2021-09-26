@@ -152,4 +152,4 @@ You can find a my setup [here](influxdb_grafana/README.md).
 ***
 Configuration drop-in for openHAB logs.
 
-Please look at [this guide](etc/logrotate.d/README.md).
+Please look at [this guide](/etc/logrotate.d/README.md).
