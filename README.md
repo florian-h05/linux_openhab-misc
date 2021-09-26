@@ -54,16 +54,16 @@ My __personal highlight__ is [shaddow.py](openhab/shaddow/shaddow.py), which was
 ***
 Setup guide for [NUT](https://networkupstools.org), the software to control your uninterruptable power source.
 
-Please have a look at [this guide](network-ups-tools/README.md).
+Please have a look at [this guide](/docs/NUT.md).
 
 ## 6. _systemd_ service files
 ***
 A collection of custom _systemd_ service files with improved security level.
 
-Please have a look at [this folder](systemd_service-custom).
+Please have a look at [this folder](/docs/systemd_service.md).
 
 ## 7. _/var/log_ in _tmpfs_ on Raspberry Pi
 ***
-Continous writing to an SD card can reduce the lifetime of the card. To reduce the load on the SD card, _var/log_ can be stored in the RAM with _tmpfs_.
+Continous writing to an SD card can reduce the lifetime of the card. To reduce the load on the SD card, _/var/log_ can be stored in the RAM with _tmpfs_.
 
-Please have a look at [this guide](tmpfs_var-log/README.md).
+Please have a look at [this guide](/docs/tmpfs_varlog.md).

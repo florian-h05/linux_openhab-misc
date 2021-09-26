@@ -41,7 +41,7 @@ Setup steps:
   pid /run/nginx/nginx.pid;
   ```
 * Stop _nginx_: ```sudo systemctl stop nginx```
-* Access your _nginx.service_ file: ```sudo systemctl edit --full nginx``` and replace the content with [_nginx.service_](etc/systemd/system/nginx.service)
+* Access your _nginx.service_ file: ```sudo systemctl edit --full nginx``` and replace the content with [_nginx.service_](/etc/systemd/system/nginx.service)
 * Reload system manager configuration: ```sudo systemctl daemon-reload```
 * Start _nginx_: ```sudo systemctl start nginx```
 * Check _syslog_ for _nginx_: ```tail /var/log/syslog```

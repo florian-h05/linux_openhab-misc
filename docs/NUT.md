@@ -18,11 +18,11 @@
   sudo apt install nut
   ```
 * Configure NUT:
-  * [_ups.conf_](nut/ups.conf): Set up UPS drive, port and name in lines 138-141.
-  * [_upsd.conf_](nut/upsd.conf): Set up listening interface from line 30.
-  * [_upsd.users_](nut/upsd.users): Manage and setup of users and permissions.
-  * [_upsmon.conf_](nut/upsmon.conf): Set up which UPS to use with password and settings in line 82.
-  * [_upsched-cmd_](nut/upssched-cmd): Setup ```EMAIL=``` with your e-mail address.
+  * [_ups.conf_](/etc/nut/ups.conf): Set up UPS drive, port and name in lines 138-141.
+  * [_upsd.conf_](/etc/nut/upsd.conf): Set up listening interface from line 30.
+  * [_upsd.users_](/etc/nut/upsd.users): Manage and setup of users and permissions.
+  * [_upsmon.conf_](/etc/nut/upsmon.conf): Set up which UPS to use with password and settings in line 82.
+  * [_upsched-cmd_](/etc/nut/upssched-cmd): Setup ```EMAIL=``` with your e-mail address.
 * Adjust permissions:
   ```shell
   sudo chown -R root:nut /etc/nut/*
@@ -45,5 +45,5 @@
   ```shell
   sudo crontab -e
   # then add to crontab:
-  * * * * * sudo systemctl start nut-server
+  */2 * * * * sudo systemctl start nut-server
   ```
