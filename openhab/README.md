@@ -15,7 +15,7 @@
 - [6. InfluxDB log python](#6-influxdb-log-python)
   - [How to setup](#how-to-setup-1)
 - [7. InfluxDB Grafana](#7-influxdb-grafana)
-- [8. logrotate](#8-logrotate)
+- [8. Logging](#8-logging)
 
 
 ## 1. General Info
@@ -148,8 +148,8 @@ Monitor your items and visualize their history.
 InfluxDB allows you to persist and query states and Grafana visualizes them for you.
 You can find a my setup [here](influxdb_grafana/README.md).
 
-## 8. logrotate
+## 8. Logging
 ***
-Configuration drop-in for openHAB logs.
+Enable log rotation for openHAB.
 
-Please look at [this guide](/etc/logrotate.d/README.md).
+Please look at [this guide](/var/lib/openhab/etc/README.md).
