@@ -45,3 +45,4 @@ Setup steps:
 * Reload system manager configuration: ```sudo systemctl daemon-reload```
 * Start _nginx_: ```sudo systemctl start nginx```
 * Check _syslog_ for _nginx_: ```tail /var/log/syslog```
+* Update the _logrotate_ configuration file by replacing the content with [_nginx_](/etc/logrotate.d/nginx)

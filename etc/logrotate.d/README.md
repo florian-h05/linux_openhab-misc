@@ -1,4 +1,7 @@
-# _logrotate_ conf for openHAB
+# _logrotate_ conf
 
-Logrotate configuration drop-in for openHAB.
-Copy [openhab](openhab) to _/etc/logrotate.d/_
+Logrotate configuration drop-ins.
+
+Copy [openhab](openhab) to _/etc/logrotate.d_.
+
+Paste the content of [nginx](nginx) to _/etc/logrotate.d/nginx_ when using the custom _systemd_ file from this repository.

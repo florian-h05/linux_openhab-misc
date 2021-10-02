@@ -71,5 +71,5 @@ server {
         proxy_pass                              http://localhost:9001/frontail;
     }
 
-    access_log /var/log/nginx/openhab-access.log combined;
+    #access_log /var/log/nginx/openhab-access.log combined;
 }
