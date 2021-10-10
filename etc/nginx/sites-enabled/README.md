@@ -25,7 +25,7 @@ sudo htpasswd /etc/nginx/.htpasswd-openhab username
 sudo htpasswd -D /etc/nginx/.htpasswd-openhab username
 ```
 
-Next, please setup the ufw firewall, otherwise your access control has no sense as openHAB's native ports are open.
+Next, please setup the [ufw firewall](/_openhab/README.md), otherwise your access control has no sense as openHAB's native ports are open.
 
 ***
 ## client certificate
