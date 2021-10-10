@@ -37,33 +37,31 @@ Please have a look at [this guide](SIGNAL-CLIENT.md).
 ***
 __A backup and restore utility__
 
-This script is collecting folders and files defined in the [script itself](backup_restore/backup_restore.bash). These folders and files are copied to a temporary folder and this folder is compressed as ```.tar.gz``` on your backup destination
+This script is collecting folders and files defined in the [script itself](_backup_restore/backup_restore.bash). These folders and files are copied to a temporary folder and this folder is compressed as ```.tar.gz``` on your backup destination
 
-Information about what is backed up can be found in the [script itself](backup_restore/backup_restore.bash).
+Information about what is backed up can be found in the [script itself](_backup_restore/backup_restore.bash).
 
-Please have a look at [this guide](backup_restore/BACKUP_RESTORE.md).
+Please have a look at [this guide](_backup_restore/BACKUP_RESTORE.md).
 
 ## 4. openHAB
 ***
-The [openhab folder](openhab) contains ```scripts``` and openHAB specific files.
-More information can be found in [this guide](openhab/README.md).
-
-My __personal highlight__ is [shaddow.py](openhab/shaddow/shaddow.py), which was originally written by [@pmpkk](https://github.com/pmpkk) and published [here](https://github.com/pmpkk/openhab-habpanel-theme-matrix). My fork of his script is supported by ```Python 3``` and it is using the all-new ```Flux query-language``` of ```InfluxDB 2.x```. It creates a realtime image of your house's outline with the location of sun, moon and your house's shaddow.
+The [openhab folder](_openhab) contains things related to openHAB.
+More information can be found in [this guide](_openhab/README.md).
 
 ## 5. NUT UPS
 ***
 Setup guide for [NUT](https://networkupstools.org), the software to control your uninterruptable power source.
 
-Please have a look at [this guide](/docs/NUT.md).
+Please have a look at [this guide](_docs/NUT.md).
 
 ## 6. _systemd_ service files
 ***
 A collection of custom _systemd_ service files with improved security level.
 
-Please have a look at [this folder](/docs/systemd_service.md).
+Please have a look at [this folder](_docs/systemd_service.md).
 
 ## 7. _/var/log_ in _tmpfs_ on Raspberry Pi
 ***
 Continous writing to an SD card can reduce the lifetime of the card. To reduce the load on the SD card, _/var/log_ can be stored in the RAM with _tmpfs_.
 
-Please have a look at [this guide](/docs/tmpfs_varlog.md).
+Please have a look at [this guide](_docs/tmpfs_varlog.md).

@@ -10,12 +10,11 @@
 - [4. ufw firewall](#4-ufw-firewall)
   - [IMPORTANT: ufw can break you openHAB KNX](#important-ufw-can-break-you-openhab-knx)
   - [IMPORTANT: ufw can block your openHAB HomeKit](#important-ufw-can-block-your-openhab-homekit)
-- [4. shaddow script Python](#4-shaddow-script-python)
-- [5. Failover](#5-failover)
-- [6. InfluxDB log python](#6-influxdb-log-python)
-  - [How to setup](#how-to-setup-1)
-- [7. InfluxDB Grafana](#7-influxdb-grafana)
-- [8. Logging](#8-logging)
+- [4. Failover](#4-failover)
+- [5. InfluxDB log python](#5-influxdb-log-python)
+  - [How to setup](#how-to-setup)
+- [6. InfluxDB Grafana](#6-influxdb-grafana)
+- [7. Logging](#7-logging)
 
 
 ## 1. General Info
@@ -39,7 +38,7 @@ For additional information please have a look at the [official documentation](ht
 
 Frontail is reachable under [https://openhab/frontail](https://openhabianpi/frontail).
 
-Please look at [this guide](etc/nginx/sites-enabled/README.md).
+Please look at [this guide](/etc/nginx/sites-enabled/README.md).
 
 
 ## 4. ufw firewall
@@ -99,18 +98,8 @@ When using the [``openHAB DoorBird Binding``](https://www.openhab.org/addons/bin
   sudo ufw allow from <ip-of-your-doorbird> to any port 6524 proto udp comment DoorBird_EventMonitoring
   ```
 
-## 4. shaddow script Python
-***
-This script was originally written by [@pmpkk](https://github.com/pmpkk) at [openhab-habpanel-theme-matrix](https://github.com/pmpkk/openhab-habpanel-theme-matrix).
-I only modified it to work with _Python 3_ and the new _InfluxDB 2.x_. 
 
-[shaddow.py](shaddow/shaddow.py) generates a _.svg_ image to illustrate where the sun is currently positioned, which site of the house is facing the sun and where the shaddow of your house is.
-I added the position of the moon to the image. 
-
-Please look at [this guide](shaddow/README.md).
-
-
-## 5. Failover
+## 4. Failover
 ***
 Protect your smart home from an openHAB crash.
 
@@ -121,34 +110,14 @@ For easy backup and restore I regularly create images of my openHAB system with 
 Therefore, you find a failover for openHAB in [this folder](failover-system). For further configuration, please have a look at [this guide](failover-system/README.md).
 
 
-## 6. InfluxDB log python
-***
-A log for your smart home with [openhab-log-influxdb.py](../openhab/openhab-log-influxdb.py).
-
-Create a log of your smart home in InfluxDB with the following data:
-* log message
-* device
-* temperature
-* windspeed
-* brightness
-* rain
-* elevation
-* azimuth
-
-### How to setup
-* line 30: set ``base_url`` to _openHAB_ hostname/address and append ``/rest``
-* lines 34 to 39: setup _InfluxDB_
-* lines 52 to 57: set your _openHAB_ items in ``items.get('<itemname>').state``
-
-
-## 7. InfluxDB Grafana
+## 6. InfluxDB Grafana
 ***
 Monitor your items and visualize their history.
 
 InfluxDB allows you to persist and query states and Grafana visualizes them for you.
 You can find a my setup [here](influxdb_grafana/README.md).
 
-## 8. Logging
+## 7. Logging
 ***
 Enable log rotation for openHAB.
 
