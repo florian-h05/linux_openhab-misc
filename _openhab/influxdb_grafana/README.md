@@ -15,16 +15,18 @@
 
 *** 
 ## file tree
-Create these folders on your Docker host:
+Create these folders and files on your Docker host/clone them from this repository:
 ```
 main-directory
-|-- influxdb
-|   |-- data          -> /var/lib/influxdb2
-|   |-- etc           -> /etc/influxdb2
-|      (|-- ssl       for certificate and private key; only create after the first start of InfluxDB)
 |-- grafana
 |   |-- data          -> /var/lib/grafana
 |   |-- grafana.ini   -> /etc/grafana/grafana.ini
+|-- influxdb
+|   |-- conf          -> /etc/influxdb2
+|   |-- data          -> /var/lib/influxdb2
+|   |-- ssl_certs     -> /etc/ssl/certs
+|-- telegraf
+|   |-- telegraf.conf -> /etc/telegraf/telegraf.conf
 |-- docker-compose.yml
 ```
 
@@ -39,22 +41,21 @@ Go to your _main-directory_ and execute: ```sudo docker-compose up -d```
 For setup instructions, please visit the [official documentation](https://docs.influxdata.com/influxdb/v2.0/). 
 
 ### Use TLS to encrypt your communication
+#### InfluxDB's internal TLS
 For general TLS setup, please visit the [official documentation](https://docs.influxdata.com/influxdb/v2.0/security/enable-tls/).
 
-For Docker setup, place your certificate and your private key in ```./influxdb/etc/ssl``` as cert ```influxdb.crt``` and key ```inflxdb.pem```.
+For Docker setup, place your certificate and your private key in ```./influxdb``` as cert ```influxdb.crt``` and key ```influxdb.pem```.
 Set the permissions:
 ```shell
-sudo chmod 644 ./influxdb/etc/ssl/<certificate-file>
-sudo chmod 600 ./influxdb/etc/ssl/<private-key-file>
+sudo chmod 644 ./influxdb/<certificate-file>
+sudo chmod 600 ./influxdb/<private-key-file>
 ```
-Uncomment out lines 14-16 in [docker-compose.yml](docker-compose.yml) to enable TLS:
-```yml
-....
-    environment:
-      - INFLUXD_TLS_CERT=/etc/influxdb2/ssl/influxdb.crt
-      - INFLUXD_TLS_KEY=/etc/influxdb2/ssl/influxdb.pem
-....    
-```
+Have a look at [docker-compose.yml](docker-compose.yml) to enable internal.
+Look at the comments and commented out parts.
+Go into the terminal of the InfluxDB container and run ```update-ca-certificates```.
+
+#### External Reverse Proxy for TLS
+Just leave everything how it is in [docker-compose.yml](docker-compose.yml) and configure your Reverse Proxy for port ```tcp:8087```.
 
 ### Setup the clients for TLS
 * import the certificate authority on the client:

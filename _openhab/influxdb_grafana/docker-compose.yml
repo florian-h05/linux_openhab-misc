@@ -8,12 +8,16 @@ services:
     volumes:
       - ./influxdb/data:/var/lib/influxdb2:rw
       - ./influxdb/conf:/etc/influxdb2:ro
+      # Enable internal TLS
       #- ./influxdb/ssl_certs:/etc/ssl/certs # Run update-ca-certificates
+      #- ./influxdb/influxdb.crt:/etc/ssl/influxdb.crt:ro
+      #- ./influxdb/influxdb.pem:/etc/ssl/private/influxdb.pem:ro
     ports:
-      - 8086:8086
-    environment:
-      #- INFLUXD_TLS_CERT=/etc/influxdb2/ssl/influxdb.crt
-      #- INFLUXD_TLS_KEY=/etc/influxdb2/ssl/influxdb.pem
+      # - 8086:8086 # For internal TLS
+      - 8087:8086 # For external Reverse Proxy TLS
+    #environment: # Enable internal TLS
+      #- INFLUXD_TLS_CERT=/etc/ssl/influxdb.crt:ro
+      #- INFLUXD_TLS_KEY=/etc/ssl/private/influxdb.pem:ro
     restart: unless-stopped
 # Running Telegraf
   telegraf:
@@ -40,7 +44,7 @@ services:
     depends_on:
       - influxdb
     ports:
-      - 3001:3000
+      - 3001:3000 # Using Reverse Proxy on Synology NAS
     environment:
       # Override settings in grafana.ini
       - GF_DEFAULT_INSTANCE_NAME=DS918plus
