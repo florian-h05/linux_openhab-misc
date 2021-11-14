@@ -1,0 +1,18 @@
+## Dynamic configuration
+[tls.options]
+  [tls.options.default]
+    minVersion = "VersionTLS13"
+    curvePreferences = ["X25519", "secp521r1", "secp384r1"]
+    sniStrict = true
+  ## Enable the nex three lines when you want to use client certificate authorization
+  #  [tls.options.default.clientAuth]
+  #    caFiles = ["clientAuth_CA.crt"]
+  #    clientAuthType = "RequireAndVerifyClientCert"
+
+## Access the Traefik dashboard
+[http.routers.api]
+  rule = "Host(`monitor.your_domain`)" # Replace your_domain with your real domain
+  entrypoints = ["https"]
+  service = "api@internal"
+  [http.routers.api.tls]
+    certResolver = "lets-encrypt"

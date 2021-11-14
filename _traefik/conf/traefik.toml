@@ -1,0 +1,33 @@
+## Static configuration
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+    [entryPoints.http.http.redirections.entryPoint]
+      to = "https"
+      scheme = "https"
+
+  [entryPoints.https]
+    address = ":443"
+
+[api]
+  dashboard = true
+
+[certificatesResolvers.lets-encrypt.acme]
+  email = "admin@your_domain" # Replace your_domain with your real domain
+  storage = "acme.json"
+  [certificatesResolvers.lets-encrypt.acme.tlsChallenge]
+
+[providers.docker]
+  watch = true
+  network = "traefik"
+  exposedByDefault = false
+
+[providers.file]
+  filename = "/etc/traefik/traefik_dynamic.toml"
+  watch = true
+
+[serversTransport]
+  insecureSkipVerify = true
+
+[log]
+  level = "warn"
