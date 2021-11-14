@@ -3,6 +3,7 @@
   entryPoints = ["https"]
   service = "app1"
   rule = "Host(`app1.your_domain`)" # Replace your_domain with your real domain
+  middlewares = "secHeaders@file"
   [http.routers.web.tls]
     certResolver = "lets-encrypt"
 
