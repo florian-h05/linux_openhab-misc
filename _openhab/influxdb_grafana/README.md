@@ -3,18 +3,17 @@
 ## Store and display the history of your openHAB items.
 ***
 ## Table of Contents
-1. [Requirements](#requirements)
-2. [file tree](#file-tree)
-3. [InfluxDB](#influxdb)
-4. [Grafana](#grafana)
+* [Table of Contents](#table-of-contents)
+* [1. Prerequisites](#1-prerequisites)
+* [2. Installation](#2-installation)
+* [3. InfluxDB](#3-influxdb)
+* [3. Grafana](#4-grafana)
 
 ***
-## Requirements:
+## 1. Prerequisites
 * a Docker host with a 64-bit OS
 * a Public Key Infrastucture to create & sign certificates
 
-*** 
-## file tree
 Create these folders and files on your Docker host/clone them from this repository:
 ```
 main-directory
@@ -31,11 +30,12 @@ main-directory
 ```
 
 ***
-## Installation
-Go to your _main-directory_ and execute: ```sudo docker-compose up -d```
+## 2. Installation
+Go to your _main-directory_, create the docker network ```sudo docker network create traefik``` 
+and start everything with ```sudo docker-compose up -d```.
 
 ***
-## InfluxDB
+## 3. InfluxDB
 [InfluxDB](https://www.influxdata.com/products/influxdb/) is a time-series platform
 
 For setup instructions, please visit the [official documentation](https://docs.influxdata.com/influxdb/v2.0/). 
@@ -77,10 +77,22 @@ Just leave everything how it is in [docker-compose.yml](docker-compose.yml) and 
   ```
 
 ***
-## Grafana
-You can access Grafana on ```http://influxdb-host:3001```.
+## 4. Grafana
+You can access Grafana on ```http://influxdb-host:3000```.
 
 Add an InfluxDB data source with the following settings:
 * _URL_: ```https://influxdb:8086``` -- this uses the internal Docker network
 * _Auth_: _Skip TLS Verify_ on
-* Setup _the InfluxDB Details_
+
+You can also enable remote access to Grafana, please have a look at [Traefik](_traefik/README.md).
+
+***
+## 5. Telegraf
+With _Telegraf_ you can monitor your host.
+
+You just have to insert your InfluxDB Token, Bucket and whether to use _http_ or _https_ in the block after that heading:
+```conf
+###############################################################################
+#                            OUTPUT PLUGINS                                   #
+###############################################################################
+```

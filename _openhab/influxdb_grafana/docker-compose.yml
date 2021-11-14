@@ -1,10 +1,19 @@
-# Running InfluxDB 2.x
 version: "3.3"
+
+networks:
+  traefik:
+    external: true
+  internal:
+    external: false
+
 services:
+# Running InfluxDB 2.x
   influxdb:
     image: influxdb:latest
     container_name: influxdb
     hostname: influxdb
+    networks:
+      - internal
     volumes:
       - ./influxdb/data:/var/lib/influxdb2:rw
       - ./influxdb/conf:/etc/influxdb2:ro
@@ -13,8 +22,8 @@ services:
       #- ./influxdb/influxdb.crt:/etc/ssl/influxdb.crt:ro
       #- ./influxdb/influxdb.pem:/etc/ssl/private/influxdb.pem:ro
     ports:
-      # - 8086:8086 # For internal TLS
-      - 8087:8086 # For external Reverse Proxy TLS
+      # - 8086:8086 # InfluxDB internal TLS
+      - 8087:8086 # External Reverse Proxy for TLS
     #environment: # Enable internal TLS
       #- INFLUXD_TLS_CERT=/etc/ssl/influxdb.crt:ro
       #- INFLUXD_TLS_KEY=/etc/ssl/private/influxdb.pem:ro
@@ -24,7 +33,10 @@ services:
     image: telegraf:latest
     container_name: telegraf
     hostname: telegraf
+    networks:
+      - internal
     volumes:
+      -  /var/run/docker.sock:/var/run/docker.sock:ro
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     depends_on:
       - influxdb
@@ -36,15 +48,17 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     hostname: grafana
+    networks:
+      - internal
+      - traefik
     volumes:
       - ./grafana/data:/var/lib/grafana:rw
       - ./grafana/grafana.ini:/etc/grafana/grafana.ini:ro
-      #- ./grafana/provisioning:/etc/grafana/provisioning:ro
     user: "1026" # Run "id -u" to get your user id on the Docker host
     depends_on:
       - influxdb
     ports:
-      - 3001:3000 # Using Reverse Proxy on Synology NAS
+      - 3000:3000
     environment:
       # Override settings in grafana.ini
       - GF_DEFAULT_INSTANCE_NAME=DS918plus
@@ -54,4 +68,10 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
       # Install plugins here
       # - GF_INSTALL_PLUGINS="list of plugins seperated by ,"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.grafana.rule=Host(`grafana.your_domain`)
+      - traefik.http.routers.grafana.tls=true
+      - traefik.http.routers.grafana.entrypoints=https
+      - traefik.http.routers.grafana.tls.certresolver=lets-encrypt
     restart: unless-stopped
