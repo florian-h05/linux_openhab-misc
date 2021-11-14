@@ -7,7 +7,8 @@
 * [1. Prerequisites](#1-prerequisites)
 * [2. Installation](#2-installation)
 * [3. InfluxDB](#3-influxdb)
-* [3. Grafana](#4-grafana)
+* [4. Grafana](#4-grafana)
+* [5. telegraf](#5-telegraf)
 
 ***
 ## 1. Prerequisites
@@ -84,7 +85,7 @@ Add an InfluxDB data source with the following settings:
 * _URL_: ```https://influxdb:8086``` -- this uses the internal Docker network
 * _Auth_: _Skip TLS Verify_ on
 
-You can also enable remote access to Grafana, please have a look at [Traefik](_traefik/README.md).
+You can also enable remote access to Grafana, please have a look at [Traefik](/_traefik/README.md).
 
 ***
 ## 5. Telegraf
