@@ -11,6 +11,7 @@
 
 [api]
   dashboard = true
+  insecure = true
 
 [certificatesResolvers.lets-encrypt.acme]
   email = "admin@your_domain" # Replace your_domain with your real domain
@@ -23,7 +24,7 @@
   exposedByDefault = false
 
 [providers.file]
-  filename = "/etc/traefik/traefik_dynamic.toml"
+  directory = "/etc/traefik/dynamic"
   watch = true
 
 [serversTransport]

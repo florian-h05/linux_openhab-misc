@@ -39,7 +39,7 @@ Do not forget to open the following ports:
 * Outside port ```80``` to ```8080``` of your Docker host.
 * Outside port ```443``` to ```8443``` of your Docker host.
 
-Insert your domain name in both files in the [conf folder](./conf).
+Insert your domain name in all files in the [conf](./conf) folder and the subfolder [dynamic]()./conf/dynamic).
 Insert your domain in the [```docker-compose.yml```](/_openhab/influxdb_grafana/docker-compose.yml) of Grafana.
 
 Finally, run ```sudo docker-compose up -d``` and you should be able to access Grafana on [grafana.my_domain](https://grafana.my_domain).
