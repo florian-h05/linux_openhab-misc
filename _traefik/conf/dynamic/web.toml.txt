@@ -1,0 +1,12 @@
+## Access an external server on your local network
+[http.routers.app1]
+  entryPoints = ["https"]
+  service = "app1"
+  rule = "Host(`app1.your_domain`)" # Replace your_domain with your real domain
+  [http.routers.web.tls]
+    certResolver = "lets-encrypt"
+
+[http.services.app1.loadBalancer]
+  passHostHeader = true
+  [[http.services.app1.loadBalancer.servers]]
+    url = "http://your-application:80"

@@ -43,3 +43,8 @@ Insert your domain name in all files in the [conf](./conf) folder and the subfol
 Insert your domain in the [```docker-compose.yml```](/_openhab/influxdb_grafana/docker-compose.yml) of Grafana.
 
 Finally, run ```sudo docker-compose up -d``` and you should be able to access Grafana on [grafana.my_domain](https://grafana.my_domain).
+
+### Additional configuration
+In the folder [dynamic](./conf/dynamic) are several files for additional configuration.
+For more information look in the individual files.
+To use them, remove _.txt_ from their name.
