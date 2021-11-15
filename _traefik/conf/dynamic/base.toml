@@ -36,7 +36,6 @@
   browserXssFilter = true
   contentTypeNosniff = true
   frameDeny = true
-  sslRedirect = true
   # HSTS Configurationn
   stsIncludeSubdomains = true
   stsPreload = true
