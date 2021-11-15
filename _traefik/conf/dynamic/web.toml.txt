@@ -4,7 +4,7 @@
   service = "app1"
   rule = "Host(`app1.your_domain`)" # Replace your_domain with your real domain
   middlewares = "secHeaders@file"
-  [http.routers.web.tls]
+  [http.routers.app1.tls]
     certResolver = "lets-encrypt"
 
 [http.services.app1.loadBalancer]

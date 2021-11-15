@@ -31,4 +31,4 @@
   insecureSkipVerify = true
 
 [log]
-  level = "warn"
+  level = "info"

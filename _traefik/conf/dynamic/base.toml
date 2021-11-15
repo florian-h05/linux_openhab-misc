@@ -4,7 +4,7 @@
     minVersion = "VersionTLS12"
     curvePreferences = ["secp521r1", "secp384r1", "X25519"]
     sniStrict = true
-    alpnProtocols = ["h2"]
+    alpnProtocols = ["h2", "acme-tls/1"]
     cipherSuites = [
       "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
       "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305"
@@ -18,7 +18,7 @@
     minVersion = "VersionTLS12"
     curvePreferences = ["secp521r1", "secp384r1", "X25519"]
     sniStrict = true
-    alpnProtocols = ["h2"]
+    alpnProtocols = ["h2", "acme-tls/1"]
     cipherSuites = [
       "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
       "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305"
