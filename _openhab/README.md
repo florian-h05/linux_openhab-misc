@@ -118,6 +118,4 @@ You can find a my setup [here](/_monitoring/README.md).
 
 ## 7. Logging
 ***
-Enable log rotation for openHAB.
-
-Please look at [this guide](/var/lib/openhab/etc/README.md).
+To change logging behaviour, have a look at `$openhab-userdata/etc/log4j2.xml`.
