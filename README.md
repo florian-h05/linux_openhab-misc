@@ -7,19 +7,19 @@
 ***
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
-- [1. General Info](#1-general-info)
-- [2. Signal client](#2-signal-client)
-- [3. backup-restore bash script](#3-backup-restore-bash-script)
-- [4. openHAB](#4-openhab)
-- [5. NUT UPS](#5-nut-ups)
-- [6. _systemd_ service files](#6-systemd-service-files)
-- [7. _/var/log_ in _tmpfs_ on Raspberry Pi](#7-varlog-in-tmpfs-on-raspberry-pi)
+- [General Info](#general-info)
+- [Signal client](#signal-client)
+- [backup-restore bash script](#backup-restore-bash-script)
+- [openHAB](#openhab)
+- [NUT UPS](#nut-ups)
+- [_systemd_ service files](#systemd-service-files)
+- [_ZRAM_ for Raspberry Pi](#zram-for-raspberry-pi)
 
-## 1. General Info
+## General Info
 ***
 This repository is a collection of scripts and configuration files I use on my personal Linux/openHAB system.
 
-## 2. Signal client
+## Signal client
 ***
 A small bash client for the [signal-cli REST API](https://github.com/bbernhard/signal-cli-rest-api) from [@bbernhard](https://github.com/bbernhard).
 [Signal](https://signal.org/) is a secure and trusted [open-source](https://github.com/signalapp) messenger.
@@ -33,7 +33,7 @@ Currently it supports:
 Please have a look at [this guide](SIGNAL-CLIENT.md).
 
 
-## 3. backup-restore bash script
+## backup-restore bash script
 ***
 __A backup and restore utility__
 
@@ -43,25 +43,26 @@ Information about what is backed up can be found in the [script itself](_backup_
 
 Please have a look at [this guide](_backup_restore/BACKUP_RESTORE.md).
 
-## 4. openHAB
+## openHAB
 ***
 The [openhab folder](_openhab) contains things related to openHAB.
 More information can be found in [this guide](_openhab/README.md).
 
-## 5. NUT UPS
+## NUT UPS
 ***
 Setup guide for [NUT](https://networkupstools.org), the software to control your uninterruptable power source.
 
 Please have a look at [this guide](_docs/NUT.md).
 
-## 6. _systemd_ service files
+## _systemd_ service files
 ***
 A collection of custom _systemd_ service files with improved security level.
 
 Please have a look at [this folder](_docs/systemd_service.md).
 
-## 7. _/var/log_ in _tmpfs_ on Raspberry Pi
+## _ZRAM_ for Raspberry Pi
 ***
-Continous writing to an SD card can reduce the lifetime of the card. To reduce the load on the SD card, _/var/log_ can be stored in the RAM with _tmpfs_.
+Continous writing to an SD card can reduce the lifetime of the card. To reduce the load on the SD card, use _ZRAM_.
 
-Please have a look at [this guide](_docs/tmpfs_varlog.md).
+Enabled for default on new `openhabian` installations.
+Visit the [openhabian Forum](https://community.openhab.org/t/zram-status/80996) or the [openhabian Docs](https://www.openhab.org/docs/installation/openhabian.html#availability-and-backup)
