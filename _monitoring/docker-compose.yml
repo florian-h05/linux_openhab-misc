@@ -17,14 +17,15 @@ services:
     volumes:
       - ./influxdb/data:/var/lib/influxdb2:rw
       - ./influxdb/conf:/etc/influxdb2:ro
-      # Enable internal TLS
-      #- ./influxdb/ssl_certs:/etc/ssl/certs # Run update-ca-certificates
+      # The influxd cli needs to trust the certificate of influxd.
+      - ./influxdb/ssl_certs:/etc/ssl/certs # Run update-ca-certificates
+      # Internal TLS
       #- ./influxdb/influxdb.crt:/etc/ssl/influxdb.crt:ro
       #- ./influxdb/influxdb.pem:/etc/ssl/private/influxdb.pem:ro
     ports:
-      # - 8086:8086 # InfluxDB internal TLS
+      # - 8086:8086 # Internal TLS
       - 8087:8086 # External Reverse Proxy for TLS
-    #environment: # Enable internal TLS
+    #environment: # Internal TLS
       #- INFLUXD_TLS_CERT=/etc/ssl/influxdb.crt:ro
       #- INFLUXD_TLS_KEY=/etc/ssl/private/influxdb.pem:ro
     restart: unless-stopped
@@ -41,8 +42,20 @@ services:
     depends_on:
       - influxdb
     restart: unless-stopped
+# Running Prometheus.
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    hostname: prometheus
+    networks:
+      - internal
+    volumes:
+      - ./prometheus:/etc/prometheus
+    #ports:
+    #  - 9090:9090
+    restart: unless-stopped
 
-# Running latest Grafana on Alpine Linux. 
+# Running latest Grafana.
 # https://grafana.com/docs/grafana/latest/administration/configure-docker/
   grafana:
     image: grafana/grafana:latest

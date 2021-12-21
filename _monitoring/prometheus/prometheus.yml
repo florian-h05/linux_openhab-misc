@@ -1,0 +1,39 @@
+global:
+  # How frequently to scrape targets by default.
+  scrape_interval: 15s
+
+  # How long until a scrape request times out.
+  # [ scrape_timeout: <duration> | default = 10s ]
+
+  # How frequently to evaluate rules.
+  evaluation_interval: 30s
+
+  # The labels to add to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    promhost:  ${HOSTNAME}
+
+# Rule files specifies a list of globs. Rules and alerts are read from
+# all matching files.
+# rule_files:
+  # [ - <filepath_glob> ... ]
+
+# A list of scrape configurations.
+scrape_configs:
+  - job_name: 'openhab'
+    scrape_interval: 30s
+    scheme: https
+    metrics_path: /rest/metrics/prometheus
+    # Configures the scrape request's TLS settings.
+    basic_auth:
+      username: prometheus
+      password_file: .password
+    tls_config:
+      # CA certificate to validate API server certificate with.
+      ca_file: ca.crt
+      # Certificate and key files for client cert authentication to the server.
+      # cert_file: diskstation.crt
+      # key_file: diskstation.key
+    static_configs:
+    - targets:
+      - 'openhab.local:443'
