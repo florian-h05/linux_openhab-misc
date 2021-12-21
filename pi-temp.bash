@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script: pi-temp.bash
 # Purpose: Display CPU and GPU temprature from SoC of Raspberry pi
-# Author: Florian Hotze
+# Copyright (C) 2021 Florian Hotze under MIT License
 
 cpu=$(</sys/class/thermal/thermal_zone0/temp)
 echo "$(date) at $(hostname)"

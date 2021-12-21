@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script: openhab-backup.sh
 # Purpose: Backup the openhab-configuration and remove the backup from five weeks ago.
-# Author: Florian Hotze
+# Copyright (C) 2021 Florian Hotze under MIT License
 # Info: all dates are formatted as YYYY-MM-DD
 
 # path for backup

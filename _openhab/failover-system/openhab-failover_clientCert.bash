@@ -3,7 +3,7 @@
 # This is the script on the failover host. You must run it regularly, e.g. with crontab or Task Scheduler on Synology NAS.
 # Purpose: If openhab not running on main openHAB host, then start Docker container on the failover host.
 # How it works: Curl request to openhab, if it fails then start Docker container.
-# Author: Florian Hotze
+# Copyright (C) 2021 Florian Hotze under MIT License
 
 # your openHAB configuration goes here
 hostname=""

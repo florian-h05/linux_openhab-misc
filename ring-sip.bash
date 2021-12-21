@@ -2,7 +2,7 @@
 # Script: ring-sip.bash
 # Purpose: Ring a telephone by using sipcmd VoIP/SIP.
 # sipcmd: https://github.com/tmakkonen/sipcmd
-# Author: Florian Hotze under GNU GPL-3.0 License
+# Copyright (C) 2021 Florian Hotze under MIT License
 
 # Prerequisites:
 #   add libopal-dev to apt sources for Debian 10/buster

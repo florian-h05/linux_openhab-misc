@@ -2,7 +2,7 @@
 # Script: backup_restore.bash
 # Purpose: Backup all given configuration and user data
 # How it works: it copies the given files and folders to a temporary folder, then it is compressed to the backup target
-# Author: Copyright (C) 2021 Florian Hotze under GNU General Public License v3.0
+# Copyright (C) 2021 Florian Hotze under MIT License
 
 ### What it backs up:             automatic restore:
     # - data in /var/www/html     not working

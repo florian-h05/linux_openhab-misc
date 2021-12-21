@@ -2,7 +2,7 @@
 # Script: openhab-to-failover-host.bash
 # This is the script on the main openHAB host. You should run it regularly, e.g. with crontab.
 # Purpose: Copy openhab configuration to the failover host.
-# Author: Copyright (C) 2021 Florian Hotze under GNU General Public License v3.0
+# Copyright (C) 2021 Florian Hotze under MIT License
 
 mountPath=""
 knx="false" # if you are using knx, set to true -- it expects /things/knx.things

@@ -3,7 +3,7 @@
 # Purpose: Send a message over Signal Secure Messenger
 # How it works: this script communicates with the signal-cli-rest-api in a Docker container
 #	for the docker container see: https://github.com/bbernhard/signal-cli-rest-api
-# Author: Florian Hotze
+# Copyright (C) 2021 Florian Hotze under MIT License
 
 
 # host of rest api
