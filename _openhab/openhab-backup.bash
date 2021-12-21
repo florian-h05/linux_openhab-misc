@@ -27,7 +27,7 @@ fi
 echo Removing backup from five weeks ago .....
 
 # remove the backup from five weeks ago
-if sudo rm "${path}"/openhab-backup_"${FWA}".zip; then echo "SUCCESS: Deleted backup from five weeks ago!"; else "ERROR: Deleting backup from five weeks ago failed."; fi
+if sudo rm "${path}/openhab-backup_${FWA}.zip"; then echo "SUCCESS: Deleted backup from five weeks ago!"; else echo "ERROR: Deleting backup from five weeks ago failed."; fi
 
 echo Starting the openHAB instance ...
 if sudo systemctl start openhab; then echo "SUCCESS: openHAB has started successful.";

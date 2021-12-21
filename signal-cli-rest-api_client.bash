@@ -36,25 +36,26 @@ check_for_contact() {
 	fi
 }
 
+# shellcheck disable=SC2215
 send_message() {
-	curl 'http://'$host'/v1/send' \
+	curl "http://'${host}'/v1/send" \
 		-X POST \
 		-H 'Content-Type: application/json' \
-		-d '{"message": "'"$message"'", "number": "'$ownNumber'", "recipients": ["'"${numbers[$contact]}"'"]}'
+		-d '{"message": "'"${message}"'", "number": "'${ownNumber}'", "recipients": ["'"${numbers[${contact}]}"'"]}'
 }
-
+# shellcheck disable=SC2215
 list_identities() {
-	curl 'http://'$host'/v1/identities/'$ownNumber'' \
+	curl "http://${host}/v1/identities/${ownNumber}" \
 		-X GET \
-		-H "Content-Type: application/json"
+		-H "Content-Type: application/json" \;
 }
-
+# shellcheck disable=SC2215
 trust_identity() {
-	url='http://'$host'/v1/identities/'$ownNumber'/trust/'${numbers[$contact]}''
+	url="http://${host}/v1/identities/${ownNumber}/trust/${numbers[${contact}]}"
 	curl "$url" \
 		-X PUT \
 		-H "Content-Type: application/json" \
-		-d '{"verified_safety_number": "{'"$safety_number"'}"}'
+		-d '{"verified_safety_number": "{'"${safety_number}"'}"}'
 }
 
 
