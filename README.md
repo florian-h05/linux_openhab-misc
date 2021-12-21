@@ -17,7 +17,11 @@
 
 ## General Info
 ***
-This repository is a collection of scripts and configuration files I use on my personal Linux/openHAB system.
+This repository is a collection of scripts and configuration files I use in connection with my smart home environment.
+
+Folders starting with an underscore, e.g. `_monitoring` are feature folders.
+
+Folders without an underscore, e.g. `etc` follow the Debian folder structure and represent my additions to the basic [openHABian](https://www.openhab.org/docs/installation/openhabian.html#openhabian-hassle-free-openhab-setup).
 
 ## Signal client
 ***
