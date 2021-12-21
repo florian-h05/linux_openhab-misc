@@ -10,7 +10,7 @@ services:
 # Running InfluxDB 2.x
   influxdb:
     image: influxdb:latest
-    container_name: influxdb
+    container_name: monitoring_influxdb
     hostname: influxdb
     networks:
       - internal
@@ -32,7 +32,7 @@ services:
 # Running Telegraf
   telegraf:
     image: telegraf:latest
-    container_name: telegraf
+    container_name: monitoring_telegraf
     hostname: telegraf
     networks:
       - internal
@@ -45,7 +45,7 @@ services:
 # Running Prometheus.
   prometheus:
     image: prom/prometheus:latest
-    container_name: prometheus
+    container_name: monitoring_prometheus
     hostname: prometheus
     networks:
       - internal
@@ -59,7 +59,7 @@ services:
 # https://grafana.com/docs/grafana/latest/administration/configure-docker/
   grafana:
     image: grafana/grafana:latest
-    container_name: grafana
+    container_name: monitoring_grafana
     hostname: grafana
     networks:
       - internal
