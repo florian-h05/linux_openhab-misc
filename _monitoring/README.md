@@ -1,14 +1,7 @@
 # Persistence and monitoring
 
-## Store and display the history of your openHAB items.
 ***
 ## Table of Contents
-* [Table of Contents](#table-of-contents)
-* [1. Prerequisites](#1-prerequisites)
-* [2. Installation](#2-installation)
-* [3. InfluxDB](#3-influxdb)
-* [4. Grafana](#4-grafana)
-* [5. telegraf](#5-telegraf)
 
 ***
 ## 1. Prerequisites
@@ -64,21 +57,14 @@ Just leave everything how it is in [docker-compose.yml](docker-compose.yml) and 
   cp <path-to-certfile> /usr/local/share/ca-certificates
   sudo update-ca-certificates
   ```
-* __IMPORTANT:__ for openHAB, you must import the CA certificate to the JRE:
   ```shell
   # go to the lib/security directory of your JVM, example for openHABian:
   cd /opt/jdk/zulu11.48.21-ca-jdk11.0.11-linux_aarch32hf/lib/security
   # add the certificate to the JAVA keystore
   sudo keytool -importcert -file <path-to-certfile> -cacerts -keypass changeit -storepass changeit -alias <alias-for-cert>
   ```
-* configuration in openHAB: ```services/influxdb.cfg```:
-  Visit the [official documentation](https://www.openhab.org/addons/persistence/influxdb/), but use:
-  ```
-  url=https://<influxdb-host>:8086
-  ```
 
 ***
-## 4. Grafana
 You can access Grafana on ```http://influxdb-host:3000```.
 
 Add an InfluxDB data source with the following settings:
@@ -88,7 +74,6 @@ Add an InfluxDB data source with the following settings:
 You can also enable remote access to Grafana, please have a look at [Traefik](/_traefik/README.md).
 
 ***
-## 5. Telegraf
 With _Telegraf_ you can monitor your host.
 
 You just have to insert your InfluxDB Token, Bucket and whether to use _http_ or _https_ in the block after that heading:

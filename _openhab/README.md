@@ -10,10 +10,9 @@
 - [4. ufw firewall](#4-ufw-firewall)
   - [IMPORTANT: ufw can break you openHAB KNX](#important-ufw-can-break-you-openhab-knx)
   - [IMPORTANT: ufw can block your openHAB HomeKit](#important-ufw-can-block-your-openhab-homekit)
+  - [IMPORTANT: ufw can block the event broadcast from DoorBird Doorbells](#important-ufw-can-block-the-event-broadcast-from-doorbird-doorbells)
 - [4. Failover](#4-failover)
-- [5. InfluxDB log python](#5-influxdb-log-python)
-  - [How to setup](#how-to-setup)
-- [6. InfluxDB Grafana](#6-influxdb-grafana)
+- [6. Monitoring](#6-monitoring)
 - [7. Logging](#7-logging)
 
 
@@ -110,12 +109,12 @@ For easy backup and restore I regularly create images of my openHAB system with 
 Therefore, you find a failover for openHAB in [this folder](failover-system). For further configuration, please have a look at [this guide](failover-system/README.md).
 
 
-## 6. InfluxDB Grafana
+## 6. Monitoring
 ***
 Monitor your items and visualize their history.
 
 InfluxDB allows you to persist and query states and Grafana visualizes them for you.
-You can find a my setup [here](influxdb_grafana/README.md).
+You can find a my setup [here](/_monitoring/README.md).
 
 ## 7. Logging
 ***
