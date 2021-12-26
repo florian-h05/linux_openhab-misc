@@ -15,7 +15,7 @@ Restart the networking service: `sudo systemctl restart networking`.
 #### VLANs
 You may use VLANs.
 * Install the `vlan` package
-* Edit `/etc/network/interfaces.d/vlans` with e.g.:
+* Edit `/etc/network/interfaces.d/vlans`, add e.g.:
     ```
     auto eth0.10
     iface eth0.10 inet manual
@@ -77,9 +77,27 @@ e.g. for routers, dns, ...
 
 ***
 ## SSH Server
+Enforce public key authentification & allow local forwarding.
+* Paste your public key into `~/.ssh/authorized_keys`.
+* Edit `/etc/ssh/sshd_config`:
+    * Uncomment the line `PermitRootLogin` and set the value to `no`.
+    * Uncomment the line `MaxAuthTries` and set the value to `3`.
+    * Uncomment the line `PubkeyAuthentication` and set the value to `yes`.
+    * Uncomment the line `PasswordAuthentication` and set the value to `no`.
+    * Set the line `UsePAM` to `no`.
+    * Uncomment the line `AllowTcpForwarding` and set the value to `local`.
+    * Uncomment the line `TCPKeepAlive` and set the value to `no`.
+    * Uncomment the line `Compression` and set the value to `no`.
 
 ***
 ## cron-apt
+* Install the `cron-apt` package: `sudo apt install cron-apt`
+* Edit `/etc/cron-apt/config`, add:
+    ```
+    APTCOMMAND=/usr/bin/apt-get
+    MAILTO="<your@email.com>"
+    MAILON=upgrade
+    ```
 
 ***
 ## Mail Server
