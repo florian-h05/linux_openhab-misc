@@ -46,7 +46,7 @@ e.g. for routers, dns, ...
 ### Firewall
 * Install the `ufw` package: `sudo apt install ufw`
 * Run the following commands:
-    ```bash
+    ```shell
     # Basic ufw setup
     sudo ufw allow ssh
     sudo ufw default deny INCOMING
@@ -72,11 +72,9 @@ e.g. for routers, dns, ...
 * Enable _ufw_: `sudo ufw enable`
 
 ***
-## mosh - mobile shell
-* Install the `mosh` package: `sudo apt install mosh`
+## Shell
 
-***
-## SSH Server
+### SSH Server
 Enforce public key authentification & allow local forwarding.
 * Paste your public key into `~/.ssh/authorized_keys`.
 * Edit `/etc/ssh/sshd_config`:
@@ -88,6 +86,16 @@ Enforce public key authentification & allow local forwarding.
     * Uncomment the line `AllowTcpForwarding` and set the value to `local`.
     * Uncomment the line `TCPKeepAlive` and set the value to `no`.
     * Uncomment the line `Compression` and set the value to `no`.
+
+### mosh - Mobile Shell
+* Install the `mosh` package: `sudo apt install mosh`
+
+### Mail on ssh login
+* Save [sshlogin.bash](/opt/sshlogin.bash) in `/opt`
+* Edit `/etc/profile`, add:
+    ```shell
+    /opt/sshlogin.bash | mailx -s "SSH Login auf Server openHABian-Pi" <your@email.com>
+    ```
 
 ***
 ## cron-apt
@@ -104,15 +112,17 @@ Enforce public key authentification & allow local forwarding.
 E.g. Postfix
 
 ***
-## cron
-
-*** 
-## Mail on SSH login
-
-***
 ## Samba
 Disable Samba Server: 
-```bash
+```shell
 sudo systemctl stop smbd
 sudo systemctl disable smbd
 ```
+
+## Additional setup
+* [Network UPS Tools](/_docs/NUT.md)
+* [nginx for openHAB](/etc/nginx/sites-enabled/README.md)
+* `/etc/fstab` for network mounts
+* crontab and root's crontab
+* Telegraf for monitoring
+* SBFspot for SMA Inverters
