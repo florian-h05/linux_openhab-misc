@@ -11,12 +11,9 @@
     # - /etc/ufw                  working
     # - /etc/cron-apt             working
     # - /etc/ssh                  working
-    # - /etc/postfix              working
     # - /etc/samba/smb.conf       working
-    # - /etc/fail2ban             working, but maybe systemctl restart fail2ban needed
     # - /etc/fstab                no automatic restore --> risk of file-system damage
     # - /etc/nut                  working
-    # - /usr/lib/tmpfiles.d/var.conf  no automatic restore --> risk of file-system damage
     # - crontab                   no automatic restore --> not possible
     # - small files:              working
     #       - /etc/profile
@@ -515,7 +512,6 @@ restore_all() {
     ssl_restore
     nginx_restore
     ufw_restore
-    postfix_restore
     cronapt_restore
     sshd_restore
     fstab_restore
@@ -543,7 +539,6 @@ backup_all() {
     ufw_backup
     cronapt_backup
     sshd_backup
-    postfix_backup
     samba_backup
     fstab_backup
     nut_backup
