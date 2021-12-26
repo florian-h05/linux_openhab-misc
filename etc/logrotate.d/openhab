@@ -1,9 +1,0 @@
-## Do not rotate openHAB Logs via logrotate as rotation is done by the SLF4J library.
-#/var/log/openhab/*.log {
-	#su openhab openhab
-	#size 8M
-	#missingok
-	#rotate 2
-	##copytruncate
-	#create 0644 openhab openhab
-#}
