@@ -45,22 +45,9 @@ Please look at [this guide](/etc/nginx/sites-enabled/README.md).
 __Important information:__ A firewall is only a part of securing your server!
 
 The following commands help you to setup your ufw firewall:
-* Install ufw: ``sudo apt install ufw``
-* __Important:__ allow ufw, otherwise you lock yourself out: ``sudo ufw allow ssh``
-* _(Set up the default policies: ``sudo ufw default deny INCOMING`` and ``sudo ufw default allow OUTGOING``)_
+* This requires the [system setup guide](/_docs/openHABian_setup.md).
 * Block access to native openHAB ports: ``sudo ufw deny 8080/tcp comment openHAB-native`` and ``sudo ufw deny 8443/tcp comment openHAB-native``
-* Allow access to your reverse proxy: ``sudo ufw allow https comment openHAB-nginx``
-* Allow IGMP protocol:
-  * ``sudo ufw allow in proto udp to 224.0.0.0/4``
-  * ``sudo ufw allow in proto udp from 224.0.0.0/4``
-  * add to ``/etc/ufw/before.rules``: 
-   
-    ```
-    # allow IGMP
-    -A ufw-before-input -p igmp -d 224.0.0.0/4 -j ACCEPT
-    -A ufw-before-output -p igmp -d 224.0.0.0/4 -j ACCEPT
-    ```
-* Start ufw: ```sudo ufw enable```
+* Reload ufw: ```sudo ufw reload```
 
 ### IMPORTANT: ufw can break you openHAB KNX
 
@@ -97,6 +84,11 @@ When using the [``openHAB DoorBird Binding``](https://www.openhab.org/addons/bin
   sudo ufw allow from <ip-of-your-doorbird> to any port 6524 proto udp comment DoorBird_EventMonitoring
   ```
 
+### IMPORTANT: ufw can block broadcast from Yamaha Amplifiers
+
+```shell
+sudo ufw allow from <ip-yamaha> to any port 52000 proto udp comment 'openHAB - Yamaha <name-yamaha>'
+```
 
 ## 4. Failover
 ***

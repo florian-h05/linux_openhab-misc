@@ -47,3 +47,10 @@
   # then add to crontab:
   */2 * * * * sudo systemctl start nut-server
   ```
+
+***
+## Firewall
+Allow external client through _ufw_:
+``` bash
+sudo ufw allow in from <client-ip> to any port 3493 proto tcp comment 'network ups tools - <client-name>'
+```

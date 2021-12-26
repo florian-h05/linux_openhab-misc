@@ -520,9 +520,7 @@ restore_all() {
     sshd_restore
     fstab_restore
     samba_restore
-    fail2ban_restore
     nut_restore
-    tmpfilesdVar_restore
     crontab_restore
     scripts_download
     smallFiles_restore
@@ -547,10 +545,8 @@ backup_all() {
     sshd_backup
     postfix_backup
     samba_backup
-    fail2ban_backup
     fstab_backup
     nut_backup
-    tmpfilesdVar_backup
     crontab_backup
     smallFiles_backup
     telegraf_backup
