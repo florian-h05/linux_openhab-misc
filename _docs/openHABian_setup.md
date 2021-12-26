@@ -10,7 +10,6 @@ This guide describes my personal openHABian setup.
 ## Networking
 
 ### Interface configuration
-Restart the networking service: `sudo systemctl restart networking`.
 
 #### VLANs
 You may use VLANs.
@@ -21,7 +20,6 @@ You may use VLANs.
     iface eth0.10 inet manual
       vlan-raw-device eth0
     ```
-* Restart networking, then check with `hostname -I`.
 #### Static IP Address
 You may want to setup static IPs.
 Edit `/etc/dhcpd.conf`:
@@ -42,6 +40,8 @@ static domain_search=<dns-domain>
 ```
 Note: When an option is plural, you can set multiple options,
 e.g. for routers, dns, ...
+
+Restart networking `sudo systemctl restart networking`, then check with `hostname -I`.
 
 ### Firewall
 * Install the `ufw` package: `sudo apt install ufw`
