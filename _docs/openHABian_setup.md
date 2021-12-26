@@ -131,10 +131,16 @@ sudo systemctl stop smbd
 sudo systemctl disable smbd
 ```
 
+***
+## Telegraf
+* For installation, visit [influxdata.com](https://portal.influxdata.com/downloads/).
+* Use [telegraf.conf](/monitoring/telegraf/telegraf.conf):
+    * Set up _hostname_.
+    * Set up _[[outputs.influxdb_v2]]_.
+
 ## Additional setup
 * [Network UPS Tools](/_docs/NUT.md)
 * [nginx for openHAB](/etc/nginx/sites-enabled/README.md)
 * `/etc/fstab` for network mounts
 * crontab and root's crontab
-* Telegraf for monitoring
-* SBFspot for SMA Inverters
+* [SBFspot for SMA Inverters](https://github.com/SBFspot/SBFspot/wiki), config file at `/usr/local/bin/sbfspot.3/SBFspot.cfg`
