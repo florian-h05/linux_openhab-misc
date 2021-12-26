@@ -109,7 +109,19 @@ Enforce public key authentification & allow local forwarding.
 
 ***
 ## Mail Server
-E.g. Postfix
+Use exim4 with GMX (from openHABian config tool).
+
+Only important points are covered:
+* `sudo openhabian-config`
+* Select `30 | System Settings`.
+* Select `3A | Setup Exim Mail Relay`.
+* _Mail Server configuration_
+    * _General type of mail configuration:_ Select `mail sent by smarthost; no local mail`.
+    * _IP address of host name of the outgoing smarthost:_ enter `mail.gmx.net:587`.
+* _Enter public mail service smarthost to relay your mails to_: enter `mail.gmx.net`.
+* _Enter your public service mail user_: enter your GMX mail address.
+* _Enter your public service mail password_: enter your GMX mail password.
+* _Enter your administration user's mail address_: enter your GMX mail address.
 
 ***
 ## Samba
