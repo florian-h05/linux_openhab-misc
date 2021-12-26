@@ -1,8 +1,8 @@
 # Linux & openHAB: nice-to-haves, configuration and  miscellaneous
 
+[signal-cli-rest-api](https://github.com/bbernhard/signal-cli-rest-api) client
 
-### [signal-cli-rest-api](https://github.com/bbernhard/signal-cli-rest-api) client
-### small scripts which can help you a lot
+small scripts which can help you a lot
 
 ***
 ## Table of Contents

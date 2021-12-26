@@ -86,6 +86,7 @@ Enforce public key authentification & allow local forwarding.
     * Uncomment the line `AllowTcpForwarding` and set the value to `local`.
     * Uncomment the line `TCPKeepAlive` and set the value to `no`.
     * Uncomment the line `Compression` and set the value to `no`.
+* Restart SSH server `sudo systemctl restart sshd`.
 
 ### mosh - Mobile Shell
 * Install the `mosh` package: `sudo apt install mosh`
