@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# e-mail notification when SSH login
+# Mail notification on SSH login
 
 # entry in /etc/profile needed: /opt/sshlogin.sh | mailx -s "SSH login on server <servename>" <email-adress>
 
