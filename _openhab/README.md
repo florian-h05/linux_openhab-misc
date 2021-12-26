@@ -46,7 +46,11 @@ __Important information:__ A firewall is only a part of securing your server!
 
 The following commands help you to setup your ufw firewall:
 * This requires the [system setup guide](/_docs/openHABian_setup.md).
-* Block access to native openHAB ports: ``sudo ufw deny 8080/tcp comment openHAB-native`` and ``sudo ufw deny 8443/tcp comment openHAB-native``
+* Block access to native openHAB ports: 
+  ```shell
+  sudo ufw deny 8080/tcp comment 'openHAB native'
+  sudo ufw deny 8443/tcp comment 'openHAB native'
+  ```
 * Reload ufw: ```sudo ufw reload```
 
 ### IMPORTANT: ufw can break you openHAB KNX
@@ -55,8 +59,8 @@ When using the ``openHAB KNX binding``, you have to allow the traffic from your 
 * Get your interface name by executing ``ifconfig``, default is ``eth0``
 * Then execute:
   ```shell
-  sudo ufw allow in on <interface-name> from <KNXgateway-ip> to any port 3671 proto udp comment openHAB-KNX_Gatway``
-  sudo ufw allow in on <interface-name> from <openHAB-ip> to any port 3671 proto udp comment openHAB-KNX
+  sudo ufw allow in on <interface-name> from <KNXgateway-ip> to any port 3671 proto udp comment 'openHAB - KNX Gatway'
+  sudo ufw allow in on <interface-name> from <openHAB-ip> to any port 3671 proto udp comment 'openHAB - KNX'
   ```
 
 ### IMPORTANT: ufw can block your openHAB HomeKit
@@ -65,7 +69,7 @@ When using the [``openHAB HomeKit Integration``](https://www.openhab.org/addons/
 * Get your interface name by executing ``ifconfig``, default is ``eth0``
 * Then execute:
   ```shell
-  sudo ufw allow in on <interface-name> from any to any port 9123 proto tcp comment openHAB_HomeKit
+  sudo ufw allow in on <interface-name> from any to any port 9123 proto tcp comment 'openHAB - HomeKit'
   ```
 * You can chech the openHAB HomeKit mDNS advertiser with the iOS App [Discovery](https://apps.apple.com/de/app/discovery-dns-sd-browser/id305441017): 
   * Open the entry **hap._tcp.** and search for your openHAB HomeKit bridge
@@ -81,7 +85,7 @@ For example I checked the logs and found out, that my _Yamaha MusicCast_ devices
 
 When using the [``openHAB DoorBird Binding``](https://www.openhab.org/addons/bindings/doorbird/#doorbird-binding), you have to allow the broadcast traffic for event monitoring:
 * ```shell
-  sudo ufw allow from <ip-of-your-doorbird> to any port 6524 proto udp comment DoorBird_EventMonitoring
+  sudo ufw allow from <ip-of-your-doorbird> to any port 6524 proto udp comment 'openHAB - DoorBird Event Monitoring'
   ```
 
 ### IMPORTANT: ufw can block broadcast from Yamaha Amplifiers
