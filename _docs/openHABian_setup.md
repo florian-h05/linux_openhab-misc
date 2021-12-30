@@ -4,7 +4,22 @@ This guide describes my personal openHABian setup.
 
 ***
 ## Table of Contents
-
+- [Table of Contents](#table-of-contents)
+- [Networking](#networking)
+  - [Interface Configuration](#interface-configuration)
+    - [VLANs](#vlans)
+    - [Static IP Address](#static-ip-address)
+  - [Firewall](#firewall)
+- [Shell](#shell)
+  - [SSH Server](#ssh-server)
+  - [mosh - Mobile Shell](#mosh---mobile-shell)
+  - [Mail on ssh login](#mail-on-ssh-login)
+- [cron-apt](#cron-apt)
+- [Mail Server](#mail-server)
+- [Samba](#samba)
+- [Telegraf](#telegraf)
+- [Speedtest CLI](#speedtest-cli)
+- [Additional setup](#additional-setup)
 
 ***
 ## Networking
@@ -54,7 +69,7 @@ Restart networking `sudo systemctl restart networking`, then check with `hostnam
     
     # Allow common protocols/applications
     sudo ufw allow Bonjour
-    sudo ufw allow 'Nginx HTTPS'
+    sudo ufw allow in to any port 443 proto tcp comment 'HTTPS'
     sudo ufw allow in to any port 60000:60010 proto udp comment 'mosh - mobile shell'
     
     # Allow IGMP
