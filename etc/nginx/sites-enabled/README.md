@@ -2,12 +2,21 @@
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
+- [Prerequisites](#prerequisites)
 - [Basic Auth](#basic-auth)
 - [Client Certificate](#client-certificate)
   - [Further setup](#further-setup)
   - [Install the client certificates on your clients](#install-the-client-certificates-on-your-clients)
 
 Client certificate auth is more secure than BasicAuth, but it is more work to configure it.
+
+***
+## Prerequisites
+
+_frontail_ has to run under the path _/frontail_.
+
+Edit the systemd file with `sudo systemctl edit --full frontail` and add `--url-path /frontail` to _ExecStart_ right after the path to frontail.
+
 ***
 ## Basic Auth
 

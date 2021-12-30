@@ -3,25 +3,24 @@
 ***
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
-- [1. General Info](#1-general-info)
-- [2. openHAB backup](#2-openhab-backup)
+- [General Info](#general-info)
+- [openHAB backup](#openhab-backup)
   - [How to setup](#how-to-setup)
-- [3. NGINX reverse proxy](#3-nginx-reverse-proxy)
-- [4. ufw firewall](#4-ufw-firewall)
+- [NGINX reverse proxy](#nginx-reverse-proxy)
+- [ufw Firewall](#ufw-firewall)
   - [IMPORTANT: ufw can break you openHAB KNX](#important-ufw-can-break-you-openhab-knx)
   - [IMPORTANT: ufw can block your openHAB HomeKit](#important-ufw-can-block-your-openhab-homekit)
   - [IMPORTANT: ufw can block the event broadcast from DoorBird Doorbells](#important-ufw-can-block-the-event-broadcast-from-doorbird-doorbells)
-- [4. Failover](#4-failover)
-- [6. Monitoring](#6-monitoring)
-- [7. Logging](#7-logging)
+- [Monitoring](#monitoring)
+- [Logging](#logging)
 
 
-## 1. General Info
+## General Info
 ***
 Documentation for openHAB specific configuration files, like NGINX reverse proxy configuration, openHAB rules & scripts and openHAB guides.
 
 
-## 2. openHAB backup
+## openHAB backup
 ***
 Backup _openHAB_ with the backup tool of ``openhab-cli`` to a path and use backup rotation.
 Run [openhab-backup.bash](openhab-backup.bash) every week by _crontab_ and it deletes the backup from five weeks ago.
@@ -30,7 +29,7 @@ Run [openhab-backup.bash](openhab-backup.bash) every week by _crontab_ and it de
 * line 8: set ``path`` to the backup path
 
 
-## 3. NGINX reverse proxy
+## NGINX reverse proxy
 ***
 NGINX website configuration for openHAB authorization & access control.
 For additional information please have a look at the [official documentation](https://www.openhab.org/docs/installation/security.html#running-openhab-behind-a-reverse-proxy). This file also includes securing the frontail log viewer.
@@ -40,17 +39,10 @@ Frontail is reachable under [https://openhab/frontail](https://openhabianpi/fron
 Please look at [this guide](/etc/nginx/sites-enabled/README.md).
 
 
-## 4. ufw firewall
+## ufw Firewall
 ***
 __Important information:__ A firewall is only a part of securing your server!
-
-The following commands help you to setup your ufw firewall:
-* This requires the [system setup guide](/_docs/openHABian_setup.md).
-* Block access to native openHAB ports: 
-  ```shell
-  sudo ufw deny 8080/tcp comment 'openHAB native'
-  sudo ufw deny 8443/tcp comment 'openHAB native'
-  ```
+* Follow the firewall section of the [system setup guide](/_docs/openHABian_setup.md#firewall).
 * Reload ufw: ```sudo ufw reload```
 
 ### IMPORTANT: ufw can break you openHAB KNX
@@ -94,24 +86,13 @@ When using the [``openHAB DoorBird Binding``](https://www.openhab.org/addons/bin
 sudo ufw allow from <ip-yamaha> to any port 52000 proto udp comment 'openHAB - Yamaha <name-yamaha>'
 ```
 
-## 4. Failover
-***
-Protect your smart home from an openHAB crash.
-
-Although openHAB and Debian are running extremely stable, you never can be prepared well enough for crash. So you could need a failover, that keeps your smart home running when your main openHAB crash or is not reachable. 
-
-For easy backup and restore I regularly create images of my openHAB system with _Acronis True Image_ and during this time my openHAB is of course not reachable. 
-
-Therefore, you find a failover for openHAB in [this folder](failover-system). For further configuration, please have a look at [this guide](failover-system/README.md).
-
-
-## 6. Monitoring
+## Monitoring
 ***
 Monitor your items and visualize their history.
 
 InfluxDB allows you to persist and query states and Grafana visualizes them for you.
-You can find a my setup [here](/_monitoring/README.md).
+You can find my setup [here](/_monitoring/README.md) or you install InfluxDB & Grafana using the _openhabian-config_ tool.
 
-## 7. Logging
+## Logging
 ***
 To change logging behaviour, have a look at `$openhab-userdata/etc/log4j2.xml`.
