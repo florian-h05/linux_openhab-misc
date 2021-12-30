@@ -9,7 +9,7 @@ This guide describes my personal openHABian setup.
 ***
 ## Networking
 
-### Interface configuration
+### Interface Configuration
 
 #### VLANs
 You may use VLANs.
@@ -138,6 +138,13 @@ sudo systemctl disable smbd
 * Use [telegraf.conf](/monitoring/telegraf/telegraf.conf):
     * Set up _hostname_.
     * Set up _[[outputs.influxdb_v2]]_.
+
+***
+## Speedtest CLI
+* Create folder _speedtest_ and `cd speedtest`.
+* Download the latest binary from [speedtest.net](https://www.speedtest.net/apps/cli). For Raspberry Pi you would select _Linux/armhf_. You may use the `wget ${link}` command to download from commandline.
+* Untar the _.tgz_: `tar -xzf file.tgz`.
+* Copy _speedtest_ to _/usr/bin_: `sudo cp speedtest /usr/bin`.
 
 ## Additional setup
 * [Network UPS Tools](/_docs/NUT.md)
