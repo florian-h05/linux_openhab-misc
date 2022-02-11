@@ -98,3 +98,21 @@ if ! command -v mvn; then run_with_echo "sudo apt install -y maven" "Installed M
 
 # Install Shellcheck
 if ! command -v shellcheck; then run_with_echo "sudo apt install -y shellcheck" "Installed Shellcheck (static code analysis for shell)." "Failed to install Shellcheck (static code analysis for shell)."; fi
+
+# Install GitHub CLI. (https://cli.github.com/)
+if ! command -v gh; then
+    echo "${green}Installing GitHub CLI...${blue}"
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    echo "${reset}Updating package list ...${blue}"
+    sudo apt update &> /dev/null
+    run_with_echo "sudo apt install -y gh" "Installed GitHub CLI." "Failed to install GitHub CLI."
+fi
+
+echo "${red}Do you want to configure GitHub CLI? (y/n)"
+read -r choice
+case "${choice}" in 
+    y|Y ) gh auth;;
+    n|N ) ;;
+    * ) echo "invalid";;
+esac
