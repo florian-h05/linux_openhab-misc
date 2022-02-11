@@ -65,6 +65,20 @@ case "${choice}" in
     * ) echo "invalid";;
 esac
 
+# Configuration of gpg-agent is required to perform passphrase entry.
+# To investigate path of pinentry.exe, you might start commit signing from Windows Git and use Task-Manager to get the path of pinentry.exe.
+configure_gpg_agent() {
+    echo "${reset}Configuring gpg-agent for pinentry.exe ...${blue}"
+    pinentry="pinentry-program \"/mnt/c/Program Files/Git/usr/bin/pinentry.exe\""
+    filename="${HOME}/.gnupg/gpg-agent.conf"
+    if [ -f "${filename}" ]; then
+        sed -i "s/^pinentry-program.*$/pinentry-program ${pinentry}/" "${filename}"
+    else
+        echo "${pinentry}" >> "${filename}"
+    fi
+}
+configure_gpg_agent
+
 # Install node version manager.
 if ! [ -f "${NVM_DIR}/nvm.sh" ]; then
     echo "${reset}Installing node version manager (nvm-sh) ...${blue}"
