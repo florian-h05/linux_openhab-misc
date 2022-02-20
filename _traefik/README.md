@@ -2,16 +2,20 @@
 
 ## Table of Contents
 ***
-* [Table of Contents](#table-of-contents)
-* [1. General information](#1-general-information)
-* [2. Preparations](#2-preparations)
-* [3. Setup](#3-setup)
+- [Table of Contents](#table-of-contents)
+- [1. General information](#1-general-information)
+- [2. Preparations](#2-preparations)
+- [3. Setup](#3-setup)
+  - [Additional configuration](#additional-configuration)
 
 
 ## 1. General information
 ***
 [Traefik](https://traefik.io/traefik/) is a "Cloud Native Application Proxy" that perfectly suits for Docker Conatainers. 
 This guide will setup Traefik for your Grafana container.
+
+As Traefik was built for Docker, it is really easy to use, but has limited capabilities compared to NGINX. 
+If you want to use NGINX as proxy for Docker, give [SWAG](../_swag/README.md) a try.
 
 ## 2. Preparations
 ***

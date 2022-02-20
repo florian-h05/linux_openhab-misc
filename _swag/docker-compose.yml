@@ -1,0 +1,35 @@
+version: "3.3"
+
+networks:
+  traefik:
+    external: true
+
+services:
+  proxy:
+    image: ghcr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - traefik
+    environment:
+      # Get uid & gid by running id username
+      - PUID=1046
+      - PGID=100
+      - TZ=Europe/Berlin
+      - URL=<duckdns-domain>
+      - SUBDOMAINS=wildcard # duckdns certs are subdomain wildcars
+      - VALIDATION=duckdns
+      - DNSPLUGIN=duckdns
+      - DUCKDNSTOKEN=<duckdns-token>
+      - ONLY_SUBDOMAINS=true # optional
+      - DOCKER_MODS=linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-dashboard|linuxserver/mods:swag-dbip
+      - WATCHLIST="/config/nginx/mtls.conf"
+    volumes:
+      #- /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config:/config
+    ports:
+      - 8443:443
+      #- 8080:80 #optional
+    restart: unless-stopped
+    

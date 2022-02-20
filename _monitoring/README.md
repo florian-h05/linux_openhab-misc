@@ -120,7 +120,7 @@ Just leave everything how it is in [docker-compose.yml](docker-compose.yml) and 
 
 You can access Grafana on [http://influxdb-host:3000](http://docker-host:3000).
 
-You can also enable remote access to Grafana, please have a look at [Traefik](/_traefik/README.md).
+You can also enable remote access to Grafana, please have a look at [Traefik](/_traefik/README.md) or [SWAG](/_swag/README.md).
 
 ### InfluxDB 
 Add an InfluxDB data source with the following settings:
