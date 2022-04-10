@@ -1,9 +1,5 @@
 # Linux & openHAB: nice-to-haves, configuration and  miscellaneous
 
-[signal-cli-rest-api](https://github.com/bbernhard/signal-cli-rest-api) client
-
-small scripts which can help you a lot
-
 ***
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
@@ -14,7 +10,6 @@ small scripts which can help you a lot
 - [My openHABian Setup](#my-openhabian-setup)
 - [NUT UPS](#nut-ups)
 - [_systemd_ service files](#systemd-service-files)
-- [_ZRAM_ for Raspberry Pi](#zram-for-raspberry-pi)
 
 ***
 ## General Info
@@ -65,19 +60,11 @@ My openHABian Setup is documented at [openHABian Setup](_docs/openHABian_setup.m
 
 Setup guide for [NUT](https://networkupstools.org), the software to control your uninterruptable power source.
 
-Please have a look at [this guide](_docs/NUT.md).
+Please have a look at [this guide](/etc/nut/README.md).
 
 ***
 ## _systemd_ service files
 
 A collection of custom _systemd_ service files with improved security level.
 
-Please have a look at [this folder](_docs/systemd_service.md).
-
-***
-## _ZRAM_ for Raspberry Pi
-
-Continous writing to an SD card can reduce the lifetime of the card. To reduce the load on the SD card, use _ZRAM_.
-
-Enabled for default on new `openhabian` installations.
-Visit the [openhabian Forum](https://community.openhab.org/t/zram-status/80996) or the [openhabian Docs](https://www.openhab.org/docs/installation/openhabian.html#availability-and-backup)
+Please have a look at [this folder](/etc/systemd/system/README.md).

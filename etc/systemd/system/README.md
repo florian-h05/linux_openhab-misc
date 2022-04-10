@@ -5,25 +5,25 @@ A collection of custom _systemd service_ configuration with decreased exposure l
 ***
 ## Table Of Contents
 - [Table Of Contents](#table-of-contents)
-- [1. General information](#1-general-information)
-  - [1.1. How to use](#11-how-to-use)
-- [2. NGINX](#2-nginx)
+- [General information](#1-general-information)
+  - [How to use](#11-how-to-use)
+- [NGINX](#2-nginx)
 
 
-## 1. General information
+## General information
 ***
 
 The goal of these _.service_ files is to provide more sandboxing than with the default _.service_ from the installation repo. As I am only a hobby Linux user and no Linux administrator or professional, I only understand the options I use to a degree. 
 
 
-### 1.1. How to use
+### How to use
 
 Run ```sudo systemctl edit <servicename>``` for _override.conf_ or ```sudo systemctl edit --full <servicename>``` for the main configuration. _override.conf_ is not used by all services.
 
 Further information for how to use is on top of each _.service_ or _override.conf_ file.
 
 
-## 2. NGINX
+## NGINX
 ***
 
 Setup steps:

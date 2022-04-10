@@ -14,11 +14,13 @@ This guide describes my personal openHABian setup.
   - [SSH Server](#ssh-server)
   - [mosh - Mobile Shell](#mosh---mobile-shell)
   - [Mail on ssh login](#mail-on-ssh-login)
+- [ZRAM](#zram)
 - [cron-apt](#cron-apt)
 - [Mail Server](#mail-server)
 - [Samba](#samba)
 - [Telegraf](#telegraf)
 - [Speedtest CLI](#speedtest-cli)
+- [NodeRED](#node-red)
 - [Additional setup](#additional-setup)
 
 ***
@@ -28,7 +30,7 @@ This guide describes my personal openHABian setup.
 
 #### VLANs
 You may use VLANs.
-* Install the `vlan` package
+* Install the `vlan` package. 
 * Edit `/etc/network/interfaces.d/vlans`, add e.g.:
     ```
     auto eth0.10
@@ -114,6 +116,14 @@ Enforce public key authentification & allow local forwarding.
     ```
 
 ***
+## ZRAM
+
+Continous writing to an SD card can reduce the lifetime of the card. To reduce the load on the SD card, use _ZRAM_.
+
+Enabled for default on new `openhabian` installations.
+To install manually, visit [openHABian Forum](https://community.openhab.org/t/zram-status/80996) or [openHABian Docs](https://www.openhab.org/docs/installation/openhabian.html#availability-and-backup).
+
+***
 ## cron-apt
 * Install the `cron-apt` package: `sudo apt install cron-apt`
 * Edit `/etc/cron-apt/config`, add:
@@ -125,7 +135,7 @@ Enforce public key authentification & allow local forwarding.
 
 ***
 ## Mail Server
-Use exim4 with GMX (from openHABian config tool).
+Use exim4 with GMX from openHABian config tool (`sudo openhabian-config`).
 
 Only important points are covered:
 * `sudo openhabian-config`
@@ -161,8 +171,16 @@ sudo systemctl disable smbd
 * Untar the _.tgz_: `tar -xzf file.tgz`.
 * Copy _speedtest_ to _/usr/bin_: `sudo cp speedtest /usr/bin`.
 
+***
+## NodeRED
+Install NodeRED (with default options) from the openHABian config tool (`sudo openhabian-config`).
+
+***
+## EasyRSA
+Follow [this gist](https://gist.github.com/florian-h05/598bd0ac7b2de05e3c63dd42f15c7d32) for EasyRSA installation and usage.
+
 ## Additional setup
-* [Network UPS Tools](/_docs/NUT.md)
+* [Network UPS Tools](/etc/nut/README.md)
 * [nginx for openHAB](/etc/nginx/sites-enabled/README.md)
 * `/etc/fstab` for network mounts
 * crontab and root's crontab

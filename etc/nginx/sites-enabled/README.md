@@ -7,6 +7,7 @@
 - [Client Certificate](#client-certificate)
   - [Further setup](#further-setup)
   - [Install the client certificates on your clients](#install-the-client-certificates-on-your-clients)
+- [Multi User Proxy](#multi-user-proxy)
 
 Client certificate auth is more secure than BasicAuth, but it is more work to configure it.
 
@@ -79,3 +80,12 @@ NGINX [configuration file](openhab-clientcert) for openHAB. When using this file
 ### Install the client certificates on your clients
 * Copy the _PKCS #12 (PFX)_ bundles to your clients.
 * For the iOS openHAB app, rename _client.p12_ to _client.ohp12_.
+
+***
+## Multi User Proxy
+
+Another option for (even more) secure access to openHAB is the [Multi User Proxy](https://github.com/florian-h05/openhab-multiuser-proxy).
+```
+This project aims to provide a secure multiuser support for the openHAB REST API. It is utilising a 
+NodeJS application and the popular NGINX webserver to proxy and filter requests to the REST API.
+```

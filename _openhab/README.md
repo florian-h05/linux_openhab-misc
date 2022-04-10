@@ -19,6 +19,8 @@
 ***
 Documentation for openHAB specific configuration files, like NGINX reverse proxy configuration, openHAB rules & scripts and openHAB guides.
 
+openHAB configuration itself can be found at [florian-h05/openhab-conf](https://github.com/florian-h05/openhab-conf).
+
 
 ## openHAB backup
 ***

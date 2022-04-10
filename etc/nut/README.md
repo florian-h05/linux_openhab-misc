@@ -3,26 +3,26 @@
 ***
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
-- [1. Requirements](#1-requirements)
-- [2. Installation](#2-installation)
+- [Requirements](#1-requirements)
+- [Installation](#2-installation)
 
 ***
-## 1. Requirements
+## Requirements
 * an UPS with an USB port, I use an _Eaton 3S 700_
-* a Mail Transfer Agent with mailx
+* a Mail Transfer Agent with mailx (I use exim4)
 
 ***
-## 2. Installation
+## Installation
 * Install [nut](https://networkupstools.org) with:
   ```shell
   sudo apt install nut
   ```
 * Configure NUT:
-  * [_ups.conf_](/etc/nut/ups.conf): Set up UPS drive, port and name in lines 138-141.
-  * [_upsd.conf_](/etc/nut/upsd.conf): Set up listening interface from line 30.
-  * [_upsd.users_](/etc/nut/upsd.users): Manage and setup of users and permissions.
-  * [_upsmon.conf_](/etc/nut/upsmon.conf): Set up which UPS to use with password and settings in line 82.
-  * [_upsched-cmd_](/etc/nut/upssched-cmd): Setup ```EMAIL=``` with your e-mail address.
+  * [_ups.conf_](ups.conf): Set up UPS drive, port and name at end of file.
+  * [_upsd.conf_](upsd.conf): Set up listening interface (line 31 & 32).
+  * [_upsd.users_](upsd.users): Manage and setup of users and permissions.
+  * [_upsmon.conf_](upsmon.conf): Set up UPS to use (line 82).
+  * [_upsched-cmd_](upssched-cmd): Setup ```EMAIL=``` with your e-mail address.
 * Adjust permissions:
   ```shell
   sudo chown -R root:nut /etc/nut/*
