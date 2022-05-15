@@ -5,9 +5,9 @@ A collection of custom _systemd service_ configuration with decreased exposure l
 ***
 ## Table Of Contents
 - [Table Of Contents](#table-of-contents)
-- [General information](#1-general-information)
-  - [How to use](#11-how-to-use)
-- [NGINX](#2-nginx)
+- [General information](#general-information)
+  - [How to use](#how-to-use)
+- [NGINX](#nginx)
 
 
 ## General information
