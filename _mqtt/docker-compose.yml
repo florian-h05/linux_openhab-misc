@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    restart: always
+    volumes:
+      - ./config:/mosquitto/config:rw
+      - ./data:/mosquitto/data:rw
+    ports:
+      - 1883:1883
+      - 8883:8883
+    environment:
+      TZ: "Europe/Berlin"
