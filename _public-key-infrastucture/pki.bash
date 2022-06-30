@@ -33,13 +33,13 @@ generate_rsa_key() {
 
 generate_client_csr() {
   echo -e "\nGenerating CSR ...\n"
-  openssl req -new -x509 -key "pki/private/keys/${commonName}.key" -out "tmp/${commonName}.req" -addext "${OVPN_CLIENT_KEY_USAGE}" -addext "${OVPN_CLIENT_EXT_KEY_USAGE}" -subj \
+  openssl req -new -x509 -days 1825 -key "pki/private/keys/${commonName}.key" -out "tmp/${commonName}.req" -addext "${OVPN_CLIENT_KEY_USAGE}" -addext "${OVPN_CLIENT_EXT_KEY_USAGE}" -subj \
   "/C=${COUNTRY}/ST=${STATE}/L=${LOCALITY}/O=${ORGANIZATION}/OU=${organizationalUnit}/CN=${commonName}"
 }
 
 generate_ovpn_server_csr() {
   echo -e "\nGenerating OpenVPN server CSR ...\n"
-  openssl req -new -x509 -key "pki/private/keys/${commonName}.key" -out "tmp/${commonName}.req" -addext "${OVPN_SERVER_KEY_USAGE}" -addext "${OVPN_SERVER_EXT_KEY_USAGE}" -subj \
+  openssl req -new -x509 -days 1825 -key "pki/private/keys/${commonName}.key" -out "tmp/${commonName}.req" -addext "${OVPN_SERVER_KEY_USAGE}" -addext "${OVPN_SERVER_EXT_KEY_USAGE}" -subj \
   "/C=${COUNTRY}/ST=${STATE}/L=${LOCALITY}/O=${ORGANIZATION}/OU=$VPN/CN=${commonName}"
 }
 
