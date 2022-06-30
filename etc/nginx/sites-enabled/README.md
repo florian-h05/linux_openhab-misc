@@ -6,6 +6,7 @@
 - [Basic Auth](#basic-auth)
 - [Client Certificate](#client-certificate)
   - [Further setup](#further-setup)
+  - [Recommended approach](#recommended-approach)
   - [Install the client certificates on your clients](#install-the-client-certificates-on-your-clients)
 - [Multi User Proxy](#multi-user-proxy)
 
@@ -49,6 +50,9 @@ NGINX [configuration file](openhab-clientcert) for openHAB. When using this file
 * line 25: ``<crl>`` to the name of path of the certificate revocation list of your CA for client certificate authentication
 
 ### Further setup
+### Recommended approach
+Use [EasyRSA](/_public-key-infrastucture/README.md).
+#### Manual approach
 * Work in a directory you created for the next steps.
 * You need _openssl_: ``sudo apt install openssl``
 * ### Create the Certificate Authority

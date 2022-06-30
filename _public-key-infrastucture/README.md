@@ -1,0 +1,59 @@
+# Easy-RSA
+
+Easy-RSA is a CA managment tool by the OpenVPN team ([OpenVPN/easy-rsa](https://github.com/OpenVPN/easy-rsa)).
+
+
+## Setup the PKI
+
+To set up a PKI (Public Key Infrastructure), follow the excellent guide [community guide at digitalocean.com](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-configure-a-certificate-authority-ca-on-debian-10) until (including) *Step 4 -- Distributing your Certificate Authority’s Public Certificate*.
+
+## Generate client certificates
+
+To generate client certificate bundles (PKCS #12 / p12), use the [clientgen.bash](https://gist.github.com/florian-h05/598bd0ac7b2de05e3c63dd42f15c7d32#file-clientgen-bash) script.
+This script wraps some openssl and easy-rsa commands.
+
+You must run the script inside your easy-rsa folder.
+The script will create a ``tmp`` folder where it export the bundled certificate & private key.
+
+### Download
+```shell
+wget https://raw.githubusercontent.com/florian-h05/linux_openhab-misc/main/_public-key-infrastucture/pki.bash
+chmod +x pki.bash
+```
+
+### Set up PKI information
+On top of the script:
+```shell
+# Must match with the Certificate Authority!
+COUNTRY="DE"
+STATE="Berlin"
+LOCALITY="Berlin"
+ORGANIZATION="Sample Corp."
+```
+
+### Generate a client bundle
+```shell
+./pki.bash -cn=$COMMONNAME -ou=$ORGANIZATIONUNIT -e=generate_client_p12
+```
+Argument | Description | Required
+-|-|-
+-cn, --commonname | Common Name | not for ``generate_ovpn_server``
+-ou, --organizationalunit | Organizational Unit (OU) | only for ``generate_client_p12`` & ``generate_csr`` 
+-e, --exec | command to execute | always
+
+#### Available commands
+- ``generate_client_p12``: Generate p12 bundle for client.
+- ``generate_ovpn_server``: Generate OpenVPN server crt and key.
+- ``revoke_cert``: Revocate Certificate & generate CRL.
+ 
+More commands, usually not required:
+- ``generate_rsa_key``: Generate RSA private key.
+- ``generate_ecc_key``: Generate Elliptic Curve (secp521r1) private key. Warning: Not as widely supported as RSA.
+- ``generate_csr``: Generate Certificate Signing Request (CSR).
+- ``import_csr``: Import CSR into easy-rsa.
+- ``sign_csr``: Sign a previously imported CSR.
+
+Example:
+```shell
+./pki.bash -cn="My common name" -ou="Sample OU" -e=generate_client_p12
+```
