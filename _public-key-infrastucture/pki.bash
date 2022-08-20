@@ -38,8 +38,8 @@ require_ou() {
 
 verify_crt_key() {
   require_cn
-  echo "Private key hash: $(openssl rsa -noout -modulus -in pki/private/keys/${commonName}.key | openssl md5)"
-  echo "Public key hash: $(openssl x509 -noout -modulus -in pki/issued/${commonName}.crt | openssl md5)"
+  echo "Private key hash: $(openssl rsa -noout -modulus -in pki/private/keys/"${commonName}".key | openssl md5)"
+  echo "Public key hash: $(openssl x509 -noout -modulus -in pki/issued/"${commonName}".crt | openssl md5)"
 }
 
 generate_ecc_key() {
