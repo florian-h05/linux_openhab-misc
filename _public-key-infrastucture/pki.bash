@@ -36,6 +36,12 @@ require_ou() {
   fi
 }
 
+verify_crt_key() {
+  require_cn
+  echo "Private key hash: $(openssl rsa -noout -modulus -in pki/private/keys/${commonName}.key | openssl md5)"
+  echo "Public key hash: $(openssl x509 -noout -modulus -in pki/issued/${commonName}.crt | openssl md5)"
+}
+
 generate_ecc_key() {
   require_cn
   echo -e "\nGenerating ECC key ...\n"
@@ -68,10 +74,16 @@ import_csr() {
   rmdir tmp
 }
 
-sign_csr() {
+sign_csr_client() {
   require_cn
-  echo -e "\nSigning CSR ...\n"
+  echo -e "\nSigning CSR (client) ...\n"
   ./easyrsa sign-req client "${commonName}"
+}
+
+sign_csr_server() {
+  require_cn
+  echo -e "\nSigning CSR (server) ...\n"
+  ./easyrsa sign-req server "${commonName}"
 }
 
 generate_crl() {
@@ -96,7 +108,7 @@ generate_client_p12() {
   #generate_ecc_key # TLS Handshake fails with secp521r keys!
   generate_client_csr
   import_csr
-  sign_csr
+  sign_csr_client
   generate_p12
 }
 
@@ -106,7 +118,7 @@ generate_ovpn_server() {
   generate_rsa_key
   generate_ovpn_server_csr
   import_csr
-  sign_csr
+  sign_csr_server
 }
 
 help() {
@@ -120,6 +132,8 @@ help() {
   echo "  generate_client_p12"
   echo "  generate_ovpn_server"
   echo "  revoke_cert"
+  echo "  generate_crl"
+  echo "  verifiy_crt_key                  get key hash for certificate and private key"
 }
 
 for arg in "$@"
