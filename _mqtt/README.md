@@ -13,6 +13,7 @@
   ```shell
   mkdir config
   mkdir data
+  mkdir certs
   ```
 - Place [docker-compose.yml](docker-compose.yml) in your project's root.
 - Place [generate-certs.bash](generate-certs.bash) in your project's root.
@@ -21,7 +22,8 @@
 
 ***
 ## Generate required certs
-- Edit [generate-certs.bash](generate-certs.bash) and set up your IP and your subjects.
+- Place [`generate-certs.bash`](generate-certs.bash) in the `certs` folder.
+- Edit [`generate-certs.bash`](generate-certs.bash) and set up your IP and your subjects.
 - Make the script executable with `chmod +x generate-certs.bash`
 - Run with `bash generate-certs.bash`.
 
