@@ -102,7 +102,7 @@ generate_p12() {
   openssl pkcs12 -export -out "pki/p12/${commonName}.p12" -inkey "pki/private/keys/${commonName}.key" -in "pki/issued/${commonName}.crt"
 }
 
-generate_client_p12() {
+create_client_with_p12() {
   require_cn
   generate_rsa_key
   #generate_ecc_key # TLS Handshake fails with secp521r keys!
@@ -112,7 +112,7 @@ generate_client_p12() {
   generate_p12
 }
 
-generate_ovpn_server() {
+create_ovpn_server() {
   commonName="OpenVPN_Server"
   organizationalUnit="VPN"
   generate_rsa_key
@@ -129,8 +129,9 @@ help() {
   echo "  -ou=* --organizationalunit=*     organizational unit (OU) for client certificate"
   echo "  -e=*  --exec=*                   command to run"
   echo "Valid commands are:"
-  echo "  generate_client_p12"
-  echo "  generate_ovpn_server"
+  echo "  create_client_with_p12           create a new client cert/key pair and pack as p12"
+  echo "  create_ovpn_server"
+  echo "  generate_p12                     create a p12 bundle for an existing cert/key pair"
   echo "  revoke_cert"
   echo "  generate_crl"
   echo "  verifiy_crt_key                  get key hash for certificate and private key"
