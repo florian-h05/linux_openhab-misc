@@ -124,10 +124,12 @@ create_ovpn_server() {
 help() {
   echo "Info: The pki/private folder will be used for keys, the pki/p12 folder for p12 bundles."
   echo "Warning: Spaces are not allowed in common name!"
+  echo
   echo "Command line args are:"
   echo "  -cn=* --commonname=*             common name for client certificate"
   echo "  -ou=* --organizationalunit=*     organizational unit (OU) for client certificate"
   echo "  -e=*  --exec=*                   command to run"
+  echo
   echo "Valid commands are:"
   echo "  create_client_with_p12           create a new client cert/key pair and pack as p12"
   echo "  create_ovpn_server"
@@ -151,9 +153,11 @@ do
     ;;
     -h|--help)
     help
+    exit 0
     ;;
     *)
     echo "Please provide command line args. Help: -h --help"
+    exit 0
     ;;
   esac
 done
