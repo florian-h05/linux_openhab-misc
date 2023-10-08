@@ -104,6 +104,7 @@ generate_p12() {
 
 create_client_with_p12() {
   require_cn
+  require_ou
   generate_rsa_key
   #generate_ecc_key # TLS Handshake fails with secp521r keys!
   generate_client_csr
@@ -156,8 +157,8 @@ do
     exit 0
     ;;
     *)
-    echo "Please provide command line args. Help: -h --help"
-    exit 0
+    echo "Please provide command line args in required format. Use -h or --help to get help"
+    exit 1
     ;;
   esac
 done
