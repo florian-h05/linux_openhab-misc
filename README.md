@@ -4,7 +4,6 @@
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
 - [General Info](#general-info)
-- [Signal client](#signal-client)
 - [backup-restore bash script](#backup-restore-bash-script)
 - [openHAB](#openhab)
 - [My openHABian Setup](#my-openhabian-setup)
@@ -19,20 +18,6 @@ This repository is a collection of scripts and configuration files I use in conn
 Folders starting with an underscore, e.g. `_monitoring` are feature folders.
 
 Folders without an underscore, e.g. `etc` follow the Debian folder structure and represent my additions to the basic [openHABian](https://www.openhab.org/docs/installation/openhabian.html#openhabian-hassle-free-openhab-setup).
-
-***
-## Signal client
-
-A small bash client for the [signal-cli REST API](https://github.com/bbernhard/signal-cli-rest-api) from [@bbernhard](https://github.com/bbernhard).
-[Signal](https://signal.org/) is a secure and trusted [open-source](https://github.com/signalapp) messenger.
-
-Currently it supports:
-* sending messages to one recipient
-* listing identities
-* trusting identities
-* integrated address book
-
-Please have a look at [this guide](SIGNAL-CLIENT.md).
 
 ***
 ## backup-restore bash script
