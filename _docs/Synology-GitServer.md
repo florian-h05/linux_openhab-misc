@@ -2,14 +2,6 @@
 
 This guide shows you how to install the git server on your NAS and access your repos with pubkey auth.
 
-***
-## Table Of Contents
-- [Table Of Contents](#table-of-contents)
-- [Install ``Git Server`` Package](#install-git-server-package)
-- [Allow pubkey authentication](#allow-pubkey-authentication)
-- [Access the ``Git Server``](#access-the-git-server)
-
-***
 ## Install ``Git Server`` Package
 
 - Install the ``Git Server`` package from Synology Package Manager.
@@ -25,9 +17,7 @@ This guide shows you how to install the git server on your NAS and access your r
   git init --bare --shared --initial-branch=main
   ```
 - Log in to DSM as the admin, open Git Server and allow the user you created (e.g. ``git``) access.
-- 
 
-***
 ## Allow pubkey authentication
 
 - SSH into your NAS as the admin user.
@@ -48,11 +38,11 @@ This guide shows you how to install the git server on your NAS and access your r
   - **Make sure, that *PasswordAuthentication* is set to yes.** Otherwise you could lock yourself out.
 - Restart the SSH Server with ``sudo systemctl restart sshd``.
 
-***
 ## Access the ``Git Server``
 
 You can access push/pull from hosts which ssh key is added to *authorized_keys*.
 
 Example:
+
 You have initialized the repo called new-repo.
 Access it with the git URL ``ssh://git@<nas-ip>:<ssh-port>/volume1/git/new-repo``.
