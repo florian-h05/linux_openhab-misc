@@ -1,30 +1,11 @@
-# Persistence and monitoring
+# Persistence and Monitoring
 
 Store and display the history of your openHAB Items & monitor your openHAB runtime and host.
 
-***
-## Table of Contents
-- [Table of Contents](#table-of-contents)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [InfluxDB](#influxdb)
-  - [InfluxDB's internal TLS](#influxdbs-internal-tls)
-  - [External Reverse Proxy for TLS](#external-reverse-proxy-for-tls)
-  - [Setup clients to use TLS](#setup-clients-to-use-tls)
-- [Prometheus](#prometheus)
-- [openHAB](#openhab)
-  - [Setup InfluxDB](#setup-influxdb)
-  - [Setup runtime monitoring (Prometheus)](#setup-runtime-monitoring-prometheus)
-- [Grafana](#grafana)
-  - [InfluxDB](#influxdb-1)
-  - [Prometheus](#prometheus-1)
-- [Telegraf](#telegraf)
-
-***
 ## Prerequisites
 
 * Docker host with a 64-bit OS
-* Public Key Infrastucture to create & sign certificates
+* Public Key Infrastructure to create & sign certificates
 
 Create these folders and files on your Docker host/clone them from this repository:
 ```
@@ -45,61 +26,68 @@ monitoring
 |-- docker-compose.yml
 ```
 
-***
 ## Installation
 
-Go to your _main-directory_, create the docker network ```sudo docker network create traefik``` 
-and start everything with ```sudo docker-compose up -d```.
+Go to your _monitoring_ directory, create the docker network `sudo docker network create traefik` and start everything with `sudo docker-compose up -d`.
 
-***
 ## InfluxDB
 
-[InfluxDB](https://www.influxdata.com/products/influxdb/) is a time-series platform
+[InfluxDB](https://www.influxdata.com/products/influxdb/) is a time-series database.
 
 Installed by `docker-compose`.
 For setup instructions, please visit the [official documentation](https://docs.influxdata.com/influxdb/v2.0/). 
 
 ### InfluxDB's internal TLS
+
 For general TLS setup, please visit the [official documentation](https://docs.influxdata.com/influxdb/v2.0/security/enable-tls/).
 
-Place your certificate and your private key in ```./influxdb``` as cert ```influxdb.crt``` and key ```influxdb.pem```.
+Place your certificate `influxdb.crt` and your private key `influxdb.pem` in `./influxdb` .
+
 Set the permissions:
+
 ```shell
 sudo chmod 644 ./influxdb/<certificate-file>
 sudo chmod 600 ./influxdb/<private-key-file>
 ```
-At [docker-compose.yml](docker-compose.yml) comment out the sections with comment `Internal TLS`.
 
-Go into the terminal of the InfluxDB container and run ```update-ca-certificates```.
+In [docker-compose.yml](docker-compose.yml) comment out the sections with comment `Internal TLS`.
+
+Go into the terminal of the InfluxDB container and run `update-ca-certificates`.
 
 ### External Reverse Proxy for TLS
-Just leave everything how it is in [docker-compose.yml](docker-compose.yml) and configure your Reverse Proxy for port ```tcp:8087```.
+
+Just leave everything how it is in [docker-compose.yml](docker-compose.yml) and configure your Reverse Proxy for port `tcp:8087`.
 
 ### Setup clients to use TLS
-* Import the certificate authority on the client:
-  ```shell
-  cp <path-to-certfile> /usr/local/share/ca-certificates
-  sudo update-ca-certificates
-  ```
 
-***
+Import the certificate authority on the client:
+
+```shell
+cp <path-to-certfile> /usr/local/share/ca-certificates
+sudo update-ca-certificates
+```
+
 ## Prometheus
 
-[Prometheus](https://prometheus.io/) fetches the runtime metrics from openHAB and makes them accesible for Grafana.
-* Installed by `docker-compose`.
+[Prometheus](https://prometheus.io/) fetches the runtime metrics from openHAB and makes them accessible for Grafana.
+
+Installed by `docker-compose`.
+
+### Prerequisites
+
 * Add the user `prometheus` to your openHAB reverse proxy's basic auth users.
   * Create a file called `.password` at `$docker_host/monitoring/prometheus` with the basic auth password in it.
 * In `$docker_host/monitoring/prometheus/prometheus.yml`:
   * Set `${HOSTNAME}` to your hostname.
   * In `scrape_configs`/`job_name: 'openhab'`:
-    * Setup the scheme of the: http or https.
+    * Set up the scheme of the scrape_config: `http` or `https`.
       * When using http, you do not need the `tls_config` section, comment it out.
     * Setup the target to the address and port of your openHAB.
 
-***
 ## openHAB
 
 ### Setup InfluxDB
+
 * Import the CA certificate to the JRE:
   ```shell
   # go to the lib/security directory of your JVM, example for openHABian:
@@ -109,34 +97,36 @@ Just leave everything how it is in [docker-compose.yml](docker-compose.yml) and 
   sudo keytool -importcert -file <path-to-certfile> -cacerts -keypass changeit -storepass changeit -alias <alias-for-cert>
   ```
 * Install the `InfluxDB Persistence` Add-On.
-* Configure InfluxDB ```services/influxdb.cfg```:
-  Visit the [documentation](https://www.openhab.org/addons/persistence/influxdb/).
+* Configure InfluxDB: [Read the documentation](https://www.openhab.org/addons/persistence/influxdb/).
 
 ### Setup runtime monitoring (Prometheus)
+
 * Install the `Metrics Service` Add-On.
 
-***
 ## Grafana
 
-You can access Grafana on [http://influxdb-host:3000](http://docker-host:3000).
+You can access Grafana on `http://<docker-host>:3000`.
 
-You can also enable remote access to Grafana, please have a look at [Traefik](/_traefik/README.md) or [SWAG](/_swag/README.md).
+You can also enable remote access to Grafana, please have a look at [SWAG](/_swag/README.md).
 
 ### InfluxDB 
+
 Add an InfluxDB data source with the following settings:
-* _Query Language_: select the language you want to use, for `InfluxQL` you have to [use v1 users](https://docs.influxdata.com/influxdb/v2.1/reference/cli/influx/v1/auth/).
+
+* _Query Language_: Select the language you want to use, for `InfluxQL` you have to [use v1 users](https://docs.influxdata.com/influxdb/v2.1/reference/cli/influx/v1/auth/).
 * _URL_: `http://influxdb:8086` -- internal Docker networking
 * _Auth_
   * _Skip TLS Verify_: on
 * _InfluxDB Details_
 
 ### Prometheus
+
 Add a Prometheus data source with the following settings:
+
 * _URL_: `http://prometheus:9090` -- internal Docker networking
 * No further configuratio needed.
 * Import the dashboard from [openHAB System Integrations Metrics service](https://github.com/openhab/openhab-addons/blob/main/bundles/org.openhab.io.metrics/doc/dashboard.json).
 
-***
 ## Telegraf
 
 With _Telegraf_ you can monitor your host.
