@@ -1,11 +1,14 @@
 #!/bin/bash
+#########################################################################
 # Script: openhab-backup.sh
 # Purpose: Backup the openhab-configuration and remove the backup from five weeks ago.
-# Copyright (C) 2021 Florian Hotze under MIT License
-# Info: all dates are formatted as YYYY-MM-DD
+# Author: Florian Hotze
+# License: MIT License
+#########################################################################
 
-# path for backup
-path=
+PATH= # Insert backup path here
+
+if [ "$EUID" -ne 0 ]; then echo_red "Please run as root" && exit 1; fi
 
 # import today's date
 YMD=$(date +"%F")
@@ -13,25 +16,25 @@ YMD=$(date +"%F")
 FWA=$(date --date '5 weeks ago' +%F)
 
 echo "Stopping the openHAB instance ..."
-sudo systemctl stop openhab
+systemctl stop openhab
 
-echo "Starting backup to ${path} ....."
+echo "Starting backup to ${PATH} ....."
 
 # execute the openhab built-in backup tool
-if sudo openhab-cli backup --full "${path}"/openhab-backup_"${YMD}"; then echo "SUCCESS: backing up openHAB."
-else 
+if openhab-cli backup --full "${PATH}"/openhab-backup_"${YMD}"; then echo "SUCCESS: Backed up openHAB."
+else
   echo "ERROR: openHAB backup failed!"
 fi
 
 
-echo Removing backup from five weeks ago .....
+echo "Removing backup from five weeks ago ....."
 
 # remove the backup from five weeks ago
-if sudo rm "${path}/openhab-backup_${FWA}.zip"; then echo "SUCCESS: Deleted backup from five weeks ago!"; else echo "ERROR: Deleting backup from five weeks ago failed."; fi
+if rm "${PATH}/openhab-backup_${FWA}.zip"; then echo "SUCCESS: Deleted backup from five weeks ago!"; else echo "ERROR: Failed to delete backup from five weeks ago!"; fi
 
 echo Starting the openHAB instance ...
-if sudo systemctl start openhab; then echo "SUCCESS: openHAB has started successful.";
+if systemctl start openhab; then echo "SUCCESS: openHAB has started successful.";
 else
-  echo "ERROR: failed to start openHAB!"
+  echo "ERROR: Failed to start openHAB!"
   exit 1
 fi

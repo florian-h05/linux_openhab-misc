@@ -8,12 +8,18 @@ openHAB configuration itself can be found at [florian-h05/openhab-conf](https://
 
 ## openHAB backup
 
-Backup _openHAB_ with the backup tool of ``openhab-cli`` to a path and use backup rotation.
+Backup _openHAB_ with the backup tool of `openhab-cli` to a path and use backup rotation.
 Run [openhab-backup.bash](openhab-backup.bash) every week by _crontab_ and it deletes the backup from five weeks ago.
 
 ### Setup
 
 Set `path` to the backup path in line 8.
+
+## openHAB Cleanup InfluxDB
+
+Cleanup data of removed Items from InfluxDB.
+
+See [openhab-cleanup-influxdb.bash](openhab-cleanup-influxdb.bash) for more information.
 
 ## NGINX reverse proxy
 
