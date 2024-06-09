@@ -1,3 +1,9 @@
+# Note: If you encounter any permission issues, set the correct permissions:
+# chown -R nginx-swag:users config
+# chmod -R a=,a+rX,u+w,g+w config
+# This sets folders to 775 and files to 664, and ensures correct ownership.
+# See: https://github.com/linuxserver/docker-swag/issues/347
+
 version: "3.3"
 
 networks:
@@ -5,8 +11,9 @@ networks:
     external: true
 
 services:
-  proxy:
-    image: ghcr.io/linuxserver/swag
+  swag:
+    # Releases: https://github.com/linuxserver/docker-swag/releases
+    image: linuxserver/swag
     container_name: swag
     cap_add:
       - NET_ADMIN
@@ -17,19 +24,16 @@ services:
       - PUID=1046
       - PGID=100
       - TZ=Europe/Berlin
-      - URL=<duckdns-domain>
-      - SUBDOMAINS=wildcard # duckdns certs are subdomain wildcars
+      - URL= # Insert your DuckDNS domain here
+      - SUBDOMAINS=wildcard # DuckDNS certs support subdomain wildcadrs
       - VALIDATION=duckdns
-      - DNSPLUGIN=duckdns
-      - DUCKDNSTOKEN=<duckdns-token>
-      - ONLY_SUBDOMAINS=true # optional
-      - DOCKER_MODS=linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-dashboard|linuxserver/mods:swag-dbip
-      - WATCHLIST="/config/nginx/mtls.conf"
+      - DNSPLUGIN=duckdns # Use DuckDNS as dynamic DNS service
+      - DUCKDNSTOKEN= # Insert your DuckDNS token here
+      - ONLY_SUBDOMAINS=true # DuckDNS certs for subdomain wildcards oviously only support subdomains
+      - DOCKER_MODS=linuxserver/mods:swag-dashboard|linuxserver/mods:swag-dbip|linuxserver/mods:swag-auto-reload
+      - WATCHLIST="/config/nginx|/config/nginx/proxy-confs"
     volumes:
-      #- /var/run/docker.sock:/var/run/docker.sock:ro
       - ./config:/config
     ports:
       - 8443:443
-      #- 8080:80 #optional
-    restart: unless-stopped
-    
+    restart: always
