@@ -35,7 +35,7 @@ curl -X 'GET' \
     -H "X-OPENHAB-TOKEN: $OPENHAB_TOKEN" | sed 's/,/\n/g' | awk -F '"' '{ print $4}' | sort -n > items.txt
 
 # Calculate measurements to delete
-diff -Zu items.txt measurements.txt | grep -i ^+[a-z,0-9] | cut -d '+' -f 2 > delete.txt
+diff -Zu items.txt measurements.txt | grep -i "^+[a-z,0-9]" | cut -d '+' -f 2 > delete.txt
 
 # Delete these measurements
 LINES=$(cat "delete.txt")
@@ -48,7 +48,7 @@ do
       "$INFLUX_URL/api/v2/delete?org=$INFLUX_ORG&bucket=$INFLUX_BUCKET" \
       -H "Content-Type: application/json" \
       -H "Authorization: Token $INFLUX_TOKEN" \
-      -d '{ "start": "'$START'", "stop": "'$STOP'", "predicate": "_measurement=\"'$LINE'\"" }'
+      -d '{ "start": "'$START'", "stop": "'"$STOP"'", "predicate": "_measurement=\"'"$LINE"'\"" }'
 done
 
 # Cleanup
