@@ -1,7 +1,6 @@
 # Easy-RSA
 
-Easy-RSA is a CA managment tool by the OpenVPN team ([OpenVPN/easy-rsa](https://github.com/OpenVPN/easy-rsa)).
-
+Easy-RSA is a CA management tool by the OpenVPN team ([OpenVPN/easy-rsa](https://github.com/OpenVPN/easy-rsa)).
 
 ## Setup the PKI
 
@@ -27,7 +26,7 @@ chmod +x pki.bash
 On top of the script:
 
 ```shell
-# Must match with the Certificate Authority!
+# Must match with the Certificate Authority previously created using easy-rsa!
 COUNTRY="DE"
 STATE="Berlin"
 LOCALITY="Berlin"
@@ -40,16 +39,16 @@ ORGANIZATION="Sample Corp."
 ./pki.bash -cn=$COMMONNAME -ou=$ORGANIZATIONUNIT -e=create_client_with_p12
 ```
 
-| Argument                  | Description              | Required                                            |
-|---------------------------|--------------------------|-----------------------------------------------------|
-| -cn, --commonname         | Common Name              | not for ``generate_ovpn_server``                    |
-| -ou, --organizationalunit | Organizational Unit (OU) | only for ``generate_client_p12`` & ``generate_csr`` |
-| -e, --exec                | command to execute       | always                                              |
+| Argument                  | Description              | Required          |
+|---------------------------|--------------------------|-------------------|
+| -e, --exec                | command to execute       | always            |
+| -cn, --commonname         | Common Name              | for most commands |
+| -ou, --organizationalunit | Organizational Unit (OU) | never             |
 
 For general usage, just ask the script for help:
 
 ```shell
-./pki.bash -h
+./pki.bash --help
 ```
 
 In case a parameter is missing, the script will let you know.
