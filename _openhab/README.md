@@ -9,7 +9,7 @@ openHAB configuration itself can be found at [florian-h05/openhab-conf](https://
 ## openHAB backup
 
 Backup _openHAB_ with the backup tool of `openhab-cli` to a path and use backup rotation.
-Run [openhab-backup.bash](openhab-backup.bash) every week by _crontab_ and it deletes the backup from five weeks ago.
+Run [openhab-backup.bash](openhab-backup.bash) every week by _crontab_ and rotates the old backup.
 
 ### Setup
 

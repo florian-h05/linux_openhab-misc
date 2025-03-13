@@ -1,40 +1,46 @@
 #!/bin/bash
-#########################################################################
-# Script: openhab-backup.sh
-# Purpose: Backup the openhab-configuration and remove the backup from five weeks ago.
+# Script: openhab-backup.bash
+# Purpose: Run openHAB's backup tool and save the backup to a network mount with rotation of old backups.
 # Author: Florian Hotze
-# License: MIT License
-#########################################################################
+# License: MIT
 
-BACKUP= # Insert backup path here
+# Backup path
+BACKUP_DEST=
 
-if [ "$EUID" -ne 0 ]; then echo_red "Please run as root" && exit 1; fi
-
-# import today's date
+# Today as YYYY-MM-DD
 YMD=$(date +"%F")
-# import the date from five weeks ago
-FWA=$(date --date '5 weeks ago' +%F)
+# Six weeks ago as YYYY-MM-DD
+SWA=$(date --date '6 weeks ago' +%F)
 
-echo "Stopping the openHAB instance ..."
-systemctl stop openhab
-
-echo "Starting backup to ${BACKUP} ....."
-
-# execute the openhab built-in backup tool
-if openhab-cli backup --full "${BACKUP}"/openhab-backup_"${YMD}"; then echo "SUCCESS: Backed up openHAB."
-else
-  echo "ERROR: openHAB backup failed!"
+if [[ $EUID -ne 0 ]]; then
+    echo "You must be root to do this." 1>&2
+    exit 1
 fi
 
-
-echo "Removing backup from five weeks ago ....."
-
-# remove the backup from five weeks ago
-if rm "${BACKUP}/openhab-backup_${FWA}.zip"; then echo "SUCCESS: Deleted backup from five weeks ago!"; else echo "ERROR: Failed to delete backup from five weeks ago!"; fi
-
-echo Starting the openHAB instance ...
-if systemctl start openhab; then echo "SUCCESS: openHAB has started successful.";
+echo -n "Backing up openHAB ... "
+BACKUP_SRC="/var/lib/openhab/backups/openhab-backup_$YMD.zip"
+if sudo openhab-cli backup "$BACKUP_SRC" > /dev/null; then echo "DONE"
 else
-  echo "ERROR: Failed to start openHAB!"
+  echo "FAILED"
+  exit 1
+fi
+
+echo -n "Mounting ${BACKUP_DEST} ... "
+if sudo mount $BACKUP_DEST; then echo "DONE"
+else
+  echo "FAILED"
+  exit 1
+fi
+
+echo -n "Moving backup into $BACKUP_DEST ... "
+if sudo mv "$BACKUP_SRC" "$BACKUP_DEST/openhab-backup_$YMD.zip"; then echo "DONE"; else echo "FAILED"; fi
+
+echo -n "Removing backup from six weeks ago ... "
+if sudo rm "$BACKUP_DEST"/openhab-backup_"$SWA".zip; then echo "DONE"; else echo "FAILED"; fi
+
+echo -n "Unmounting $BACKUP_DEST ... "
+if sudo umount $BACKUP_DEST; then echo "DONE"
+else
+  echo "FAILED"
   exit 1
 fi
