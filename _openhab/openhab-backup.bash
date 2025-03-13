@@ -26,7 +26,7 @@ else
 fi
 
 echo -n "Mounting ${BACKUP_DEST} ... "
-if sudo mount $BACKUP_DEST; then echo "DONE"
+if sudo mount "$BACKUP_DEST"; then echo "DONE"
 else
   echo "FAILED"
   exit 1
@@ -39,7 +39,7 @@ echo -n "Removing backup from six weeks ago ... "
 if sudo rm "$BACKUP_DEST"/openhab-backup_"$SWA".zip; then echo "DONE"; else echo "FAILED"; fi
 
 echo -n "Unmounting $BACKUP_DEST ... "
-if sudo umount $BACKUP_DEST; then echo "DONE"
+if sudo umount "$BACKUP_DEST"; then echo "DONE"
 else
   echo "FAILED"
   exit 1
